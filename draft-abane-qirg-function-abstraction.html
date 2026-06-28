@@ -7,7 +7,7 @@
 <title>On Architecture Classification and Functional Abstraction in Quantum Networks</title>
 <meta content="Amar Abane" name="author">
 <meta content="
-       TODO Abstract 
+       TBD 
     " name="description">
 <meta content="xml2rfc 3.34.0" name="generator">
 <meta content="network architecture" name="keyword">
@@ -1080,7 +1080,7 @@ svg {
 <h1 id="title">On Architecture Classification and Functional Abstraction in Quantum Networks</h1>
 <section id="section-abstract">
       <h2 id="abstract"><a href="#abstract" class="selfRef">Abstract</a></h2>
-<p id="section-abstract-1">TODO Abstract<a href="#section-abstract-1" class="pilcrow">¶</a></p>
+<p id="section-abstract-1">TBD<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </section>
 <section class="note rfcEditorRemove" id="section-note.1">
       <h2 id="name-about-this-document">
@@ -1164,7 +1164,10 @@ svg {
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-related-work" class="internal xref">Related Work</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.1">
-                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-architectural-proposals-for" class="internal xref">Architectural Proposals for Entanglement-Based Quantum Networks</a></p>
+                <p id="section-toc.1-1.4.2.1.1"><a href="#section-4.1" class="auto internal xref">4.1</a>.  <a href="#name-standardization-and-industr" class="internal xref">Standardization and Industry Efforts</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4.2.2">
+                <p id="section-toc.1-1.4.2.2.1"><a href="#section-4.2" class="auto internal xref">4.2</a>.  <a href="#name-architectural-proposals-for" class="internal xref">Architectural Proposals for Entanglement-Based Quantum Networks</a></p>
 </li>
             </ul>
 </li>
@@ -1176,6 +1179,17 @@ svg {
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7">
             <p id="section-toc.1-1.7.1"><a href="#section-7" class="auto internal xref">7</a>.  <a href="#name-network-functions-and-inter" class="internal xref">Network Functions and Interfaces</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.1">
+                <p id="section-toc.1-1.7.2.1.1"><a href="#section-7.1" class="auto internal xref">7.1</a>.  <a href="#name-motivation" class="internal xref">Motivation</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.2">
+                <p id="section-toc.1-1.7.2.2.1"><a href="#section-7.2" class="auto internal xref">7.2</a>.  <a href="#name-network-function-definition" class="internal xref">Network Function Definitions</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.7.2.3">
+                <p id="section-toc.1-1.7.2.3.1"><a href="#section-7.3" class="auto internal xref">7.3</a>.  <a href="#name-interfaces" class="internal xref">Interfaces</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.8">
             <p id="section-toc.1-1.8.1"><a href="#section-8" class="auto internal xref">8</a>.  <a href="#name-use-cases" class="internal xref">Use Cases</a></p>
@@ -1190,7 +1204,15 @@ svg {
             <p id="section-toc.1-1.11.1"><a href="#section-11" class="auto internal xref">11</a>. <a href="#name-iana-considerations" class="internal xref">IANA Considerations</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12">
-            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+            <p id="section-toc.1-1.12.1"><a href="#section-12" class="auto internal xref">12</a>. <a href="#name-references" class="internal xref">References</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.1">
+                <p id="section-toc.1-1.12.2.1.1"><a href="#section-12.1" class="auto internal xref">12.1</a>.  <a href="#name-normative-references" class="internal xref">Normative References</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.12.2.2">
+                <p id="section-toc.1-1.12.2.2.1"><a href="#section-12.2" class="auto internal xref">12.2</a>.  <a href="#name-informative-references" class="internal xref">Informative References</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.13">
             <p id="section-toc.1-1.13.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
@@ -1207,7 +1229,11 @@ svg {
       <h2 id="name-introduction">
 <a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
       </h2>
-<p id="section-1-1">TODO Introduction<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-1">Quantum networking research has produced a growing number of architectural proposals for the distribution of entanglement across multi-node networks. These proposals span different hardware platforms, protocol mechanisms, and operational models, ranging from connection-oriented architectures based on pre-established paths to more dynamic approaches relying on continuously generated resources. Despite these differences, many proposals share common assumptions regarding entanglement generation, entanglement swapping, resource management, and network coordination.<a href="#section-1-1" class="pilcrow">¶</a></p>
+<p id="section-1-2">At the same time, there is currently no widely accepted framework for describing and comparing routing architectures across the quantum networking literature. Similar concepts are often described using different terminology, while architectural assumptions such as proactive versus reactive operation, centralized versus distributed control, or synchronous versus asynchronous execution are not always distinguished consistently. As a result, comparing architectures and identifying common building blocks remains challenging.<a href="#section-1-2" class="pilcrow">¶</a></p>
+<p id="section-1-3">Another emerging trend is the separation between control-plane and data-plane functions, inspired in part by concepts from Software-Defined Networking (SDN). Several architectural proposals distinguish between processes responsible for path computation, resource coordination, policy decisions, and request handling, and processes responsible for executing quantum operations such as entanglement generation, entanglement swapping, purification, and state management. However, unlike classical packet networks where the data plane primarily performs forwarding, quantum-network data-plane processes may themselves involve complex coordination, scheduling, resource allocation, and local decision-making. Consequently, the boundary between control-plane and data-plane responsibilities remains an active area of research.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-1-4">This document argues that a network-function-oriented view provides a useful abstraction for reasoning about quantum networking architectures. Quantum networking operations are not instantaneous actions but coordinated processes involving distributed resources, timing constraints, and interactions between multiple network entities. Identifying these operations as network functions, together with the interfaces through which they interact, provides a common vocabulary that can be applied across different architectural approaches.
+The goal of this document is therefore not to propose a new architecture, protocol, or protocol stack. Instead, it aims to identify and classify recurring architectural patterns in quantum routing systems, and to derive a minimal set of common network functions and interfaces that appear across existing proposals. These abstractions are intended to facilitate comparison of routing architectures, support future standardization discussions, and provide a framework for describing both existing and future quantum networking systems.<a href="#section-1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="requirements-language">
@@ -1233,7 +1259,16 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         </h3>
 <ul class="normal">
 <li class="normal" id="section-3.1-1.1">
-            <p id="section-3.1-1.1.1">aaa<a href="#section-3.1-1.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.1-1.1.1">To identify classes of routing approaches used in quantum networks.<a href="#section-3.1-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-1.2">
+            <p id="section-3.1-1.2.1">To identify a minimal set of common quantum-network functions required to support end-to-end entanglement distribution across various routing classes.<a href="#section-3.1-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-1.3">
+            <p id="section-3.1-1.3.1">To identify the interfaces and interactions between these functions that appear across different architectural proposals.<a href="#section-3.1-1.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.1-1.4">
+            <p id="section-3.1-1.4.1">To provide a common terminology and framework that enables comparison of existing and future architectures.<a href="#section-3.1-1.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1245,7 +1280,13 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
         </h3>
 <ul class="normal">
 <li class="normal" id="section-3.2-1.1">
-            <p id="section-3.2-1.1.1">aaa<a href="#section-3.2-1.1.1" class="pilcrow">¶</a></p>
+            <p id="section-3.2-1.1.1">This document does not define a new routing protocol, control protocol, or data-plane protocol.<a href="#section-3.2-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.2-1.2">
+            <p id="section-3.2-1.2.1">It does not prescribe a particular implementation or architectural realization of any network function.<a href="#section-3.2-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.2-1.3">
+            <p id="section-3.2-1.3.1">This document does not propose a layered reference architecture or protocol stack for quantum networks. The identified functions and interfaces are intended as abstractions that can be realized in different ways by different architectural approaches.<a href="#section-3.2-1.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1257,24 +1298,39 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-related-work">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-related-work" class="section-name selfRef">Related Work</a>
       </h2>
-<p id="section-4-1">## Standardization and Industry Efforts<a href="#section-4-1" class="pilcrow">¶</a></p>
-<div id="architectural-proposals-for-entanglement-based-quantum-networks">
+<div id="standardization-and-industry-efforts">
 <section id="section-4.1">
-        <h3 id="name-architectural-proposals-for">
-<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-architectural-proposals-for" class="section-name selfRef">Architectural Proposals for Entanglement-Based Quantum Networks</a>
+        <h3 id="name-standardization-and-industr">
+<a href="#section-4.1" class="section-number selfRef">4.1. </a><a href="#name-standardization-and-industr" class="section-name selfRef">Standardization and Industry Efforts</a>
         </h3>
+<p id="section-4.1-1">Several standardization bodies and industry organizations have initiated efforts to define architectures, abstractions, and interfaces for quantum networks. These efforts provide important foundations for the field, but have largely focused on quantum key distribution (QKD) networks or early-stage quantum networking deployments.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1-2">Within the IETF, the Quantum Internet Research Group (QIRG) has developed architectural principles for entanglement-based networks and introduced concepts such as control-plane and data-plane separation, timing regimes, and quantum-native networking. These efforts provide an important conceptual foundation, although routing architectures and control abstractions remain active research topics.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.1-3">In contrast, ETSI and ITU efforts have primarily focused on QKD networks, defining functional architectures, interfaces, orchestration mechanisms, and management frameworks for key generation and distribution. Similarly, IEEE initiatives such as IEEE P1913 focus on device management and control abstractions, extending established networking paradigms such as YANG and NETCONF to quantum communication systems. Industry initiatives, including GSMA, have proposed component-based and service-oriented frameworks for integrating quantum technologies into existing telecommunications infrastructures.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.1-4">These efforts demonstrate growing convergence around concepts such as software-defined control, orchestration, and service abstractions. However, a common, technology-agnostic framework for classifying routing architectures and identifying reusable routing, control, and data-plane functions in entanglement-based quantum networks remains largely absent. This document builds upon these foundations by proposing elements of a general classification and functional abstraction framework for entanglement-based quantum networking.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="architectural-proposals-for-entanglement-based-quantum-networks">
+<section id="section-4.2">
+        <h3 id="name-architectural-proposals-for">
+<a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-architectural-proposals-for" class="section-name selfRef">Architectural Proposals for Entanglement-Based Quantum Networks</a>
+        </h3>
+<p id="section-4.2-1">Several architectural proposals have explored how entanglement-based quantum networks can be organized and operated. Although these works differ in their protocol mechanisms and architectural abstractions, they collectively highlight recurring network functions, control interactions, and design assumptions that motivate the abstractions developed in this document.<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-4.1-1.1">
-            <p id="section-4.1-1.1.1">Designing a Quantum Network Protocol<a href="#section-4.1-1.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-4.2-2.1">
+            <p id="section-4.2-2.1.1"><span>[<a href="#kozlowski-qn-prot" class="cite xref">kozlowski-qn-prot</a>]</span> proposal focuses on end-to-end entanglement distribution through elementary entanglement generation and entanglement swapping. The architecture assumes a connection-oriented model in which an end-to-end path is established before entanglement operations are executed. Routing decisions are therefore made proactively, while the resulting instructions are communicated to the data plane through control-plane mechanisms. The work distinguishes centralized and distributed control-plane realizations, but largely treats path computation as an external function whose outputs populate data-plane structures.
+A notable contribution of this proposal is the identification of the core operational capabilities required at quantum nodes, including elementary entanglement generation and entanglement swapping. These functions closely align with the network-function abstractions considered in this document. The proposal also introduces concepts such as entangled-pair identifiers and control-plane parameters for memory lifetime management, illustrating the need for explicit interfaces between routing, resource management, and quantum-operation execution.<a href="#section-4.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-4.1-1.2">
-            <p id="section-4.1-1.2.1">A Quantum Internet Architecture<a href="#section-4.1-1.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-4.2-2.2">
+            <p id="section-4.2-2.2.1"><span>[<a href="#van-meter-qi-arch" class="cite xref">van-meter-qi-arch</a>]</span> develops a programmable architecture based on RuleSets that coordinate distributed quantum operations. While RuleSets are intended to support distributed execution, they may also be generated by a centralized controller, allowing multiple control architectures to be realized. The architecture employs a two-pass request mechanism that is consistent with a proactive, connection-oriented routing model in which resources are prepared before end-to-end operations are executed.
+The proposal identifies several fundamental network tasks, including link-level entanglement generation, entanglement extension through swapping, error management through purification, and control and management functions. These tasks correspond closely to the network-function perspective adopted in this document. Furthermore, RuleSet actions, conditions, and execution logic provide an implicit abstraction of network functions and their interactions. From the perspective of this I-D, RuleSets can be viewed as one possible mechanism for orchestrating network functions to realize different routing architectures.<a href="#section-4.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-4.1-1.3">
-            <p id="section-4.1-1.3.1">REDiP<a href="#section-4.1-1.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-4.2-2.3">
+            <p id="section-4.2-2.3.1"><span>[<a href="#bacciottini-redip" class="cite xref">bacciottini-redip</a>]</span> introduces a configurable protocol framework for scheduling purification and swapping operations. The protocol supports arbitrary swapping orders and purification strategies, enabling flexible realization of end-to-end entanglement distribution processes. Similar to previous architectures, REDiP follows a two-pass procedure in which requests are installed and resources reserved before execution, making it primarily applicable to proactive and connection-oriented routing models.
+The protocol distinguishes between operating modes referred to as slotted and asynchronous, which correspond to different execution strategies for entanglement generation and processing. While these concepts overlap with the timing-related classifications discussed in this document, they illustrate the broader need for a consistent terminology separating routing decisions, execution context, and synchronization mechanisms. REDiP also moves much of the configurability from rule definitions into protocol data structures, allowing swapping and purification schedules to be expressed directly. The qubit lifecycle model developed in this document is influenced by concepts introduced in REDiP, particularly its treatment of configurable entanglement-processing workflows.<a href="#section-4.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-4.1-1.4">
-            <p id="section-4.1-1.4.1">Quantum-Native Architectures<a href="#section-4.1-1.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-4.2-2.4">
+            <p id="section-4.2-2.4.1">The Quantum-Native Architectural Tenets and Philosophy for the Quantum Internet <span>[<a href="#I-D.draft-cacciapuoti-qirg-quantum-native-architecture" class="cite xref">I-D.draft-cacciapuoti-qirg-quantum-native-architecture</a>]</span> introduces the concept of quantum-native control plane, where quantum operations may be used not only for data plane services such as entanglement distribution, but also for control plane tasks including network-state acquisition, topology discovery, and routing. This approach is illustrated in a quantum internet architecture using virtual or continuously maintained entanglement resources, emphasizing long-lived network states rather than purely on-demand operations.
+Building on this direction, the Beyond Layering architecture <span>[<a href="#cacciapuoti-beyond-layering" class="cite xref">cacciapuoti-beyond-layering</a>]</span> advocates moving beyond strict layered networking models in favor of architectures centered on quantum-specific abstractions and programmable coordination mechanisms. Rather than prescribing rigid protocol layers, it introduces meta-protocols responsible for orchestrating lower-level quantum operations across the network. From the perspective of this document, these meta-protocols can be interpreted as realizations of network functions and the interfaces through which they interact. This provides further evidence that a function-oriented abstraction can serve as a common framework across a wide range of architectural designs, independent of the specific protocol structure or implementation.<a href="#section-4.2-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1285,14 +1341,112 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <section id="section-5">
       <h2 id="name-architectures-classificatio">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-architectures-classificatio" class="section-name selfRef">Architectures Classification</a>
-    </h2>
+      </h2>
+<p id="section-5-1">Defining network functions and interfaces requires abstractions that are sufficiently general to accommodate both current architectural approaches and future developments. Since routing architectures differ in how routing decisions are made, where control logic is placed, and how network operations are coordinated, this document first introduces a classification of entanglement-routing architectures based on a set of orthogonal dimensions. The purpose of this classification is not to favor particular approaches, but to distinguish architectural choices from the underlying responsibilities that recur across architectures. The network functions and interfaces identified in the remainder of this document are therefore derived from capabilities that appear across multiple architectural classes, rather than from any single architectural proposal.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-2">To classify entanglement routing architectures, we consider several orthogonal dimensions that capture different aspects of routing behavior, control placement, and system coordination. These dimensions are intentionally independent, allowing a routing architecture to be described without imposing a particular implementation model.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-5-3.1">
+          <p id="section-5-3.1.1"><em>Routing timing</em> distinguishes between proactive and reactive routing. In proactive routing, routing information is produced before entanglement generation begins. Path computation may rely on physical topology information, expected link characteristics, or other pre-existing knowledge. In reactive routing, routing decisions are made after entanglement generation, typically based on the currently available entanglement resources and network state. This distinction therefore captures when routing information becomes available relative to entanglement generation.<a href="#section-5-3.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-3.2">
+          <p id="section-5-3.2.1"><em>Path decision model</em> distinguishes between connection-oriented and connectionless routing. In a connection-oriented model, an end-to-end route (or route segment) is selected and coordinated before entanglement forwarding or swapping begins. Resource reservation and path installation may be present but are not required; the defining property is that the route is decided before the request progresses through the network. In a connectionless model, no fixed end-to-end path is established in advance (route can change between rounds/sessions), and forwarding decisions may be taken independently at intermediate nodes. Both proactive and reactive routing architectures may employ either connection-oriented or connectionless operation. Consequently, proactive and reactive routing should be viewed as more abstract concepts, while connection-oriented and connectionless routing describe how routing decisions are applied once routing information becomes available.<a href="#section-5-3.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-3.3">
+          <p id="section-5-3.3.1"><em>Control placement</em> distinguishes between centralized and distributed control. This dimension primarily characterizes the control plane rather than the data plane. In distributed approaches, routing algorithms execute locally on network nodes using partial network information. In centralized approaches, a controller computes routes and coordinates network operations. While most quantum data-plane functions remain inherently distributed, the control plane may be implemented using either model.<a href="#section-5-3.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-3.4">
+          <p id="section-5-3.4.1"><em>Coordination model</em> distinguishes between synchronous and asynchronous operation. In synchronous architectures, network operations proceed in globally coordinated rounds or time slots shared among participating nodes. In asynchronous architectures, operations are triggered by events, such as successful entanglement generation, measurement outcomes, or control messages, without requiring globally synchronized execution. Both proactive and reactive routing architectures may operate in either synchronous or asynchronous environments.<a href="#section-5-3.4.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-5-3.5">
+          <p id="section-5-3.5.1"><em>Execution context</em> describes whether a process lies on the critical path of request servicing. Execution context of a process should not be confused with the coordination model (i.e., synchronous and asynchronous operation). Some functions, such as physical topology discovery or pre-computation of static routes, typically execute in the background. Other functions, such as reactive path computation, are often part of the critical path and directly influence request latency. Certain processes may operate in either context. For example, link benchmarking can be performed continuously in the background to maintain routing information (given enough resources and/or strategic triggering), or it can be invoked as part of servicing a specific request and therefore become a critical-path operation.<a href="#section-5-3.5.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
+<p id="section-5-4">The relationship among these dimensions can be viewed hierarchically. Routing timing determines whether routing information is obtained proactively or reactively. Once routing information is available, the architecture may apply it through either a connection-oriented or connectionless path decision model. Control placement and coordination models then describe where routing logic executes and how network operations are coordinated in time. Execution context complements these dimensions by identifying whether a given process contributes directly to request latency.<a href="#section-5-4" class="pilcrow">¶</a></p>
+<p id="section-5-5">Finally, it is useful to distinguish between knowledge of the physical topology and knowledge of the logical topology. Physical topology information describes the underlying network graph and relatively static link characteristics. Logical topology information reflects the currently available entanglement resources, including active Bell pairs, fidelity values, memory occupancy, and other dynamic state. Many routing proposals differ primarily in whether routing decisions are based on physical-topology information, logical-topology information, or a combination of both. This distinction often aligns with, but is not equivalent to, the proactive/reactive classification.<a href="#section-5-5" class="pilcrow">¶</a></p>
+<p id="section-5-6">Some architectures employ quantum operations to gather routing information. Although these operations involve the quantum network itself, their purpose is control-plane information acquisition rather than data forwarding. Such mechanisms are therefore classified as quantum-native control-plane functions. For example, in Quantum BGP-like architectures, link benchmarking may be viewed as a quantum-native control-plane process that provides routing information used by path computation, rather than as part of the data plane. This interpretation preserves a clean separation between control-plane and data-plane functions while accommodating routing architectures that rely on quantum measurements to obtain routing state.<a href="#section-5-6" class="pilcrow">¶</a></p>
+<table class="center" id="table-1">
+        <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Dimension</th>
+            <th class="text-left" rowspan="1" colspan="1">Options</th>
+            <th class="text-left" rowspan="1" colspan="1">Meaning</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">Routing timing</td>
+            <td class="text-left" rowspan="1" colspan="1">Proactive / Reactive</td>
+            <td class="text-left" rowspan="1" colspan="1">When is routing information obtained?</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">Path decision model</td>
+            <td class="text-left" rowspan="1" colspan="1">Connection-Oriented / Connectionless</td>
+            <td class="text-left" rowspan="1" colspan="1">Is the route fixed before forwarding?</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">Control placement</td>
+            <td class="text-left" rowspan="1" colspan="1">Centralized / Distributed</td>
+            <td class="text-left" rowspan="1" colspan="1">Where is routing logic executed?</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">Coordination model</td>
+            <td class="text-left" rowspan="1" colspan="1">Synchronous / Asynchronous</td>
+            <td class="text-left" rowspan="1" colspan="1">How are operations coordinated in time?</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">Execution context</td>
+            <td class="text-left" rowspan="1" colspan="1">Critical-path / Background</td>
+            <td class="text-left" rowspan="1" colspan="1">Does the operation affect request latency? (i.e., does it occupy time from the data plane?)</td>
+          </tr>
+        </tbody>
+      </table>
+<table class="center" id="table-2">
+        <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
+<thead>
+          <tr>
+            <th class="text-left" rowspan="1" colspan="1">Process</th>
+            <th class="text-left" rowspan="1" colspan="1">Timing</th>
+            <th class="text-left" rowspan="1" colspan="1">Context</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">Physical topology discovery / Precomputed paths</td>
+            <td class="text-left" rowspan="1" colspan="1">Async</td>
+            <td class="text-left" rowspan="1" colspan="1">Background</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">Quantum Link Benchmarking</td>
+            <td class="text-left" rowspan="1" colspan="1">Async</td>
+            <td class="text-left" rowspan="1" colspan="1">Background (with strategy) / Critical path</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">Reactive path computation (including logical topology discovery)</td>
+            <td class="text-left" rowspan="1" colspan="1">Sync or Async</td>
+            <td class="text-left" rowspan="1" colspan="1">Critical path (with effect on fidelity)</td>
+          </tr>
+          <tr>
+            <td class="text-left" rowspan="1" colspan="1">Proactive path computation</td>
+            <td class="text-left" rowspan="1" colspan="1">Sync or Async</td>
+            <td class="text-left" rowspan="1" colspan="1">Critical path (without effect on fidelity)</td>
+          </tr>
+        </tbody>
+      </table>
 </section>
 </div>
 <div id="derivation-of-network-functions-from-architectural-responsibilities">
 <section id="section-6">
       <h2 id="name-derivation-of-network-funct">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-derivation-of-network-funct" class="section-name selfRef">Derivation of Network Functions from Architectural Responsibilities</a>
-    </h2>
+      </h2>
+<p id="section-6-1">Although the architectural proposals discussed in above differ in their protocol structures, control mechanisms, and operational assumptions, they exhibit a common set of responsibilities required to support end-to-end entanglement distribution. These responsibilities appear regardless of whether an architecture is centralized or distributed, proactive or reactive, connection-oriented or connectionless.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-2">At a high level, an entanglement-routing system must first acquire and maintain information about the network. This includes both relatively static information, such as physical topology and link characteristics, and dynamic information, such as available entanglement resources, memory occupancy, and resource quality. These responsibilities correspond to routing-state management and topology-information functions.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-3">The system must then determine how end-to-end requests should be realized using available resources. Depending on the architectural model, this may involve path computation, resource selection, policy enforcement, admission control, or route installation. While different proposals distribute these tasks differently between centralized controllers and network nodes, they collectively represent a routing and control responsibility.<a href="#section-6-3" class="pilcrow">¶</a></p>
+<p id="section-6-4">Once a routing decision has been made, the network must execute the corresponding quantum operations. This requires creating elementary entanglement, extending entanglement through swapping, improving resource quality through purification or error-management procedures, and coordinating the associated signaling. These responsibilities form the operational core of the quantum data plane.<a href="#section-6-4" class="pilcrow">¶</a></p>
+<p id="section-6-5">In parallel, the network must manage the quantum resources on which these operations depend. Architectures therefore require mechanisms for memory allocation, resource tracking, entanglement-state management, qubit lifecycle management, and mapping logical requests onto physical resources. While the details vary across proposals, resource management emerges as a recurring architectural responsibility.<a href="#section-6-5" class="pilcrow">¶</a></p>
+<p id="section-6-6">Finally, all reviewed architectures require coordination functions that enable distributed operation. These include classical communication, synchronization, timing services, and interactions with underlying communication infrastructure used to establish quantum connectivity. Such functions do not directly create or consume entanglement, but provide the supporting capabilities necessary for other network functions to operate correctly.<a href="#section-6-6" class="pilcrow">¶</a></p>
+<p id="section-6-7">These recurring responsibilities motivate the function-oriented abstraction adopted in this document. Rather than defining network behavior in terms of specific protocols or architectural layers, the following sections identify a minimal set of network functions that collectively realize these responsibilities and can be composed in different ways by different routing architectures.<a href="#section-6-7" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="network-functions-and-interfaces">
@@ -1300,16 +1454,612 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
       <h2 id="name-network-functions-and-inter">
 <a href="#section-7" class="section-number selfRef">7. </a><a href="#name-network-functions-and-inter" class="section-name selfRef">Network Functions and Interfaces</a>
       </h2>
-<p id="section-7-1">## Motivation
-## Network Function Definitions
-## Interfaces<a href="#section-7-1" class="pilcrow">¶</a></p>
+<div id="motivation">
+<section id="section-7.1">
+        <h3 id="name-motivation">
+<a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-motivation" class="section-name selfRef">Motivation</a>
+        </h3>
+<p id="section-7.1-1">Recent work on programmable quantum repeater nodes and quantum network operating systems suggests that quantum networks should be described in terms of reusable functions and the interfaces used to invoke and coordinate them, rather than as monolithic protocols or hardware-specific operations. Kumar et al. <span>[<a href="#kumar-instr-set" class="cite xref">kumar-instr-set</a>]</span> propose a programmable execution model for repeater nodes, where higher-layer protocols invoke node capabilities through well-defined execution interfaces. Similarly, Delle Donne et al. <span>[<a href="#delle-os-qn-nodes" class="cite xref">delle-os-qn-nodes</a>]</span> demonstrate the importance of separating application logic, network services, and node-local execution mechanisms, enabling applications to remain independent of underlying hardware implementations.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">This perspective motivates the identification of reusable network functions such as elementary entanglement generation, entanglement swapping, purification, memory management, state preparation, and measurement and herald handling. These functions are generally not instantaneous and often require coordination, scheduling, and synchronization across distributed nodes and resources. Consequently, a quantum network architecture should identify not only the functions themselves but also the interfaces through which they are invoked, coordinated, and monitored.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.1-3">Programmable node architectures may also expose operational capabilities such as calibration, diagnostics, performance verification, quality estimation, and fidelity witnessing. While such functions are not directly involved in entanglement delivery and are not further decomposed in the present model, they may become important architectural elements as quantum networks mature and may benefit from standardized interfaces in future work.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
+<p id="section-7.1-4">Finally, the execution of many network functions depends on timing relationships between lower-layer physical processes and higher-layer networking services <span>[<a href="#I-D.draft-hajdusek-qirg-timing-physics" class="cite xref">I-D.draft-hajdusek-qirg-timing-physics</a>]</span>. This suggests that timing and synchronization should be treated as supporting architectural capabilities that facilitate the orchestration of network functions across multiple timescales.<a href="#section-7.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="network-function-definitions">
+<section id="section-7.2">
+        <h3 id="name-network-function-definition">
+<a href="#section-7.2" class="section-number selfRef">7.2. </a><a href="#name-network-function-definition" class="section-name selfRef">Network Function Definitions</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="section-7.2-1.1">
+            <p id="section-7.2-1.1.1">Quantum Application Function (QAF): Originates end-to-end entanglement requests and consumes the resulting quantum networking service. Could represent a higher-level orchestrator or independent end-user applications.<a href="#section-7.2-1.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.2">
+            <p id="section-7.2-1.2.1">Quantum Controller Function (QCF): Responsible for path computation, policy enforcement, resource coordination, and installation of forwarding state. May be centralized or distributed.<a href="#section-7.2-1.2.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.3">
+            <p id="section-7.2-1.3.1">Quantum Routing Function (QRF): Maintains reachability information and routing state used to determine paths through the quantum network. This function may be implemented as part of the QCF.<a href="#section-7.2-1.3.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.4">
+            <p id="section-7.2-1.4.1">Routing Information Base Function (RIBF): Stores network reachability and routing information learned from controllers or routing protocols. Provides routing information to the Quantum Routing Function and other control-plane functions.<a href="#section-7.2-1.4.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.5">
+            <p id="section-7.2-1.5.1">Quantum Forwarding Function (QFF): Manages active entanglement paths and coordinates network operations such as entanglement generation, swapping, and purification according to installed forwarding state.<a href="#section-7.2-1.5.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.6">
+            <p id="section-7.2-1.6.1">Forwarding Information Base Function (FIBF): Maintains forwarding state used to process entanglement resources and associated signaling. Provides path-specific instructions used by the Quantum Forwarding Function during network operation.<a href="#section-7.2-1.6.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.7">
+            <p id="section-7.2-1.7.1">Quantum Multiplexing Function (QMF): Maps logical requests and paths onto available quantum resources and maintains the association between paths and qubits.<a href="#section-7.2-1.7.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.8">
+            <p id="section-7.2-1.8.1">Quantum Memory Management Function (QMMF): Manages the lifecycle of quantum memories, including allocation, release, operational state tracking, ownership, and entanglement metadata.<a href="#section-7.2-1.8.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.9">
+            <p id="section-7.2-1.9.1">Entanglement State Repository Function (ESRF): Maintains a consistent view of entanglement resources, including EPR identifiers, qubit mappings, connectivity information, fidelity metrics, and operational state. This function may be implemented as part of the QMMF.<a href="#section-7.2-1.9.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.10">
+            <p id="section-7.2-1.10.1">Qubit Lifecycle Management Function (QLMF): Maintains a finite state machine (FSM) of each qubit from raw to released operation states. This function may be implemented as part of the QMMF.<a href="#section-7.2-1.10.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.11">
+            <p id="section-7.2-1.11.1">Entanglement Generation Function (EGF): Establishes elementary entanglement with neighboring nodes and reports successful entanglement creation.<a href="#section-7.2-1.11.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.12">
+            <p id="section-7.2-1.12.1">Entanglement Swapping Function (ESF): Performs entanglement swapping operations and, sends and receives swapping signalings, and (may directly) update connectivity information resulting from successful swaps.<a href="#section-7.2-1.12.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.13">
+            <p id="section-7.2-1.13.1">Entanglement Purification Function (EPF): Executes purification protocols and maintains the associated operation state.<a href="#section-7.2-1.13.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.14">
+            <p id="section-7.2-1.14.1">Classical Communication Function (CCF): Provides transport of classical protocol messages required for coordination, heralding, routing, swapping, and purification.<a href="#section-7.2-1.14.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.15">
+            <p id="section-7.2-1.15.1">Quantum Communication Function (QComF): Interfaces with quantum channels and physical hardware to transmit and receive quantum states.<a href="#section-7.2-1.15.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.16">
+            <p id="section-7.2-1.16.1">Quantum Timing Function (QTF): Provides logical synchronization services required by time-slotted or phase-based protocols.<a href="#section-7.2-1.16.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-7.2-1.17">
+            <p id="section-7.2-1.17.1">Quantum Interconnect Function (QICF): The QICF provides dynamic optical connectivity between quantum-neighbor nodes and shared quantum resources, such as sources, Bell-state measurement devices, switches, or wavelength/time-bin resources. It enables elementary entanglement generation by establishing, reserving, or scheduling the physical quantum connectivity required by the EGF. The QICF may be realized through centralized control (on-demand or schedule-based), or distributed signaling (on-demand).<a href="#section-7.2-1.17.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+</section>
+</div>
+<div id="interfaces">
+<section id="section-7.3">
+        <h3 id="name-interfaces">
+<a href="#section-7.3" class="section-number selfRef">7.3. </a><a href="#name-interfaces" class="section-name selfRef">Interfaces</a>
+        </h3>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.1">
+            <p id="section-7.3-1.1.1">0: end-to-end entanglement requests<a href="#section-7.3-1.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.1.2.1">
+                <p id="section-7.3-1.1.2.1.1">Description: One or multiple requests<a href="#section-7.3-1.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.1.2.2">
+                <p id="section-7.3-1.1.2.2.1">From: QAF (end-node) or another QCF (distributed)<a href="#section-7.3-1.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.1.2.3">
+                <p id="section-7.3-1.1.2.3.1">To: QFF<a href="#section-7.3-1.1.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.1.2.4">
+                <p id="section-7.3-1.1.2.4.1">Mode: request-response (centralized), two-pass (distributed)<a href="#section-7.3-1.1.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.1.2.5">
+                <p id="section-7.3-1.1.2.5.1">Request content: source node, destination node, num pairs, min fidelity, rate, timeout<a href="#section-7.3-1.1.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.1.2.6">
+                <p id="section-7.3-1.1.2.6.1">Response content: acknowledgment, other coordination information (distributed/two-pass)<a href="#section-7.3-1.1.2.6.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.2">
+            <p id="section-7.3-1.2.1">1: slot/phase signal<a href="#section-7.3-1.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.2.2.1">
+                <p id="section-7.3-1.2.2.1.1">Description: Signal beginning of a phase within a slot (synchronous)<a href="#section-7.3-1.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.2.2.2">
+                <p id="section-7.3-1.2.2.2.1">From: QTF<a href="#section-7.3-1.2.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.2.2.3">
+                <p id="section-7.3-1.2.2.3.1">To: EGF/ESF/EPF/QFF/QCF<a href="#section-7.3-1.2.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.2.2.4">
+                <p id="section-7.3-1.2.2.4.1">Mode: signal/trigger<a href="#section-7.3-1.2.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.2.2.5">
+                <p id="section-7.3-1.2.2.5.1">Content: phase code/duration<a href="#section-7.3-1.2.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.3">
+            <p id="section-7.3-1.3.1">2: routing instructions<a href="#section-7.3-1.3.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.3.2.1">
+                <p id="section-7.3-1.3.2.1.1">Description: Install/uninstall a path. Always leads to a FIB update since routing is stateful and FIB entries are used to guide swap heralding messages. FIB entries persistence may differ between connection-oriented, connectionless.<a href="#section-7.3-1.3.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.3.2.2">
+                <p id="section-7.3-1.3.2.2.1">From: QCF (local or central)<a href="#section-7.3-1.3.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.3.2.3">
+                <p id="section-7.3-1.3.2.3.1">To: QFF<a href="#section-7.3-1.3.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.3.2.4">
+                <p id="section-7.3-1.3.2.4.1">Mode: request-response<a href="#section-7.3-1.3.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.3.2.5">
+                <p id="section-7.3-1.3.2.5.1">Request content: pathId, instructions. Some instructions such as swapping order or purification scheme may not be possible in connectionless-proactive or distributed reactive.<a href="#section-7.3-1.3.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.3.2.6">
+                <p id="section-7.3-1.3.2.6.1">Response content: acknowledgment<a href="#section-7.3-1.3.2.6.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.4">
+            <p id="section-7.3-1.4.1">3: qubit-path multiplexing<a href="#section-7.3-1.4.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.4.2.1">
+                <p id="section-7.3-1.4.2.1.1">Description: Get/Set multiplexing profile for a path. Mux calculates per-qubit assignment (e.g., from routing instructions).<a href="#section-7.3-1.4.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.4.2.2">
+                <p id="section-7.3-1.4.2.2.1">From: QFF<a href="#section-7.3-1.4.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.4.2.3">
+                <p id="section-7.3-1.4.2.3.1">To: QMF<a href="#section-7.3-1.4.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.4.2.4">
+                <p id="section-7.3-1.4.2.4.1">Mode: read-write<a href="#section-7.3-1.4.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.4.2.5">
+                <p id="section-7.3-1.4.2.5.1">Request content: pathId, multiplexing instructions or policies<a href="#section-7.3-1.4.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.4.2.6">
+                <p id="section-7.3-1.4.2.6.1">Response content: acknowledgment (write), qubit addresses (read)<a href="#section-7.3-1.4.2.6.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.5">
+            <p id="section-7.3-1.5.1">4: Tag/untag qubits (soft)<a href="#section-7.3-1.5.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.5.2.1">
+                <p id="section-7.3-1.5.2.1.1">Description: Query/reserve qubit assignment to path/request. Clear qubit assignment.<a href="#section-7.3-1.5.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.5.2.2">
+                <p id="section-7.3-1.5.2.2.1">From: QMF<a href="#section-7.3-1.5.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.5.2.3">
+                <p id="section-7.3-1.5.2.3.1">To: QMMF<a href="#section-7.3-1.5.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.5.2.4">
+                <p id="section-7.3-1.5.2.4.1">Mode: request-response (write)<a href="#section-7.3-1.5.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.5.2.5">
+                <p id="section-7.3-1.5.2.5.1">Request content: qubit address, pathId<a href="#section-7.3-1.5.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.5.2.6">
+                <p id="section-7.3-1.5.2.6.1">Response content: acknowledgment<a href="#section-7.3-1.5.2.6.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.5.2.7">
+                <p id="section-7.3-1.5.2.7.1">Note: Soft means it does not allocate physical qubits yet.<a href="#section-7.3-1.5.2.7.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.6">
+            <p id="section-7.3-1.6.1">5: activate/deactivate channel<a href="#section-7.3-1.6.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.6.2.1">
+                <p id="section-7.3-1.6.2.1.1">Description: Initiate elementary EPR generation with a neighbor. Stop generating EPRs with a neighbor.<a href="#section-7.3-1.6.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.6.2.2">
+                <p id="section-7.3-1.6.2.2.1">From: QFF<a href="#section-7.3-1.6.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.6.2.3">
+                <p id="section-7.3-1.6.2.3.1">To: EGF<a href="#section-7.3-1.6.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.6.2.4">
+                <p id="section-7.3-1.6.2.4.1">Mode: request-response<a href="#section-7.3-1.6.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.6.2.5">
+                <p id="section-7.3-1.6.2.5.1">Request content: neighbor name/address or interface name. Only communication information is passed (no qubit address, etc.)<a href="#section-7.3-1.6.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.6.2.6">
+                <p id="section-7.3-1.6.2.6.1">Response content: acknowledgment<a href="#section-7.3-1.6.2.6.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.7">
+            <p id="section-7.3-1.7.1">6: send entanglement connectivity (link state)<a href="#section-7.3-1.7.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.7.2.1">
+                <p id="section-7.3-1.7.2.1.1">Description: Send entanglement link state to controller (needed in reactive). Aggregated on synchronous, individual on asynchronous.<a href="#section-7.3-1.7.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.7.2.2">
+                <p id="section-7.3-1.7.2.2.1">From: QFF (aggregated from 8 or 21)<a href="#section-7.3-1.7.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.7.2.3">
+                <p id="section-7.3-1.7.2.3.1">To: QCF<a href="#section-7.3-1.7.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.7.2.4">
+                <p id="section-7.3-1.7.2.4.1">Mode: notification<a href="#section-7.3-1.7.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.7.2.5">
+                <p id="section-7.3-1.7.2.5.1">Content: qubit addresses and neighbors<a href="#section-7.3-1.7.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.8">
+            <p id="section-7.3-1.8.1">7: allocate/deallocate qubits (hard)<a href="#section-7.3-1.8.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.8.2.1">
+                <p id="section-7.3-1.8.2.1.1">Description: Physically acquire/release qubit(s) for entanglement attempt, swapping, or purification.<a href="#section-7.3-1.8.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.8.2.2">
+                <p id="section-7.3-1.8.2.2.1">From: EGF, QSF, QPF<a href="#section-7.3-1.8.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.8.2.3">
+                <p id="section-7.3-1.8.2.3.1">To: QMMF<a href="#section-7.3-1.8.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.8.2.4">
+                <p id="section-7.3-1.8.2.4.1">Mode: request-response<a href="#section-7.3-1.8.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.8.2.5">
+                <p id="section-7.3-1.8.2.5.1">Request content: qubit address<a href="#section-7.3-1.8.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.8.2.6">
+                <p id="section-7.3-1.8.2.6.1">Response content: ack/nack<a href="#section-7.3-1.8.2.6.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.9">
+            <p id="section-7.3-1.9.1">8: new elementary EPR<a href="#section-7.3-1.9.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.9.2.1">
+                <p id="section-7.3-1.9.2.1.1">Description: Inform forwarder about newly generated EPR.<a href="#section-7.3-1.9.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.9.2.2">
+                <p id="section-7.3-1.9.2.2.1">From: EGF<a href="#section-7.3-1.9.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.9.2.3">
+                <p id="section-7.3-1.9.2.3.1">To: QFF<a href="#section-7.3-1.9.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.9.2.4">
+                <p id="section-7.3-1.9.2.4.1">Mode: notification<a href="#section-7.3-1.9.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.9.2.5">
+                <p id="section-7.3-1.9.2.5.1">Content: EPR name/Id, neighbor, qubit address<a href="#section-7.3-1.9.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.9.2.6">
+                <p id="section-7.3-1.9.2.6.1">Note: can be removed and rely on 21<a href="#section-7.3-1.9.2.6.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.10">
+            <p id="section-7.3-1.10.1">9: start purification - Initiator node<a href="#section-7.3-1.10.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.10.2.1">
+                <p id="section-7.3-1.10.2.1.1">Description: Initiate purification with a remote node<a href="#section-7.3-1.10.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.10.2.2">
+                <p id="section-7.3-1.10.2.2.1">From: EGF (if L2 only), QFF (if L3)<a href="#section-7.3-1.10.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.10.2.3">
+                <p id="section-7.3-1.10.2.3.1">To: QPF<a href="#section-7.3-1.10.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.10.2.4">
+                <p id="section-7.3-1.10.2.4.1">Mode: trigger/signal<a href="#section-7.3-1.10.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.10.2.5">
+                <p id="section-7.3-1.10.2.5.1">Content: qubit address/ID, EPR ID, neighbor ID/address.<a href="#section-7.3-1.10.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.10.2.6">
+                <p id="section-7.3-1.10.2.6.1">Notes:<a href="#section-7.3-1.10.2.6.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.10.2.6.2.1">
+                    <p id="section-7.3-1.10.2.6.2.1.1">Local/private information is not included in external messages (e.g., EPR ID or neighbor address instead of qubit address/ID)<a href="#section-7.3-1.10.2.6.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                  <li class="normal" id="section-7.3-1.10.2.6.2.2">
+                    <p id="section-7.3-1.10.2.6.2.2.1">QPF at responder node resolves EPR name to qubit local address via 11<a href="#section-7.3-1.10.2.6.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                  <li class="normal" id="section-7.3-1.10.2.6.2.3">
+                    <p id="section-7.3-1.10.2.6.2.3.1">At initiator: QPF gets the one EPR to purify (+ neighbors/path info) and selects qubits/EPRs (via 11) according to purification circuit/schedule.<a href="#section-7.3-1.10.2.6.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                  <li class="normal" id="section-7.3-1.10.2.6.2.4">
+                    <p id="section-7.3-1.10.2.6.2.4.1">At responder: QPF receives EPR IDs to purify/use and resolves qubit addresses (via 11)<a href="#section-7.3-1.10.2.6.2.4.1" class="pilcrow">¶</a></p>
+</li>
+                  <li class="normal" id="section-7.3-1.10.2.6.2.5">
+                    <p id="section-7.3-1.10.2.6.2.5.1">After/during operation: QPF updates qubit FSMs (via 18)<a href="#section-7.3-1.10.2.6.2.5.1" class="pilcrow">¶</a></p>
+</li>
+                  <li class="normal" id="section-7.3-1.10.2.6.2.6">
+                    <p id="section-7.3-1.10.2.6.2.6.1">Why QPF updates qubit FSM instead of QFF:<a href="#section-7.3-1.10.2.6.2.6.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.10.2.6.2.6.2.1">
+                        <p id="section-7.3-1.10.2.6.2.6.2.1.1">Purification does not change connectivity<a href="#section-7.3-1.10.2.6.2.6.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                      <li class="normal" id="section-7.3-1.10.2.6.2.6.2.2">
+                        <p id="section-7.3-1.10.2.6.2.6.2.2.1">QPF already interacts with qubit (knows qubit FSM state)<a href="#section-7.3-1.10.2.6.2.6.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                      <li class="normal" id="section-7.3-1.10.2.6.2.6.2.3">
+                        <p id="section-7.3-1.10.2.6.2.6.2.3.1">Keeps initiator-agnostic implementation/API<a href="#section-7.3-1.10.2.6.2.6.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                      <li class="normal" id="section-7.3-1.10.2.6.2.6.2.4">
+                        <p id="section-7.3-1.10.2.6.2.6.2.4.1">Keeps the QFF/EQF clean and updated via FSM updates<a href="#section-7.3-1.10.2.6.2.6.2.4.1" class="pilcrow">¶</a></p>
+</li>
+                    </ul>
+</li>
+                </ul>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.11">
+            <p id="section-7.3-1.11.1">10a: Do swap<a href="#section-7.3-1.11.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.11.2.1">
+                <p id="section-7.3-1.11.2.1.1">Description: Initiate swapping<a href="#section-7.3-1.11.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.11.2.2">
+                <p id="section-7.3-1.11.2.2.1">From: QFF<a href="#section-7.3-1.11.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.11.2.3">
+                <p id="section-7.3-1.11.2.3.1">To: QSF<a href="#section-7.3-1.11.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.11.2.4">
+                <p id="section-7.3-1.11.2.4.1">Mode: trigger/signal<a href="#section-7.3-1.11.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.11.2.5">
+                <p id="section-7.3-1.11.2.5.1">Content: 2 qubit addresses, 2 neighbor/peers address<a href="#section-7.3-1.11.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.11.2.6">
+                <p id="section-7.3-1.11.2.6.1">Note: success/failure will be reflected in qubit FSM. QFF does not care about what happens to local qubits.<a href="#section-7.3-1.11.2.6.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.12">
+            <p id="section-7.3-1.12.1">10b: New segment EPR<a href="#section-7.3-1.12.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.12.2.1">
+                <p id="section-7.3-1.12.2.1.1">Description: Local qubit now entangled with a remote node. Results from receiving a SWAP_UPDATE.<a href="#section-7.3-1.12.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.12.2.2">
+                <p id="section-7.3-1.12.2.2.1">From: QSF<a href="#section-7.3-1.12.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.12.2.3">
+                <p id="section-7.3-1.12.2.3.1">To: QFF<a href="#section-7.3-1.12.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.12.2.4">
+                <p id="section-7.3-1.12.2.4.1">Mode: notification<a href="#section-7.3-1.12.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.12.2.5">
+                <p id="section-7.3-1.12.2.5.1">Content: Elementary EPR name, peer address<a href="#section-7.3-1.12.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.12.2.6">
+                <p id="section-7.3-1.12.2.6.1">Note: QSF receives swap signaling. Assuming that QSF has access to FIB, it can directly update qubits FSMs (i.e., no need to send notification via 10b to QFF)<a href="#section-7.3-1.12.2.6.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.13">
+            <p id="section-7.3-1.13.1">11: find qubits<a href="#section-7.3-1.13.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.13.2.1">
+                <p id="section-7.3-1.13.2.1.1">Description: Find qubit addresses based on selection criteria.<a href="#section-7.3-1.13.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.13.2.2">
+                <p id="section-7.3-1.13.2.2.1">From: EQF, QFF, QPF<a href="#section-7.3-1.13.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.13.2.3">
+                <p id="section-7.3-1.13.2.3.1">To: QMMF<a href="#section-7.3-1.13.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.13.2.4">
+                <p id="section-7.3-1.13.2.4.1">Mode: request-response (like a database search query)<a href="#section-7.3-1.13.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.13.2.5">
+                <p id="section-7.3-1.13.2.5.1">Request content: EPR name, neighbor id, path id, channel id, #rounds, request id.<a href="#section-7.3-1.13.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.13.2.6">
+                <p id="section-7.3-1.13.2.6.1">Response content: qubit addresses<a href="#section-7.3-1.13.2.6.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.14">
+            <p id="section-7.3-1.14.1">12: send/receive classical message:<a href="#section-7.3-1.14.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.14.2.1">
+                <p id="section-7.3-1.14.2.1.1">Description: Classical transport for heralding, purification, swap updates, routing<a href="#section-7.3-1.14.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.14.2.2">
+                <p id="section-7.3-1.14.2.2.1">Bidirectional: QEF/QPF/QSF/QCF/QICF - CCF<a href="#section-7.3-1.14.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.15">
+            <p id="section-7.3-1.15.1">13: qubit decohered/released<a href="#section-7.3-1.15.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.15.2.1">
+                <p id="section-7.3-1.15.2.1.1">Description: qubit decohered (cut-off) or released (consumed).<a href="#section-7.3-1.15.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.15.2.2">
+                <p id="section-7.3-1.15.2.2.1">From: QMMF<a href="#section-7.3-1.15.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.15.2.3">
+                <p id="section-7.3-1.15.2.3.1">To: EQF, QPF<a href="#section-7.3-1.15.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.15.2.4">
+                <p id="section-7.3-1.15.2.4.1">Mode: notification<a href="#section-7.3-1.15.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.15.2.5">
+                <p id="section-7.3-1.15.2.5.1">Content: qubit address/ID.<a href="#section-7.3-1.15.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.16">
+            <p id="section-7.3-1.16.1">14: QIC request (on-demand)<a href="#section-7.3-1.16.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.16.2.1">
+                <p id="section-7.3-1.16.2.1.1">Description: Request dynamic quantum interconnect resources to establish optical connectivity with a neighbor for elementary entanglement generation.<a href="#section-7.3-1.16.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.16.2.2">
+                <p id="section-7.3-1.16.2.2.1">From: EGF<a href="#section-7.3-1.16.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.16.2.3">
+                <p id="section-7.3-1.16.2.3.1">To: QICF<a href="#section-7.3-1.16.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.16.2.4">
+                <p id="section-7.3-1.16.2.4.1">Mode: request-response<a href="#section-7.3-1.16.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.16.2.5">
+                <p id="section-7.3-1.16.2.5.1">Request content: Neighbor address/identifier, generation session identifier, optional resource requirements (e.g., BSM type, source type, wavelength, timeslot).<a href="#section-7.3-1.16.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.16.2.6">
+                <p id="section-7.3-1.16.2.6.1">Response content: Connectivity ready, failed, released, and optional connectivity information.<a href="#section-7.3-1.16.2.6.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.17">
+            <p id="section-7.3-1.17.1">15: QIC request (schedule-based)<a href="#section-7.3-1.17.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.17.2.1">
+                <p id="section-7.3-1.17.2.1.1">Description: Reserve quantum interconnect resources and optical connectivity according to a planned entanglement service or schedule.<a href="#section-7.3-1.17.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.17.2.2">
+                <p id="section-7.3-1.17.2.2.1">From: QCF (or higher-level orchestrator)<a href="#section-7.3-1.17.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.17.2.3">
+                <p id="section-7.3-1.17.2.3.1">To: QICF<a href="#section-7.3-1.17.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.17.2.4">
+                <p id="section-7.3-1.17.2.4.1">Mode: request-response<a href="#section-7.3-1.17.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.17.2.5">
+                <p id="section-7.3-1.17.2.5.1">Request content: Schedule (time window, participating nodes, resource requirements, reservation constraints).<a href="#section-7.3-1.17.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.17.2.6">
+                <p id="section-7.3-1.17.2.6.1">Response content: Ack/Nack.<a href="#section-7.3-1.17.2.6.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.18">
+            <p id="section-7.3-1.18.1">16: send/receive quantum signal<a href="#section-7.3-1.18.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.18.2.1">
+                <p id="section-7.3-1.18.2.1.1">Description: Quantum transport of photons for elementary entanglement generation<a href="#section-7.3-1.18.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.18.2.2">
+                <p id="section-7.3-1.18.2.2.1">Bidirectional: QEF - QComF<a href="#section-7.3-1.18.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.19">
+            <p id="section-7.3-1.19.1">17: Route advertisement (control plane distributed)<a href="#section-7.3-1.19.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.19.2.1">
+                <p id="section-7.3-1.19.2.1.1">Description: link state or route advertisement<a href="#section-7.3-1.19.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.19.2.2">
+                <p id="section-7.3-1.19.2.2.1">From: QCF<a href="#section-7.3-1.19.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.19.2.3">
+                <p id="section-7.3-1.19.2.3.1">To: QCF<a href="#section-7.3-1.19.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.19.2.4">
+                <p id="section-7.3-1.19.2.4.1">Mode: notification<a href="#section-7.3-1.19.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.19.2.5">
+                <p id="section-7.3-1.19.2.5.1">Content: RIB entries, reachability advertisement (neighbor address, metric, et.)<a href="#section-7.3-1.19.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.20">
+            <p id="section-7.3-1.20.1">18: Update qubit operational state<a href="#section-7.3-1.20.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.20.2.1">
+                <p id="section-7.3-1.20.2.1.1">Description: update qubit FSM state<a href="#section-7.3-1.20.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.20.2.2">
+                <p id="section-7.3-1.20.2.2.1">From: EQF, QFF, QPF, QSF<a href="#section-7.3-1.20.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.20.2.3">
+                <p id="section-7.3-1.20.2.3.1">To: QMMF<a href="#section-7.3-1.20.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.20.2.4">
+                <p id="section-7.3-1.20.2.4.1">Mode: set<a href="#section-7.3-1.20.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.20.2.5">
+                <p id="section-7.3-1.20.2.5.1">Content: qubit address, new state<a href="#section-7.3-1.20.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.21">
+            <p id="section-7.3-1.21.1">19: Read-write FIB<a href="#section-7.3-1.21.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.21.2.1">
+                <p id="section-7.3-1.21.2.1.1">Description: Install/Uninstall/Read/Update FIB entry (or customized FIB lookup).<a href="#section-7.3-1.21.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.21.2.2">
+                <p id="section-7.3-1.21.2.2.1">From: QFF, QSF<a href="#section-7.3-1.21.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.21.2.3">
+                <p id="section-7.3-1.21.2.3.1">To: FIBF<a href="#section-7.3-1.21.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.21.2.4">
+                <p id="section-7.3-1.21.2.4.1">Mode: set/get/delete/update<a href="#section-7.3-1.21.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.21.2.5">
+                <p id="section-7.3-1.21.2.5.1">Content: FIB entry (pathId, source, destination, swap/purif instructions, QoS requirement, etc.), FIB entry Id, Lookup parameters, etc.<a href="#section-7.3-1.21.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.22">
+            <p id="section-7.3-1.22.1">20: Read-write RIB<a href="#section-7.3-1.22.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.22.2.1">
+                <p id="section-7.3-1.22.2.1.1">Description: Install/Uninstall/Read/Update RIB entry (or customized RIB lookup).<a href="#section-7.3-1.22.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.22.2.2">
+                <p id="section-7.3-1.22.2.2.1">From: QCF<a href="#section-7.3-1.22.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.22.2.3">
+                <p id="section-7.3-1.22.2.3.1">To: RIBF<a href="#section-7.3-1.22.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.22.2.4">
+                <p id="section-7.3-1.22.2.4.1">Mode: set/get/delete/update<a href="#section-7.3-1.22.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.22.2.5">
+                <p id="section-7.3-1.22.2.5.1">Content: RIB entry (routeId, source, destination, next hop, cost, etc.), RIB entry Id, Lookup parameters, etc.<a href="#section-7.3-1.22.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+          <li class="normal" id="section-7.3-1.23">
+            <p id="section-7.3-1.23.1">21: Qubit operational state updated<a href="#section-7.3-1.23.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-1.23.2.1">
+                <p id="section-7.3-1.23.2.1.1">Description: qubit FSM state changed<a href="#section-7.3-1.23.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.23.2.2">
+                <p id="section-7.3-1.23.2.2.1">From: QMMF<a href="#section-7.3-1.23.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.23.2.3">
+                <p id="section-7.3-1.23.2.3.1">To: QFF (optional: any other function)<a href="#section-7.3-1.23.2.3.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.23.2.4">
+                <p id="section-7.3-1.23.2.4.1">Mode: notification<a href="#section-7.3-1.23.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-1.23.2.5">
+                <p id="section-7.3-1.23.2.5.1">Content: qubit address, new state<a href="#section-7.3-1.23.2.5.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+        </ul>
+</section>
+</div>
 </section>
 </div>
 <div id="use-cases">
 <section id="section-8">
       <h2 id="name-use-cases">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-use-cases" class="section-name selfRef">Use Cases</a>
-    </h2>
+      </h2>
+<p id="section-8-1">TBD<a href="#section-8-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conventions-and-definitions">
@@ -1328,7 +2078,7 @@ appear in all capitals, as shown here.<a href="#section-9-1" class="pilcrow">¶<
       <h2 id="name-security-considerations">
 <a href="#section-10" class="section-number selfRef">10. </a><a href="#name-security-considerations" class="section-name selfRef">Security Considerations</a>
       </h2>
-<p id="section-10-1">TODO Security<a href="#section-10-1" class="pilcrow">¶</a></p>
+<p id="section-10-1">TBD<a href="#section-10-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="iana-considerations">
@@ -1339,21 +2089,69 @@ appear in all capitals, as shown here.<a href="#section-9-1" class="pilcrow">¶<
 <p id="section-11-1">This document has no IANA actions.<a href="#section-11-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="sec-normative-references">
+<div id="sec-combined-references">
 <section id="section-12">
-      <h2 id="name-normative-references">
-<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+      <h2 id="name-references">
+<a href="#section-12" class="section-number selfRef">12. </a><a href="#name-references" class="section-name selfRef">References</a>
       </h2>
+<div id="sec-normative-references">
+<section id="section-12.1">
+        <h3 id="name-normative-references">
+<a href="#section-12.1" class="section-number selfRef">12.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
+        </h3>
 <dl class="references">
 <dt id="RFC2119">[RFC2119]</dt>
-      <dd>
+        <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC8174">[RFC8174]</dt>
-    <dd>
+      <dd>
 <span class="refAuthor">Leiba, B.</span>, <span class="refTitle">"Ambiguity of Uppercase vs Lowercase in RFC 2119 Key Words"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 8174</span>, <span class="seriesInfo">DOI 10.17487/RFC8174</span>, <time datetime="2017-05" class="refDate">May 2017</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc8174">https://www.rfc-editor.org/rfc/rfc8174</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
+</section>
+</div>
+<div id="sec-informative-references">
+<section id="section-12.2">
+        <h3 id="name-informative-references">
+<a href="#section-12.2" class="section-number selfRef">12.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
+        </h3>
+<dl class="references">
+<dt id="bacciottini-redip">[bacciottini-redip]</dt>
+        <dd>
+<span class="refAuthor">Bacciottini, L.</span>, <span class="refAuthor">Lenzini, L.</span>, <span class="refAuthor">Mingozzi, E.</span>, and <span class="refAuthor">G. Anastasi</span>, <span class="refTitle">"REDiP: Ranked Entanglement Distribution Protocol for the Quantum Internet"</span>, <span class="refContent">Institute of Electrical and Electronics Engineers (IEEE)</span>, <span class="seriesInfo">IEEE Open Journal of the Communications Society vol. 5, pp. 397-411</span>, <span class="seriesInfo">DOI 10.1109/ojcoms.2023.3345166</span>, <time datetime="2024" class="refDate">2024</time>, <span>&lt;<a href="https://doi.org/10.1109/ojcoms.2023.3345166">https://doi.org/10.1109/ojcoms.2023.3345166</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="cacciapuoti-beyond-layering">[cacciapuoti-beyond-layering]</dt>
+        <dd>
+<span class="refAuthor">Cacciapuoti, A.</span> and <span class="refAuthor">M. Caleffi</span>, <span class="refTitle">"A Quantum Internet Protocol Suite Beyond Layering"</span>, <span class="refContent">Institute of Electrical and Electronics Engineers (IEEE)</span>, <span class="seriesInfo">IEEE Transactions on Network Science and Engineering vol. 13, pp. 9170-9187</span>, <span class="seriesInfo">DOI 10.1109/tnse.2026.3679795</span>, <time datetime="2026" class="refDate">2026</time>, <span>&lt;<a href="https://doi.org/10.1109/tnse.2026.3679795">https://doi.org/10.1109/tnse.2026.3679795</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="delle-os-qn-nodes">[delle-os-qn-nodes]</dt>
+        <dd>
+<span class="refAuthor">Delle Donne, C.</span>, <span class="refAuthor">Iuliano, M.</span>, <span class="refAuthor">van der Vecht, B.</span>, <span class="refAuthor">Ferreira, G.</span>, <span class="refAuthor">Jirovská, H.</span>, <span class="refAuthor">van der Steenhoven, T.</span>, <span class="refAuthor">Dahlberg, A.</span>, <span class="refAuthor">Skrzypczyk, M.</span>, <span class="refAuthor">Fioretto, D.</span>, <span class="refAuthor">Teller, M.</span>, <span class="refAuthor">Filippov, P.</span>, <span class="refAuthor">Montblanch, A.</span>, <span class="refAuthor">Fischer, J.</span>, <span class="refAuthor">van Ommen, H.</span>, <span class="refAuthor">Demetriou, N.</span>, <span class="refAuthor">Leichtle, D.</span>, <span class="refAuthor">Music, L.</span>, <span class="refAuthor">Ollivier, H.</span>, <span class="refAuthor">te Raa, I.</span>, <span class="refAuthor">Kozlowski, W.</span>, <span class="refAuthor">Taminiau, T.</span>, <span class="refAuthor">Pawełczak, P.</span>, <span class="refAuthor">Northup, T.</span>, <span class="refAuthor">Hanson, R.</span>, and <span class="refAuthor">S. Wehner</span>, <span class="refTitle">"An operating system for executing applications on quantum network nodes"</span>, <span class="refContent">Springer Science and Business Media LLC</span>, <span class="seriesInfo">Nature vol. 639, no. 8054, pp. 321-328</span>, <span class="seriesInfo">DOI 10.1038/s41586-025-08704-w</span>, <time datetime="2025-03" class="refDate">March 2025</time>, <span>&lt;<a href="https://doi.org/10.1038/s41586-025-08704-w">https://doi.org/10.1038/s41586-025-08704-w</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.draft-cacciapuoti-qirg-quantum-native-architecture">[I-D.draft-cacciapuoti-qirg-quantum-native-architecture]</dt>
+        <dd>
+<span class="refAuthor">Cacciapuoti, A. S.</span>, <span class="refAuthor">Caleffi, M.</span>, <span class="refAuthor">Illiano, J.</span>, <span class="refAuthor">De Risi, C.</span>, <span class="refAuthor">Abane, A.</span>, and <span class="refAuthor">J. Chung</span>, <span class="refTitle">"Quantum-Native Architectural Tenets and Philosophy for the Quantum Internet"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-cacciapuoti-qirg-quantum-native-architecture-01</span>, <time datetime="2026-04-20" class="refDate">20 April 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-cacciapuoti-qirg-quantum-native-architecture-01">https://datatracker.ietf.org/doc/html/draft-cacciapuoti-qirg-quantum-native-architecture-01</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="I-D.draft-hajdusek-qirg-timing-physics">[I-D.draft-hajdusek-qirg-timing-physics]</dt>
+        <dd>
+<span class="refAuthor">Hajdusek, M.</span> and <span class="refAuthor">R. Van Meter</span>, <span class="refTitle">"Timing Regimes in Quantum Networks and their Physical Underpinnings"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-hajdusek-qirg-timing-physics-01</span>, <time datetime="2026-03-18" class="refDate">18 March 2026</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-hajdusek-qirg-timing-physics-01">https://datatracker.ietf.org/doc/html/draft-hajdusek-qirg-timing-physics-01</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="kozlowski-qn-prot">[kozlowski-qn-prot]</dt>
+        <dd>
+<span class="refAuthor">Kozlowski, W.</span>, <span class="refAuthor">Dahlberg, A.</span>, and <span class="refAuthor">S. Wehner</span>, <span class="refTitle">"Designing a quantum network protocol"</span>, <span class="refContent">ACM</span>, <span class="seriesInfo">Proceedings of the 16th International Conference on emerging Networking EXperiments and Technologies pp. 1-16</span>, <span class="seriesInfo">DOI 10.1145/3386367.3431293</span>, <time datetime="2020-11" class="refDate">November 2020</time>, <span>&lt;<a href="https://doi.org/10.1145/3386367.3431293">https://doi.org/10.1145/3386367.3431293</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="kumar-instr-set">[kumar-instr-set]</dt>
+        <dd>
+<span class="refAuthor">Kumar, V.</span>, <span class="refAuthor">Cicconetti, C.</span>, <span class="refAuthor">Bassoli, R.</span>, <span class="refAuthor">Conti, M.</span>, and <span class="refAuthor">A. Passarella</span>, <span class="refTitle">"Instruction-Set Architecture for Programmable NV-Center Quantum Repeater Nodes"</span>, <span class="refContent">IEEE</span>, <span class="seriesInfo">2026 International Conference on Quantum Communications, Networking, and Computing (QCNC) pp. 1038-1044</span>, <span class="seriesInfo">DOI 10.1109/qcnc69040.2026.00176</span>, <time datetime="2026-04" class="refDate">April 2026</time>, <span>&lt;<a href="https://doi.org/10.1109/qcnc69040.2026.00176">https://doi.org/10.1109/qcnc69040.2026.00176</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="van-meter-qi-arch">[van-meter-qi-arch]</dt>
+      <dd>
+<span class="refAuthor">Van Meter, R.</span>, <span class="refAuthor">Satoh, R.</span>, <span class="refAuthor">Benchasattabuse, N.</span>, <span class="refAuthor">Teramoto, K.</span>, <span class="refAuthor">Matsuo, T.</span>, <span class="refAuthor">Hajdusek, M.</span>, <span class="refAuthor">Satoh, T.</span>, <span class="refAuthor">Nagayama, S.</span>, and <span class="refAuthor">S. Suzuki</span>, <span class="refTitle">"A Quantum Internet Architecture"</span>, <span class="refContent">IEEE</span>, <span class="seriesInfo">2022 IEEE International Conference on Quantum Computing and Engineering (QCE) pp. 341-352</span>, <span class="seriesInfo">DOI 10.1109/qce53715.2022.00055</span>, <time datetime="2022-09" class="refDate">September 2022</time>, <span>&lt;<a href="https://doi.org/10.1109/qce53715.2022.00055">https://doi.org/10.1109/qce53715.2022.00055</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+</dl>
+</section>
+</div>
 </section>
 </div>
 <div id="acknowledgments">
@@ -1361,7 +2159,7 @@ appear in all capitals, as shown here.<a href="#section-9-1" class="pilcrow">¶<
       <h2 id="name-acknowledgments">
 <a href="#name-acknowledgments" class="section-name selfRef">Acknowledgments</a>
       </h2>
-<p id="appendix-A-1">TODO acknowledge.<a href="#appendix-A-1" class="pilcrow">¶</a></p>
+<p id="appendix-A-1">TBD<a href="#appendix-A-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="authors-addresses">

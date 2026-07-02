@@ -1045,11 +1045,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">Architecture Classification and Function</td>
-<td class="right">June 2026</td>
+<td class="right">July 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Abane</td>
-<td class="center">Expires 30 December 2026</td>
+<td class="center">Expires 3 January 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1062,12 +1062,12 @@ svg {
 <dd class="internet-draft">draft-abane-qirg-function-abstraction-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-06-28" class="published">28 June 2026</time>
+<time datetime="2026-07-02" class="published">2 July 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-12-30">30 December 2026</time></dd>
+<dd class="expires"><time datetime="2027-01-03">3 January 2027</time></dd>
 <dt class="label-authors">Author:</dt>
 <dd class="authors">
 <div class="author">
@@ -1117,7 +1117,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 30 December 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 3 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1173,6 +1173,14 @@ svg {
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5">
             <p id="section-toc.1-1.5.1"><a href="#section-5" class="auto internal xref">5</a>.  <a href="#name-architectures-classificatio" class="internal xref">Architectures Classification</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.1">
+                <p id="section-toc.1-1.5.2.1.1"><a href="#section-5.1" class="auto internal xref">5.1</a>.  <a href="#name-classification-dimensions" class="internal xref">Classification Dimensions</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
+                <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-complementary-characteristi" class="internal xref">Complementary Characteristics</a></p>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.6">
             <p id="section-toc.1-1.6.1"><a href="#section-6" class="auto internal xref">6</a>.  <a href="#name-derivation-of-network-funct" class="internal xref">Derivation of Network Functions from Architectural Responsibilities</a></p>
@@ -1342,97 +1350,105 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
       <h2 id="name-architectures-classificatio">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-architectures-classificatio" class="section-name selfRef">Architectures Classification</a>
       </h2>
-<p id="section-5-1">Defining network functions and interfaces requires abstractions that are sufficiently general to accommodate both current architectural approaches and future developments. Since routing architectures differ in how routing decisions are made, where control logic is placed, and how network operations are coordinated, this document first introduces a classification of entanglement-routing architectures based on a set of orthogonal dimensions. The purpose of this classification is not to favor particular approaches, but to distinguish architectural choices from the underlying responsibilities that recur across architectures. The network functions and interfaces identified in the remainder of this document are therefore derived from capabilities that appear across multiple architectural classes, rather than from any single architectural proposal.<a href="#section-5-1" class="pilcrow">¶</a></p>
-<p id="section-5-2">To classify entanglement routing architectures, we consider several orthogonal dimensions that capture different aspects of routing behavior, control placement, and system coordination. These dimensions are intentionally independent, allowing a routing architecture to be described without imposing a particular implementation model.<a href="#section-5-2" class="pilcrow">¶</a></p>
+<div id="classification-dimensions">
+<section id="section-5.1">
+        <h3 id="name-classification-dimensions">
+<a href="#section-5.1" class="section-number selfRef">5.1. </a><a href="#name-classification-dimensions" class="section-name selfRef">Classification Dimensions</a>
+        </h3>
+<p id="section-5.1-1">Defining network functions and interfaces requires abstractions that are sufficiently general to accommodate both current architectural approaches and future developments. Since routing architectures differ in how routing decisions are made, where control logic is placed, and how network operations are coordinated, this document first introduces a classification of entanglement-routing architectures based on a set of orthogonal dimensions. The purpose of this classification is not to favor particular approaches, but to distinguish architectural choices from the underlying responsibilities that recur across architectures. The network functions and interfaces identified in the remainder of this document are therefore derived from capabilities that appear across multiple architectural classes, rather than from any single architectural proposal.<a href="#section-5.1-1" class="pilcrow">¶</a></p>
+<p id="section-5.1-2">To classify entanglement routing architectures, we consider several orthogonal dimensions that capture different aspects of routing behavior, control placement, and system coordination. These dimensions are intentionally independent, allowing a routing architecture to be described without imposing a particular implementation model.<a href="#section-5.1-2" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-5-3.1">
-          <p id="section-5-3.1.1"><em>Routing timing</em> distinguishes between proactive and reactive routing. In proactive routing, routing information is produced before entanglement generation begins. Path computation may rely on physical topology information, expected link characteristics, or other pre-existing knowledge. In reactive routing, routing decisions are made after entanglement generation, typically based on the currently available entanglement resources and network state. This distinction therefore captures when routing information becomes available relative to entanglement generation.<a href="#section-5-3.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-5.1-3.1">
+            <p id="section-5.1-3.1.1"><em>Routing timing</em> distinguishes between proactive and reactive routing. In proactive routing, routing information is produced before entanglement generation begins. Path computation may rely on physical topology information, expected or collected link characteristics, or other pre-existing knowledge. In reactive routing, routing decisions are made after entanglement generation, typically based on the currently available entanglement resources. This distinction therefore captures when routing information becomes available relative to entanglement generation.<a href="#section-5.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-5-3.2">
-          <p id="section-5-3.2.1"><em>Path decision model</em> distinguishes between connection-oriented and connectionless routing. In a connection-oriented model, an end-to-end route (or route segment) is selected and coordinated before entanglement forwarding or swapping begins. Resource reservation and path installation may be present but are not required; the defining property is that the route is decided before the request progresses through the network. In a connectionless model, no fixed end-to-end path is established in advance (route can change between rounds/sessions), and forwarding decisions may be taken independently at intermediate nodes. Both proactive and reactive routing architectures may employ either connection-oriented or connectionless operation. Consequently, proactive and reactive routing should be viewed as more abstract concepts, while connection-oriented and connectionless routing describe how routing decisions are applied once routing information becomes available.<a href="#section-5-3.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.1-3.2">
+            <p id="section-5.1-3.2.1"><em>Path decision model</em> distinguishes between connection-oriented and connectionless routing. In a connection-oriented model, an end-to-end route (or route segment) is selected and coordinated before entanglement forwarding or swapping begins. Resource reservation and path installation may be present but are not required; the defining property is that the route is decided before the request progresses through the network. In a connectionless model, no fixed end-to-end path is established in advance (route can change between rounds/sessions), and forwarding decisions may be taken independently at intermediate nodes. Both proactive and reactive routing architectures may employ either connection-oriented or connectionless operation. Consequently, proactive and reactive routing should be viewed as more abstract concepts, while connection-oriented and connectionless routing describe how routing decisions are applied once routing information becomes available.<a href="#section-5.1-3.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-5-3.3">
-          <p id="section-5-3.3.1"><em>Control placement</em> distinguishes between centralized and distributed control. This dimension primarily characterizes the control plane rather than the data plane. In distributed approaches, routing algorithms execute locally on network nodes using partial network information. In centralized approaches, a controller computes routes and coordinates network operations. While most quantum data-plane functions remain inherently distributed, the control plane may be implemented using either model.<a href="#section-5-3.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.1-3.3">
+            <p id="section-5.1-3.3.1"><em>Control placement</em> distinguishes between centralized and distributed control. This dimension characterizes where routing decisions are computed rather than how much network information is available. In distributed approaches, routing algorithms execute independently on each network node. Nodes may rely on partial network knowledge, as in BGP-like protocols, or complete network knowledge, as in OSPF-like link-state protocols. In centralized approaches, a logically centralized controller computes routes and coordinates network operations. While the quantum data plane remains inherently distributed, the control plane may follow either model.<a href="#section-5.1-3.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-5-3.4">
-          <p id="section-5-3.4.1"><em>Coordination model</em> distinguishes between synchronous and asynchronous operation. In synchronous architectures, network operations proceed in globally coordinated rounds or time slots shared among participating nodes. In asynchronous architectures, operations are triggered by events, such as successful entanglement generation, measurement outcomes, or control messages, without requiring globally synchronized execution. Both proactive and reactive routing architectures may operate in either synchronous or asynchronous environments.<a href="#section-5-3.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-5.1-3.4">
+            <p id="section-5.1-3.4.1"><em>Coordination model</em> distinguishes between synchronous and asynchronous operation. In synchronous architectures, network operations proceed in globally coordinated rounds or time slots shared among participating nodes. In asynchronous architectures, operations are triggered by events, such as successful entanglement generation, measurement outcomes, or control messages, without requiring globally synchronized execution. Both proactive and reactive routing architectures may operate in either synchronous or asynchronous environments.<a href="#section-5.1-3.4.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-5-3.5">
-          <p id="section-5-3.5.1"><em>Execution context</em> describes whether a process lies on the critical path of request servicing. Execution context of a process should not be confused with the coordination model (i.e., synchronous and asynchronous operation). Some functions, such as physical topology discovery or pre-computation of static routes, typically execute in the background. Other functions, such as reactive path computation, are often part of the critical path and directly influence request latency. Certain processes may operate in either context. For example, link benchmarking can be performed continuously in the background to maintain routing information (given enough resources and/or strategic triggering), or it can be invoked as part of servicing a specific request and therefore become a critical-path operation.<a href="#section-5-3.5.1" class="pilcrow">¶</a></p>
-</li>
-      </ul>
-<p id="section-5-4">The relationship among these dimensions can be viewed hierarchically. Routing timing determines whether routing information is obtained proactively or reactively. Once routing information is available, the architecture may apply it through either a connection-oriented or connectionless path decision model. Control placement and coordination models then describe where routing logic executes and how network operations are coordinated in time. Execution context complements these dimensions by identifying whether a given process contributes directly to request latency.<a href="#section-5-4" class="pilcrow">¶</a></p>
-<p id="section-5-5">Finally, it is useful to distinguish between knowledge of the physical topology and knowledge of the logical topology. Physical topology information describes the underlying network graph and relatively static link characteristics. Logical topology information reflects the currently available entanglement resources, including active Bell pairs, fidelity values, memory occupancy, and other dynamic state. Many routing proposals differ primarily in whether routing decisions are based on physical-topology information, logical-topology information, or a combination of both. This distinction often aligns with, but is not equivalent to, the proactive/reactive classification.<a href="#section-5-5" class="pilcrow">¶</a></p>
-<p id="section-5-6">Some architectures employ quantum operations to gather routing information. Although these operations involve the quantum network itself, their purpose is control-plane information acquisition rather than data forwarding. Such mechanisms are therefore classified as quantum-native control-plane functions. For example, in Quantum BGP-like architectures, link benchmarking may be viewed as a quantum-native control-plane process that provides routing information used by path computation, rather than as part of the data plane. This interpretation preserves a clean separation between control-plane and data-plane functions while accommodating routing architectures that rely on quantum measurements to obtain routing state.<a href="#section-5-6" class="pilcrow">¶</a></p>
+        </ul>
+<p id="section-5.1-4">The relationship among these dimensions can be viewed hierarchically. Routing timing determines whether routing information is obtained proactively or reactively. Once routing information is available, the architecture may apply it through either a connection-oriented or connectionless path decision model. Control placement and coordination models then describe where routing logic executes and how network operations are coordinated in time.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="complementary-characteristics">
+<section id="section-5.2">
+        <h3 id="name-complementary-characteristi">
+<a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-complementary-characteristi" class="section-name selfRef">Complementary Characteristics</a>
+        </h3>
+<p id="section-5.2-1">The previous dimensions classify the overall routing architecture. Additional characteristics can further refine the classification by describing how routing processes are executed and what information they rely on.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2"><em>Execution context</em> describes whether a process lies on the critical path of request servicing. It should not be confused with the coordination model (i.e., synchronous and asynchronous operation), which describes <em>when</em> processes execute. In contrast, execution context describes whether a process directly contributes to request latency. Some functions, such as physical topology discovery or pre-computation of static routes, typically execute in the background. Other functions, such as reactive path computation, are often part of the critical path and directly influence request latency. Certain processes may operate in either context. For example, link benchmarking can be performed continuously in the background to maintain routing information, given sufficient resources or strategic triggering, or it can be invoked while serving a specific request, making it a critical-path operation. Execution context therefore complements the routing dimensions by identifying which processes directly impact request completion time.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">Another useful characteristic is <em>network visibility</em>, which describes the scope of network information available to the routing process. Distributed routing does not necessarily imply partial network knowledge. For example, BGP-like routing relies primarily on partial information learned from neighboring nodes, whereas OSPF-like routing distributes complete topology information to all nodes, allowing each node to independently compute routes. Similarly, centralized controllers typically operate with a global view of the network, although architectures with incomplete or hierarchical views are also possible. Network visibility is therefore independent of control placement and characterizes the information available for routing decisions rather than where those decisions are computed.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">Finally, it is useful to distinguish between knowledge of the <em>physical topology</em> and knowledge of the <em>logical topology</em>. Physical topology information describes the underlying network graph together with relatively static properties such as connectivity and expected link characteristics. Logical topology information reflects the currently available network state, including established entangled links, fidelity values, quantum memory occupancy, and other dynamic resources. Many routing proposals differ primarily in whether routing decisions rely on physical-topology information, logical-topology information, or a combination of both. This distinction often aligns with, but is not equivalent to, the proactive/reactive classification. Likewise, network visibility may apply to either topology representation, describing whether routing decisions are made using a local or global view of the physical or logical network state.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
 <table class="center" id="table-1">
-        <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
+          <caption><a href="#table-1" class="selfRef">Table 1</a></caption>
 <thead>
-          <tr>
-            <th class="text-left" rowspan="1" colspan="1">Dimension</th>
-            <th class="text-left" rowspan="1" colspan="1">Options</th>
-            <th class="text-left" rowspan="1" colspan="1">Meaning</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">Routing timing</td>
-            <td class="text-left" rowspan="1" colspan="1">Proactive / Reactive</td>
-            <td class="text-left" rowspan="1" colspan="1">When is routing information obtained?</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">Path decision model</td>
-            <td class="text-left" rowspan="1" colspan="1">Connection-Oriented / Connectionless</td>
-            <td class="text-left" rowspan="1" colspan="1">Is the route fixed before forwarding?</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">Control placement</td>
-            <td class="text-left" rowspan="1" colspan="1">Centralized / Distributed</td>
-            <td class="text-left" rowspan="1" colspan="1">Where is routing logic executed?</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">Coordination model</td>
-            <td class="text-left" rowspan="1" colspan="1">Synchronous / Asynchronous</td>
-            <td class="text-left" rowspan="1" colspan="1">How are operations coordinated in time?</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">Execution context</td>
-            <td class="text-left" rowspan="1" colspan="1">Critical-path / Background</td>
-            <td class="text-left" rowspan="1" colspan="1">Does the operation affect request latency? (i.e., does it occupy time from the data plane?)</td>
-          </tr>
-        </tbody>
-      </table>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Dimension</th>
+              <th class="text-left" rowspan="1" colspan="1">Options</th>
+              <th class="text-left" rowspan="1" colspan="1">Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Routing timing</td>
+              <td class="text-left" rowspan="1" colspan="1">Proactive / Reactive</td>
+              <td class="text-left" rowspan="1" colspan="1">When is routing information obtained?</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Path decision model</td>
+              <td class="text-left" rowspan="1" colspan="1">Connection-Oriented / Connectionless</td>
+              <td class="text-left" rowspan="1" colspan="1">Is the route fixed before forwarding?</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Control placement</td>
+              <td class="text-left" rowspan="1" colspan="1">Centralized / Distributed</td>
+              <td class="text-left" rowspan="1" colspan="1">Where is routing logic executed?</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Coordination model</td>
+              <td class="text-left" rowspan="1" colspan="1">Synchronous / Asynchronous</td>
+              <td class="text-left" rowspan="1" colspan="1">How are operations coordinated in time?</td>
+            </tr>
+          </tbody>
+        </table>
 <table class="center" id="table-2">
-        <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
+          <caption><a href="#table-2" class="selfRef">Table 2</a></caption>
 <thead>
-          <tr>
-            <th class="text-left" rowspan="1" colspan="1">Process</th>
-            <th class="text-left" rowspan="1" colspan="1">Timing</th>
-            <th class="text-left" rowspan="1" colspan="1">Context</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">Physical topology discovery / Precomputed paths</td>
-            <td class="text-left" rowspan="1" colspan="1">Async</td>
-            <td class="text-left" rowspan="1" colspan="1">Background</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">Quantum Link Benchmarking</td>
-            <td class="text-left" rowspan="1" colspan="1">Async</td>
-            <td class="text-left" rowspan="1" colspan="1">Background (with strategy) / Critical path</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">Reactive path computation (including logical topology discovery)</td>
-            <td class="text-left" rowspan="1" colspan="1">Sync or Async</td>
-            <td class="text-left" rowspan="1" colspan="1">Critical path (with effect on fidelity)</td>
-          </tr>
-          <tr>
-            <td class="text-left" rowspan="1" colspan="1">Proactive path computation</td>
-            <td class="text-left" rowspan="1" colspan="1">Sync or Async</td>
-            <td class="text-left" rowspan="1" colspan="1">Critical path (without effect on fidelity)</td>
-          </tr>
-        </tbody>
-      </table>
+            <tr>
+              <th class="text-left" rowspan="1" colspan="1">Process</th>
+              <th class="text-left" rowspan="1" colspan="1">Timing</th>
+              <th class="text-left" rowspan="1" colspan="1">Context</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Physical topology discovery / Precomputed paths</td>
+              <td class="text-left" rowspan="1" colspan="1">Async</td>
+              <td class="text-left" rowspan="1" colspan="1">Background</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Quantum Link Benchmarking</td>
+              <td class="text-left" rowspan="1" colspan="1">Async</td>
+              <td class="text-left" rowspan="1" colspan="1">Background (with strategy) / Critical path</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Reactive path computation (including logical topology discovery)</td>
+              <td class="text-left" rowspan="1" colspan="1">Sync or Async</td>
+              <td class="text-left" rowspan="1" colspan="1">Critical path (with effect on fidelity)</td>
+            </tr>
+            <tr>
+              <td class="text-left" rowspan="1" colspan="1">Proactive path computation</td>
+              <td class="text-left" rowspan="1" colspan="1">Sync or Async</td>
+              <td class="text-left" rowspan="1" colspan="1">Critical path (without effect on fidelity)</td>
+            </tr>
+          </tbody>
+        </table>
+</section>
+</div>
 </section>
 </div>
 <div id="derivation-of-network-functions-from-architectural-responsibilities">
@@ -1441,7 +1457,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-derivation-of-network-funct" class="section-name selfRef">Derivation of Network Functions from Architectural Responsibilities</a>
       </h2>
 <p id="section-6-1">Although the architectural proposals discussed in above differ in their protocol structures, control mechanisms, and operational assumptions, they exhibit a common set of responsibilities required to support end-to-end entanglement distribution. These responsibilities appear regardless of whether an architecture is centralized or distributed, proactive or reactive, connection-oriented or connectionless.<a href="#section-6-1" class="pilcrow">¶</a></p>
-<p id="section-6-2">At a high level, an entanglement-routing system must first acquire and maintain information about the network. This includes both relatively static information, such as physical topology and link characteristics, and dynamic information, such as available entanglement resources, memory occupancy, and resource quality. These responsibilities correspond to routing-state management and topology-information functions.<a href="#section-6-2" class="pilcrow">¶</a></p>
+<p id="section-6-2">At a high level, an entanglement-routing system must first acquire and maintain information about the network. This includes both knowledge of the physical topology and knowledge of the logical topology. These responsibilities correspond to routing-state management and topology-information functions.<a href="#section-6-2" class="pilcrow">¶</a></p>
 <p id="section-6-3">The system must then determine how end-to-end requests should be realized using available resources. Depending on the architectural model, this may involve path computation, resource selection, policy enforcement, admission control, or route installation. While different proposals distribute these tasks differently between centralized controllers and network nodes, they collectively represent a routing and control responsibility.<a href="#section-6-3" class="pilcrow">¶</a></p>
 <p id="section-6-4">Once a routing decision has been made, the network must execute the corresponding quantum operations. This requires creating elementary entanglement, extending entanglement through swapping, improving resource quality through purification or error-management procedures, and coordinating the associated signaling. These responsibilities form the operational core of the quantum data plane.<a href="#section-6-4" class="pilcrow">¶</a></p>
 <p id="section-6-5">In parallel, the network must manage the quantum resources on which these operations depend. Architectures therefore require mechanisms for memory allocation, resource tracking, entanglement-state management, qubit lifecycle management, and mapping logical requests onto physical resources. While the details vary across proposals, resource management emerges as a recurring architectural responsibility.<a href="#section-6-5" class="pilcrow">¶</a></p>
@@ -1460,7 +1476,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-motivation" class="section-name selfRef">Motivation</a>
         </h3>
 <p id="section-7.1-1">Recent work on programmable quantum repeater nodes and quantum network operating systems suggests that quantum networks should be described in terms of reusable functions and the interfaces used to invoke and coordinate them, rather than as monolithic protocols or hardware-specific operations. Kumar et al. <span>[<a href="#kumar-instr-set" class="cite xref">kumar-instr-set</a>]</span> propose a programmable execution model for repeater nodes, where higher-layer protocols invoke node capabilities through well-defined execution interfaces. Similarly, Delle Donne et al. <span>[<a href="#delle-os-qn-nodes" class="cite xref">delle-os-qn-nodes</a>]</span> demonstrate the importance of separating application logic, network services, and node-local execution mechanisms, enabling applications to remain independent of underlying hardware implementations.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">This perspective motivates the identification of reusable network functions such as elementary entanglement generation, entanglement swapping, purification, memory management, state preparation, and measurement and herald handling. These functions are generally not instantaneous and often require coordination, scheduling, and synchronization across distributed nodes and resources. Consequently, a quantum network architecture should identify not only the functions themselves but also the interfaces through which they are invoked, coordinated, and monitored.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">This perspective motivates the identification of reusable network functions such as elementary entanglement generation, entanglement swapping, purification, memory management, state preparation, and measurement and herald handling. These functions are generally not instantaneous and require coordination, scheduling, and synchronization across nodes and resources. Consequently, a quantum network architecture should identify not only the functions themselves but also the interfaces through which they are invoked, coordinated, and monitored.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
 <p id="section-7.1-3">Programmable node architectures may also expose operational capabilities such as calibration, diagnostics, performance verification, quality estimation, and fidelity witnessing. While such functions are not directly involved in entanglement delivery and are not further decomposed in the present model, they may become important architectural elements as quantum networks mature and may benefit from standardized interfaces in future work.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
 <p id="section-7.1-4">Finally, the execution of many network functions depends on timing relationships between lower-layer physical processes and higher-layer networking services <span>[<a href="#I-D.draft-hajdusek-qirg-timing-physics" class="cite xref">I-D.draft-hajdusek-qirg-timing-physics</a>]</span>. This suggests that timing and synchronization should be treated as supporting architectural capabilities that facilitate the orchestration of network functions across multiple timescales.<a href="#section-7.1-4" class="pilcrow">¶</a></p>
 </section>
@@ -1476,51 +1492,55 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
 </li>
           <li class="normal" id="section-7.2-1.2">
             <p id="section-7.2-1.2.1">Quantum Controller Function (QCF): Responsible for path computation, policy enforcement, resource coordination, and installation of forwarding state. May be centralized or distributed.<a href="#section-7.2-1.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.2-1.2.2.1">
+                <p id="section-7.2-1.2.2.1.1">Quantum Routing Function (QRF): Maintains reachability information and routing state used to determine paths through the quantum network. This function may be implemented as part of the QCF.<a href="#section-7.2-1.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
 </li>
           <li class="normal" id="section-7.2-1.3">
-            <p id="section-7.2-1.3.1">Quantum Routing Function (QRF): Maintains reachability information and routing state used to determine paths through the quantum network. This function may be implemented as part of the QCF.<a href="#section-7.2-1.3.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.3.1">Routing Information Base Function (RIBF): Stores network reachability and routing information learned from controllers or routing protocols. Provides routing information to the Quantum Routing Function and other control-plane functions.<a href="#section-7.2-1.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-1.4">
-            <p id="section-7.2-1.4.1">Routing Information Base Function (RIBF): Stores network reachability and routing information learned from controllers or routing protocols. Provides routing information to the Quantum Routing Function and other control-plane functions.<a href="#section-7.2-1.4.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.4.1">Quantum Forwarding Function (QFF): Manages active entanglement paths and coordinates network operations such as entanglement generation, swapping, and purification according to installed forwarding state.<a href="#section-7.2-1.4.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-1.5">
-            <p id="section-7.2-1.5.1">Quantum Forwarding Function (QFF): Manages active entanglement paths and coordinates network operations such as entanglement generation, swapping, and purification according to installed forwarding state.<a href="#section-7.2-1.5.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.5.1">Forwarding Information Base Function (FIBF): Maintains forwarding state used to process entanglement resources and associated signaling. Provides path-specific instructions used by the Quantum Forwarding Function during network operation.<a href="#section-7.2-1.5.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-1.6">
-            <p id="section-7.2-1.6.1">Forwarding Information Base Function (FIBF): Maintains forwarding state used to process entanglement resources and associated signaling. Provides path-specific instructions used by the Quantum Forwarding Function during network operation.<a href="#section-7.2-1.6.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.6.1">Quantum Multiplexing Function (QMF): Maps logical requests and paths onto available quantum resources and maintains the association between paths and qubits.<a href="#section-7.2-1.6.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-1.7">
-            <p id="section-7.2-1.7.1">Quantum Multiplexing Function (QMF): Maps logical requests and paths onto available quantum resources and maintains the association between paths and qubits.<a href="#section-7.2-1.7.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.7.1">Quantum Memory Management Function (QMMF): Manages the lifecycle of quantum memories, including allocation, release, operational state tracking, ownership, and entanglement metadata.<a href="#section-7.2-1.7.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.2-1.7.2.1">
+                <p id="section-7.2-1.7.2.1.1">Entanglement State Repository Function (ESRF): Maintains a consistent view of entanglement resources, including EPR identifiers, qubit mappings, connectivity information, fidelity metrics, and operational state. This function may be implemented as part of the QMMF.<a href="#section-7.2-1.7.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.2-1.7.2.2">
+                <p id="section-7.2-1.7.2.2.1">Qubit Lifecycle Management Function (QLMF): Maintains a finite state machine (FSM) of each qubit from raw to released operation states. This function may be implemented as part of the QMMF.<a href="#section-7.2-1.7.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
 </li>
           <li class="normal" id="section-7.2-1.8">
-            <p id="section-7.2-1.8.1">Quantum Memory Management Function (QMMF): Manages the lifecycle of quantum memories, including allocation, release, operational state tracking, ownership, and entanglement metadata.<a href="#section-7.2-1.8.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.8.1">Entanglement Generation Function (EGF): Establishes elementary entanglement with neighboring nodes and reports successful entanglement creation.<a href="#section-7.2-1.8.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-1.9">
-            <p id="section-7.2-1.9.1">Entanglement State Repository Function (ESRF): Maintains a consistent view of entanglement resources, including EPR identifiers, qubit mappings, connectivity information, fidelity metrics, and operational state. This function may be implemented as part of the QMMF.<a href="#section-7.2-1.9.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.9.1">Entanglement Swapping Function (ESF): Performs entanglement swapping operations and, sends and receives swapping signalings, and (may directly) update connectivity information resulting from successful swaps.<a href="#section-7.2-1.9.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-1.10">
-            <p id="section-7.2-1.10.1">Qubit Lifecycle Management Function (QLMF): Maintains a finite state machine (FSM) of each qubit from raw to released operation states. This function may be implemented as part of the QMMF.<a href="#section-7.2-1.10.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.10.1">Entanglement Purification Function (EPF): Executes purification protocols and maintains the associated operation state.<a href="#section-7.2-1.10.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-1.11">
-            <p id="section-7.2-1.11.1">Entanglement Generation Function (EGF): Establishes elementary entanglement with neighboring nodes and reports successful entanglement creation.<a href="#section-7.2-1.11.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.11.1">Classical Communication Function (CComF): Provides transport of classical protocol messages required for coordination, heralding, routing, swapping, and purification.<a href="#section-7.2-1.11.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-1.12">
-            <p id="section-7.2-1.12.1">Entanglement Swapping Function (ESF): Performs entanglement swapping operations and, sends and receives swapping signalings, and (may directly) update connectivity information resulting from successful swaps.<a href="#section-7.2-1.12.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.12.1">Quantum Communication Function (QComF): Interfaces with quantum channels and physical hardware to transmit and receive quantum states.<a href="#section-7.2-1.12.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-1.13">
-            <p id="section-7.2-1.13.1">Entanglement Purification Function (EPF): Executes purification protocols and maintains the associated operation state.<a href="#section-7.2-1.13.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.13.1">Quantum Timing Function (QTF): Provides logical synchronization services required by time-slotted or phase-based protocols.<a href="#section-7.2-1.13.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-1.14">
-            <p id="section-7.2-1.14.1">Classical Communication Function (CCF): Provides transport of classical protocol messages required for coordination, heralding, routing, swapping, and purification.<a href="#section-7.2-1.14.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-7.2-1.15">
-            <p id="section-7.2-1.15.1">Quantum Communication Function (QComF): Interfaces with quantum channels and physical hardware to transmit and receive quantum states.<a href="#section-7.2-1.15.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-7.2-1.16">
-            <p id="section-7.2-1.16.1">Quantum Timing Function (QTF): Provides logical synchronization services required by time-slotted or phase-based protocols.<a href="#section-7.2-1.16.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-7.2-1.17">
-            <p id="section-7.2-1.17.1">Quantum Interconnect Function (QICF): The QICF provides dynamic optical connectivity between quantum-neighbor nodes and shared quantum resources, such as sources, Bell-state measurement devices, switches, or wavelength/time-bin resources. It enables elementary entanglement generation by establishing, reserving, or scheduling the physical quantum connectivity required by the EGF. The QICF may be realized through centralized control (on-demand or schedule-based), or distributed signaling (on-demand).<a href="#section-7.2-1.17.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.14.1">Quantum Interconnect Function (QICF): Provides dynamic optical connectivity between quantum-neighbor nodes and shared quantum resources, such as sources, Bell-state measurement devices, switches, or wavelength/time-bin resources. It enables elementary entanglement generation by establishing, reserving, or scheduling the physical quantum connectivity required by the EGF. The QICF may be realized through centralized control (on-demand or schedule-based), or distributed signaling (on-demand).<a href="#section-7.2-1.14.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -1532,22 +1552,22 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
         </h3>
 <ul class="normal">
 <li class="normal" id="section-7.3-1.1">
-            <p id="section-7.3-1.1.1">0: end-to-end entanglement requests<a href="#section-7.3-1.1.1" class="pilcrow">¶</a></p>
+            <p id="section-7.3-1.1.1">0: end-to-end entanglement request<a href="#section-7.3-1.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.3-1.1.2.1">
-                <p id="section-7.3-1.1.2.1.1">Description: One or multiple requests<a href="#section-7.3-1.1.2.1.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.1.2.1.1">Description: Request for entanglement between two distant end-nodes<a href="#section-7.3-1.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.1.2.2">
-                <p id="section-7.3-1.1.2.2.1">From: QAF (end-node) or another QCF (distributed)<a href="#section-7.3-1.1.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.1.2.2.1">From: QAF (initiator) or QCF (at intermediate node, in distributed)<a href="#section-7.3-1.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.1.2.3">
-                <p id="section-7.3-1.1.2.3.1">To: QFF<a href="#section-7.3-1.1.2.3.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.1.2.3.1">To: QCF<a href="#section-7.3-1.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.1.2.4">
-                <p id="section-7.3-1.1.2.4.1">Mode: request-response (centralized), two-pass (distributed)<a href="#section-7.3-1.1.2.4.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.1.2.4.1">Mode: request-response (centralized), end-to-end two-pass (distributed)<a href="#section-7.3-1.1.2.4.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.1.2.5">
-                <p id="section-7.3-1.1.2.5.1">Request content: source node, destination node, num pairs, min fidelity, rate, timeout<a href="#section-7.3-1.1.2.5.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.1.2.5.1">Request content: source node, destination node, number of EPRs, min fidelity, rate, timeout<a href="#section-7.3-1.1.2.5.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.1.2.6">
                 <p id="section-7.3-1.1.2.6.1">Response content: acknowledgment, other coordination information (distributed/two-pass)<a href="#section-7.3-1.1.2.6.1" class="pilcrow">¶</a></p>
@@ -1696,7 +1716,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
                 <p id="section-7.3-1.8.2.1.1">Description: Physically acquire/release qubit(s) for entanglement attempt, swapping, or purification.<a href="#section-7.3-1.8.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.8.2.2">
-                <p id="section-7.3-1.8.2.2.1">From: EGF, QSF, QPF<a href="#section-7.3-1.8.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.8.2.2.1">From: EGF, ESF, EPF<a href="#section-7.3-1.8.2.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.8.2.3">
                 <p id="section-7.3-1.8.2.3.1">To: QMMF<a href="#section-7.3-1.8.2.3.1" class="pilcrow">¶</a></p>
@@ -1745,7 +1765,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
                 <p id="section-7.3-1.10.2.2.1">From: EGF (if L2 only), QFF (if L3)<a href="#section-7.3-1.10.2.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.10.2.3">
-                <p id="section-7.3-1.10.2.3.1">To: QPF<a href="#section-7.3-1.10.2.3.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.10.2.3.1">To: EPF<a href="#section-7.3-1.10.2.3.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.10.2.4">
                 <p id="section-7.3-1.10.2.4.1">Mode: trigger/signal<a href="#section-7.3-1.10.2.4.1" class="pilcrow">¶</a></p>
@@ -1760,31 +1780,31 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
                     <p id="section-7.3-1.10.2.6.2.1.1">Local/private information is not included in external messages (e.g., EPR ID or neighbor address instead of qubit address/ID)<a href="#section-7.3-1.10.2.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
                   <li class="normal" id="section-7.3-1.10.2.6.2.2">
-                    <p id="section-7.3-1.10.2.6.2.2.1">QPF at responder node resolves EPR name to qubit local address via 11<a href="#section-7.3-1.10.2.6.2.2.1" class="pilcrow">¶</a></p>
+                    <p id="section-7.3-1.10.2.6.2.2.1">EPF at responder node resolves EPR name to qubit local address via 11<a href="#section-7.3-1.10.2.6.2.2.1" class="pilcrow">¶</a></p>
 </li>
                   <li class="normal" id="section-7.3-1.10.2.6.2.3">
-                    <p id="section-7.3-1.10.2.6.2.3.1">At initiator: QPF gets the one EPR to purify (+ neighbors/path info) and selects qubits/EPRs (via 11) according to purification circuit/schedule.<a href="#section-7.3-1.10.2.6.2.3.1" class="pilcrow">¶</a></p>
+                    <p id="section-7.3-1.10.2.6.2.3.1">At initiator: EPF gets the one EPR to purify (+ neighbors/path info) and selects qubits/EPRs (via 11) according to purification circuit/schedule.<a href="#section-7.3-1.10.2.6.2.3.1" class="pilcrow">¶</a></p>
 </li>
                   <li class="normal" id="section-7.3-1.10.2.6.2.4">
-                    <p id="section-7.3-1.10.2.6.2.4.1">At responder: QPF receives EPR IDs to purify/use and resolves qubit addresses (via 11)<a href="#section-7.3-1.10.2.6.2.4.1" class="pilcrow">¶</a></p>
+                    <p id="section-7.3-1.10.2.6.2.4.1">At responder: EPF receives EPR IDs to purify/use and resolves qubit addresses (via 11)<a href="#section-7.3-1.10.2.6.2.4.1" class="pilcrow">¶</a></p>
 </li>
                   <li class="normal" id="section-7.3-1.10.2.6.2.5">
-                    <p id="section-7.3-1.10.2.6.2.5.1">After/during operation: QPF updates qubit FSMs (via 18)<a href="#section-7.3-1.10.2.6.2.5.1" class="pilcrow">¶</a></p>
+                    <p id="section-7.3-1.10.2.6.2.5.1">After/during operation: EPF updates qubit FSMs (via 18)<a href="#section-7.3-1.10.2.6.2.5.1" class="pilcrow">¶</a></p>
 </li>
                   <li class="normal" id="section-7.3-1.10.2.6.2.6">
-                    <p id="section-7.3-1.10.2.6.2.6.1">Why QPF updates qubit FSM instead of QFF:<a href="#section-7.3-1.10.2.6.2.6.1" class="pilcrow">¶</a></p>
+                    <p id="section-7.3-1.10.2.6.2.6.1">Why EPF updates qubit FSM instead of QFF:<a href="#section-7.3-1.10.2.6.2.6.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.3-1.10.2.6.2.6.2.1">
                         <p id="section-7.3-1.10.2.6.2.6.2.1.1">Purification does not change connectivity<a href="#section-7.3-1.10.2.6.2.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
                       <li class="normal" id="section-7.3-1.10.2.6.2.6.2.2">
-                        <p id="section-7.3-1.10.2.6.2.6.2.2.1">QPF already interacts with qubit (knows qubit FSM state)<a href="#section-7.3-1.10.2.6.2.6.2.2.1" class="pilcrow">¶</a></p>
+                        <p id="section-7.3-1.10.2.6.2.6.2.2.1">EPF already interacts with qubit (knows qubit FSM state)<a href="#section-7.3-1.10.2.6.2.6.2.2.1" class="pilcrow">¶</a></p>
 </li>
                       <li class="normal" id="section-7.3-1.10.2.6.2.6.2.3">
                         <p id="section-7.3-1.10.2.6.2.6.2.3.1">Keeps initiator-agnostic implementation/API<a href="#section-7.3-1.10.2.6.2.6.2.3.1" class="pilcrow">¶</a></p>
 </li>
                       <li class="normal" id="section-7.3-1.10.2.6.2.6.2.4">
-                        <p id="section-7.3-1.10.2.6.2.6.2.4.1">Keeps the QFF/EQF clean and updated via FSM updates<a href="#section-7.3-1.10.2.6.2.6.2.4.1" class="pilcrow">¶</a></p>
+                        <p id="section-7.3-1.10.2.6.2.6.2.4.1">Keeps the QFF clean<a href="#section-7.3-1.10.2.6.2.6.2.4.1" class="pilcrow">¶</a></p>
 </li>
                     </ul>
 </li>
@@ -1802,7 +1822,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
                 <p id="section-7.3-1.11.2.2.1">From: QFF<a href="#section-7.3-1.11.2.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.11.2.3">
-                <p id="section-7.3-1.11.2.3.1">To: QSF<a href="#section-7.3-1.11.2.3.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.11.2.3.1">To: ESF<a href="#section-7.3-1.11.2.3.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.11.2.4">
                 <p id="section-7.3-1.11.2.4.1">Mode: trigger/signal<a href="#section-7.3-1.11.2.4.1" class="pilcrow">¶</a></p>
@@ -1822,7 +1842,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
                 <p id="section-7.3-1.12.2.1.1">Description: Local qubit now entangled with a remote node. Results from receiving a SWAP_UPDATE.<a href="#section-7.3-1.12.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.12.2.2">
-                <p id="section-7.3-1.12.2.2.1">From: QSF<a href="#section-7.3-1.12.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.12.2.2.1">From: ESF<a href="#section-7.3-1.12.2.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.12.2.3">
                 <p id="section-7.3-1.12.2.3.1">To: QFF<a href="#section-7.3-1.12.2.3.1" class="pilcrow">¶</a></p>
@@ -1834,7 +1854,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
                 <p id="section-7.3-1.12.2.5.1">Content: Elementary EPR name, peer address<a href="#section-7.3-1.12.2.5.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.12.2.6">
-                <p id="section-7.3-1.12.2.6.1">Note: QSF receives swap signaling. Assuming that QSF has access to FIB, it can directly update qubits FSMs (i.e., no need to send notification via 10b to QFF)<a href="#section-7.3-1.12.2.6.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.12.2.6.1">Note: ESF receives swap signaling. Assuming that ESF has access to FIB, it can directly update qubits FSMs (i.e., no need to send notification via 10b to QFF)<a href="#section-7.3-1.12.2.6.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
@@ -1845,7 +1865,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
                 <p id="section-7.3-1.13.2.1.1">Description: Find qubit addresses based on selection criteria.<a href="#section-7.3-1.13.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.13.2.2">
-                <p id="section-7.3-1.13.2.2.1">From: EQF, QFF, QPF<a href="#section-7.3-1.13.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.13.2.2.1">From: EGF, QFF, EPF<a href="#section-7.3-1.13.2.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.13.2.3">
                 <p id="section-7.3-1.13.2.3.1">To: QMMF<a href="#section-7.3-1.13.2.3.1" class="pilcrow">¶</a></p>
@@ -1868,7 +1888,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
                 <p id="section-7.3-1.14.2.1.1">Description: Classical transport for heralding, purification, swap updates, routing<a href="#section-7.3-1.14.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.14.2.2">
-                <p id="section-7.3-1.14.2.2.1">Bidirectional: QEF/QPF/QSF/QCF/QICF - CCF<a href="#section-7.3-1.14.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.14.2.2.1">Bidirectional: QEF/EPF/ESF/QCF/QICF - CComF<a href="#section-7.3-1.14.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
@@ -1882,7 +1902,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
                 <p id="section-7.3-1.15.2.2.1">From: QMMF<a href="#section-7.3-1.15.2.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.15.2.3">
-                <p id="section-7.3-1.15.2.3.1">To: EQF, QPF<a href="#section-7.3-1.15.2.3.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.15.2.3.1">To: EGF, EPF<a href="#section-7.3-1.15.2.3.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.15.2.4">
                 <p id="section-7.3-1.15.2.4.1">Mode: notification<a href="#section-7.3-1.15.2.4.1" class="pilcrow">¶</a></p>
@@ -1945,7 +1965,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
                 <p id="section-7.3-1.18.2.1.1">Description: Quantum transport of photons for elementary entanglement generation<a href="#section-7.3-1.18.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.18.2.2">
-                <p id="section-7.3-1.18.2.2.1">Bidirectional: QEF - QComF<a href="#section-7.3-1.18.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.18.2.2.1">Bidirectional: EGF - QComF<a href="#section-7.3-1.18.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
@@ -1976,7 +1996,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
                 <p id="section-7.3-1.20.2.1.1">Description: update qubit FSM state<a href="#section-7.3-1.20.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.20.2.2">
-                <p id="section-7.3-1.20.2.2.1">From: EQF, QFF, QPF, QSF<a href="#section-7.3-1.20.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.20.2.2.1">From: EGF, QFF, EPF, ESF<a href="#section-7.3-1.20.2.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.20.2.3">
                 <p id="section-7.3-1.20.2.3.1">To: QMMF<a href="#section-7.3-1.20.2.3.1" class="pilcrow">¶</a></p>
@@ -1996,7 +2016,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
                 <p id="section-7.3-1.21.2.1.1">Description: Install/Uninstall/Read/Update FIB entry (or customized FIB lookup).<a href="#section-7.3-1.21.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.21.2.2">
-                <p id="section-7.3-1.21.2.2.1">From: QFF, QSF<a href="#section-7.3-1.21.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-7.3-1.21.2.2.1">From: QFF, ESF<a href="#section-7.3-1.21.2.2.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.3-1.21.2.3">
                 <p id="section-7.3-1.21.2.3.1">To: FIBF<a href="#section-7.3-1.21.2.3.1" class="pilcrow">¶</a></p>

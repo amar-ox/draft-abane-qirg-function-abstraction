@@ -111,25 +111,33 @@ The protocol distinguishes between operating modes referred to as slotted and as
 Building on this direction, the Beyond Layering architecture {{cacciapuoti-beyond-layering}} advocates moving beyond strict layered networking models in favor of architectures centered on quantum-specific abstractions and programmable coordination mechanisms. Rather than prescribing rigid protocol layers, it introduces meta-protocols responsible for orchestrating lower-level quantum operations across the network. From the perspective of this document, these meta-protocols can be interpreted as realizations of network functions and the interfaces through which they interact. This provides further evidence that a function-oriented abstraction can serve as a common framework across a wide range of architectural designs, independent of the specific protocol structure or implementation.
 
 # Architectures Classification
+
+## Classification Dimensions
+
 Defining network functions and interfaces requires abstractions that are sufficiently general to accommodate both current architectural approaches and future developments. Since routing architectures differ in how routing decisions are made, where control logic is placed, and how network operations are coordinated, this document first introduces a classification of entanglement-routing architectures based on a set of orthogonal dimensions. The purpose of this classification is not to favor particular approaches, but to distinguish architectural choices from the underlying responsibilities that recur across architectures. The network functions and interfaces identified in the remainder of this document are therefore derived from capabilities that appear across multiple architectural classes, rather than from any single architectural proposal.
 
 To classify entanglement routing architectures, we consider several orthogonal dimensions that capture different aspects of routing behavior, control placement, and system coordination. These dimensions are intentionally independent, allowing a routing architecture to be described without imposing a particular implementation model.
 
-- *Routing timing* distinguishes between proactive and reactive routing. In proactive routing, routing information is produced before entanglement generation begins. Path computation may rely on physical topology information, expected link characteristics, or other pre-existing knowledge. In reactive routing, routing decisions are made after entanglement generation, typically based on the currently available entanglement resources and network state. This distinction therefore captures when routing information becomes available relative to entanglement generation.
+- *Routing timing* distinguishes between proactive and reactive routing. In proactive routing, routing information is produced before entanglement generation begins. Path computation may rely on physical topology information, expected or collected link characteristics, or other pre-existing knowledge. In reactive routing, routing decisions are made after entanglement generation, typically based on the currently available entanglement resources. This distinction therefore captures when routing information becomes available relative to entanglement generation.
 
 - *Path decision model* distinguishes between connection-oriented and connectionless routing. In a connection-oriented model, an end-to-end route (or route segment) is selected and coordinated before entanglement forwarding or swapping begins. Resource reservation and path installation may be present but are not required; the defining property is that the route is decided before the request progresses through the network. In a connectionless model, no fixed end-to-end path is established in advance (route can change between rounds/sessions), and forwarding decisions may be taken independently at intermediate nodes. Both proactive and reactive routing architectures may employ either connection-oriented or connectionless operation. Consequently, proactive and reactive routing should be viewed as more abstract concepts, while connection-oriented and connectionless routing describe how routing decisions are applied once routing information becomes available.
 
-- *Control placement* distinguishes between centralized and distributed control. This dimension primarily characterizes the control plane rather than the data plane. In distributed approaches, routing algorithms execute locally on network nodes using partial network information. In centralized approaches, a controller computes routes and coordinates network operations. While most quantum data-plane functions remain inherently distributed, the control plane may be implemented using either model.
+- *Control placement* distinguishes between centralized and distributed control. This dimension characterizes where routing decisions are computed rather than how much network information is available. In distributed approaches, routing algorithms execute independently on each network node. Nodes may rely on partial network knowledge, as in BGP-like protocols, or complete network knowledge, as in OSPF-like link-state protocols. In centralized approaches, a logically centralized controller computes routes and coordinates network operations. While the quantum data plane remains inherently distributed, the control plane may follow either model.
 
 - *Coordination model* distinguishes between synchronous and asynchronous operation. In synchronous architectures, network operations proceed in globally coordinated rounds or time slots shared among participating nodes. In asynchronous architectures, operations are triggered by events, such as successful entanglement generation, measurement outcomes, or control messages, without requiring globally synchronized execution. Both proactive and reactive routing architectures may operate in either synchronous or asynchronous environments.
 
-- *Execution context* describes whether a process lies on the critical path of request servicing. Execution context of a process should not be confused with the coordination model (i.e., synchronous and asynchronous operation). Some functions, such as physical topology discovery or pre-computation of static routes, typically execute in the background. Other functions, such as reactive path computation, are often part of the critical path and directly influence request latency. Certain processes may operate in either context. For example, link benchmarking can be performed continuously in the background to maintain routing information (given enough resources and/or strategic triggering), or it can be invoked as part of servicing a specific request and therefore become a critical-path operation.
+The relationship among these dimensions can be viewed hierarchically. Routing timing determines whether routing information is obtained proactively or reactively. Once routing information is available, the architecture may apply it through either a connection-oriented or connectionless path decision model. Control placement and coordination models then describe where routing logic executes and how network operations are coordinated in time.
 
-The relationship among these dimensions can be viewed hierarchically. Routing timing determines whether routing information is obtained proactively or reactively. Once routing information is available, the architecture may apply it through either a connection-oriented or connectionless path decision model. Control placement and coordination models then describe where routing logic executes and how network operations are coordinated in time. Execution context complements these dimensions by identifying whether a given process contributes directly to request latency.
 
-Finally, it is useful to distinguish between knowledge of the physical topology and knowledge of the logical topology. Physical topology information describes the underlying network graph and relatively static link characteristics. Logical topology information reflects the currently available entanglement resources, including active Bell pairs, fidelity values, memory occupancy, and other dynamic state. Many routing proposals differ primarily in whether routing decisions are based on physical-topology information, logical-topology information, or a combination of both. This distinction often aligns with, but is not equivalent to, the proactive/reactive classification.
+## Complementary Characteristics
 
-Some architectures employ quantum operations to gather routing information. Although these operations involve the quantum network itself, their purpose is control-plane information acquisition rather than data forwarding. Such mechanisms are therefore classified as quantum-native control-plane functions. For example, in Quantum BGP-like architectures, link benchmarking may be viewed as a quantum-native control-plane process that provides routing information used by path computation, rather than as part of the data plane. This interpretation preserves a clean separation between control-plane and data-plane functions while accommodating routing architectures that rely on quantum measurements to obtain routing state.
+The previous dimensions classify the overall routing architecture. Additional characteristics can further refine the classification by describing how routing processes are executed and what information they rely on.
+
+*Execution context* describes whether a process lies on the critical path of request servicing. It should not be confused with the coordination model (i.e., synchronous and asynchronous operation), which describes *when* processes execute. In contrast, execution context describes whether a process directly contributes to request latency. Some functions, such as physical topology discovery or pre-computation of static routes, typically execute in the background. Other functions, such as reactive path computation, are often part of the critical path and directly influence request latency. Certain processes may operate in either context. For example, link benchmarking can be performed continuously in the background to maintain routing information, given sufficient resources or strategic triggering, or it can be invoked while serving a specific request, making it a critical-path operation. Execution context therefore complements the routing dimensions by identifying which processes directly impact request completion time.
+
+Another useful characteristic is *network visibility*, which describes the scope of network information available to the routing process. Distributed routing does not necessarily imply partial network knowledge. For example, BGP-like routing relies primarily on partial information learned from neighboring nodes, whereas OSPF-like routing distributes complete topology information to all nodes, allowing each node to independently compute routes. Similarly, centralized controllers typically operate with a global view of the network, although architectures with incomplete or hierarchical views are also possible. Network visibility is therefore independent of control placement and characterizes the information available for routing decisions rather than where those decisions are computed.
+
+Finally, it is useful to distinguish between knowledge of the *physical topology* and knowledge of the *logical topology*. Physical topology information describes the underlying network graph together with relatively static properties such as connectivity and expected link characteristics. Logical topology information reflects the currently available network state, including established entangled links, fidelity values, quantum memory occupancy, and other dynamic resources. Many routing proposals differ primarily in whether routing decisions rely on physical-topology information, logical-topology information, or a combination of both. This distinction often aligns with, but is not equivalent to, the proactive/reactive classification. Likewise, network visibility may apply to either topology representation, describing whether routing decisions are made using a local or global view of the physical or logical network state.
 
 
 | Dimension           | Options                               | Meaning                                                                                     |
@@ -138,7 +146,6 @@ Some architectures employ quantum operations to gather routing information. Alth
 | Path decision model | Connection-Oriented / Connectionless | Is the route fixed before forwarding?                                                       |
 | Control placement   | Centralized / Distributed            | Where is routing logic executed?                                                            |
 | Coordination model  | Synchronous / Asynchronous           | How are operations coordinated in time?                                                     |
-| Execution context   | Critical-path / Background           | Does the operation affect request latency? (i.e., does it occupy time from the data plane?) |
 
 
 | Process                                                          | Timing        | Context                                    |
@@ -153,7 +160,7 @@ Some architectures employ quantum operations to gather routing information. Alth
 # Derivation of Network Functions from Architectural Responsibilities
 Although the architectural proposals discussed in above differ in their protocol structures, control mechanisms, and operational assumptions, they exhibit a common set of responsibilities required to support end-to-end entanglement distribution. These responsibilities appear regardless of whether an architecture is centralized or distributed, proactive or reactive, connection-oriented or connectionless.
 
-At a high level, an entanglement-routing system must first acquire and maintain information about the network. This includes both relatively static information, such as physical topology and link characteristics, and dynamic information, such as available entanglement resources, memory occupancy, and resource quality. These responsibilities correspond to routing-state management and topology-information functions.
+At a high level, an entanglement-routing system must first acquire and maintain information about the network. This includes both knowledge of the physical topology and knowledge of the logical topology. These responsibilities correspond to routing-state management and topology-information functions.
 
 The system must then determine how end-to-end requests should be realized using available resources. Depending on the architectural model, this may involve path computation, resource selection, policy enforcement, admission control, or route installation. While different proposals distribute these tasks differently between centralized controllers and network nodes, they collectively represent a routing and control responsibility.
 
@@ -171,7 +178,7 @@ These recurring responsibilities motivate the function-oriented abstraction adop
 ## Motivation
 Recent work on programmable quantum repeater nodes and quantum network operating systems suggests that quantum networks should be described in terms of reusable functions and the interfaces used to invoke and coordinate them, rather than as monolithic protocols or hardware-specific operations. Kumar et al. {{kumar-instr-set}} propose a programmable execution model for repeater nodes, where higher-layer protocols invoke node capabilities through well-defined execution interfaces. Similarly, Delle Donne et al. {{delle-os-qn-nodes}} demonstrate the importance of separating application logic, network services, and node-local execution mechanisms, enabling applications to remain independent of underlying hardware implementations.
 
-This perspective motivates the identification of reusable network functions such as elementary entanglement generation, entanglement swapping, purification, memory management, state preparation, and measurement and herald handling. These functions are generally not instantaneous and often require coordination, scheduling, and synchronization across distributed nodes and resources. Consequently, a quantum network architecture should identify not only the functions themselves but also the interfaces through which they are invoked, coordinated, and monitored.
+This perspective motivates the identification of reusable network functions such as elementary entanglement generation, entanglement swapping, purification, memory management, state preparation, and measurement and herald handling. These functions are generally not instantaneous and require coordination, scheduling, and synchronization across nodes and resources. Consequently, a quantum network architecture should identify not only the functions themselves but also the interfaces through which they are invoked, coordinated, and monitored.
 
 Programmable node architectures may also expose operational capabilities such as calibration, diagnostics, performance verification, quality estimation, and fidelity witnessing. While such functions are not directly involved in entanglement delivery and are not further decomposed in the present model, they may become important architectural elements as quantum networks mature and may benefit from standardized interfaces in future work.
 
@@ -180,30 +187,30 @@ Finally, the execution of many network functions depends on timing relationships
 ## Network Function Definitions
 - Quantum Application Function (QAF): Originates end-to-end entanglement requests and consumes the resulting quantum networking service. Could represent a higher-level orchestrator or independent end-user applications.
 - Quantum Controller Function (QCF): Responsible for path computation, policy enforcement, resource coordination, and installation of forwarding state. May be centralized or distributed.
-- Quantum Routing Function (QRF): Maintains reachability information and routing state used to determine paths through the quantum network. This function may be implemented as part of the QCF.
+  - Quantum Routing Function (QRF): Maintains reachability information and routing state used to determine paths through the quantum network. This function may be implemented as part of the QCF.
 - Routing Information Base Function (RIBF): Stores network reachability and routing information learned from controllers or routing protocols. Provides routing information to the Quantum Routing Function and other control-plane functions.
 - Quantum Forwarding Function (QFF): Manages active entanglement paths and coordinates network operations such as entanglement generation, swapping, and purification according to installed forwarding state.
 - Forwarding Information Base Function (FIBF): Maintains forwarding state used to process entanglement resources and associated signaling. Provides path-specific instructions used by the Quantum Forwarding Function during network operation.
 - Quantum Multiplexing Function (QMF): Maps logical requests and paths onto available quantum resources and maintains the association between paths and qubits.
 - Quantum Memory Management Function (QMMF): Manages the lifecycle of quantum memories, including allocation, release, operational state tracking, ownership, and entanglement metadata.
-- Entanglement State Repository Function (ESRF): Maintains a consistent view of entanglement resources, including EPR identifiers, qubit mappings, connectivity information, fidelity metrics, and operational state. This function may be implemented as part of the QMMF.
-- Qubit Lifecycle Management Function (QLMF): Maintains a finite state machine (FSM) of each qubit from raw to released operation states. This function may be implemented as part of the QMMF.
+  - Entanglement State Repository Function (ESRF): Maintains a consistent view of entanglement resources, including EPR identifiers, qubit mappings, connectivity information, fidelity metrics, and operational state. This function may be implemented as part of the QMMF.
+  - Qubit Lifecycle Management Function (QLMF): Maintains a finite state machine (FSM) of each qubit from raw to released operation states. This function may be implemented as part of the QMMF.
 - Entanglement Generation Function (EGF): Establishes elementary entanglement with neighboring nodes and reports successful entanglement creation.
 - Entanglement Swapping Function (ESF): Performs entanglement swapping operations and, sends and receives swapping signalings, and (may directly) update connectivity information resulting from successful swaps.
 - Entanglement Purification Function (EPF): Executes purification protocols and maintains the associated operation state.
-- Classical Communication Function (CCF): Provides transport of classical protocol messages required for coordination, heralding, routing, swapping, and purification.
+- Classical Communication Function (CComF): Provides transport of classical protocol messages required for coordination, heralding, routing, swapping, and purification.
 - Quantum Communication Function (QComF): Interfaces with quantum channels and physical hardware to transmit and receive quantum states.
 - Quantum Timing Function (QTF): Provides logical synchronization services required by time-slotted or phase-based protocols.
-- Quantum Interconnect Function (QICF): The QICF provides dynamic optical connectivity between quantum-neighbor nodes and shared quantum resources, such as sources, Bell-state measurement devices, switches, or wavelength/time-bin resources. It enables elementary entanglement generation by establishing, reserving, or scheduling the physical quantum connectivity required by the EGF. The QICF may be realized through centralized control (on-demand or schedule-based), or distributed signaling (on-demand).
+- Quantum Interconnect Function (QICF): Provides dynamic optical connectivity between quantum-neighbor nodes and shared quantum resources, such as sources, Bell-state measurement devices, switches, or wavelength/time-bin resources. It enables elementary entanglement generation by establishing, reserving, or scheduling the physical quantum connectivity required by the EGF. The QICF may be realized through centralized control (on-demand or schedule-based), or distributed signaling (on-demand).
 
 
 ## Interfaces
-- 0: end-to-end entanglement requests
-  - Description: One or multiple requests
-  - From: QAF (end-node) or another QCF (distributed)
-  - To: QFF
-  - Mode: request-response (centralized), two-pass (distributed)
-  - Request content: source node, destination node, num pairs, min fidelity, rate, timeout
+- 0: end-to-end entanglement request
+  - Description: Request for entanglement between two distant end-nodes
+  - From: QAF (initiator) or QCF (at intermediate node, in distributed)
+  - To: QCF
+  - Mode: request-response (centralized), end-to-end two-pass (distributed)
+  - Request content: source node, destination node, number of EPRs, min fidelity, rate, timeout
   - Response content: acknowledgment, other coordination information (distributed/two-pass)
 
 - 1: slot/phase signal
@@ -255,7 +262,7 @@ Finally, the execution of many network functions depends on timing relationships
 
 - 7: allocate/deallocate qubits (hard)
   - Description: Physically acquire/release qubit(s) for entanglement attempt, swapping, or purification.
-  - From: EGF, QSF, QPF
+  - From: EGF, ESF, EPF
   - To: QMMF
   - Mode: request-response
   - Request content: qubit address
@@ -272,40 +279,40 @@ Finally, the execution of many network functions depends on timing relationships
 - 9: start purification - Initiator node
   - Description: Initiate purification with a remote node
   - From: EGF (if L2 only), QFF (if L3)
-  - To: QPF
+  - To: EPF
   - Mode: trigger/signal
   - Content: qubit address/ID, EPR ID, neighbor ID/address.
   - Notes:
     - Local/private information is not included in external messages (e.g., EPR ID or neighbor address instead of qubit address/ID)
-    - QPF at responder node resolves EPR name to qubit local address via 11
-    - At initiator: QPF gets the one EPR to purify (+ neighbors/path info) and selects qubits/EPRs (via 11) according to purification circuit/schedule.
-    - At responder: QPF receives EPR IDs to purify/use and resolves qubit addresses (via 11)
-    - After/during operation: QPF updates qubit FSMs (via 18)
-    - Why QPF updates qubit FSM instead of QFF:
+    - EPF at responder node resolves EPR name to qubit local address via 11
+    - At initiator: EPF gets the one EPR to purify (+ neighbors/path info) and selects qubits/EPRs (via 11) according to purification circuit/schedule.
+    - At responder: EPF receives EPR IDs to purify/use and resolves qubit addresses (via 11)
+    - After/during operation: EPF updates qubit FSMs (via 18)
+    - Why EPF updates qubit FSM instead of QFF:
       - Purification does not change connectivity
-      - QPF already interacts with qubit (knows qubit FSM state)
+      - EPF already interacts with qubit (knows qubit FSM state)
       - Keeps initiator-agnostic implementation/API
-      - Keeps the QFF/EQF clean and updated via FSM updates
+      - Keeps the QFF clean
 
 - 10a: Do swap
   - Description: Initiate swapping
   - From: QFF
-  - To: QSF
+  - To: ESF
   - Mode: trigger/signal
   - Content: 2 qubit addresses, 2 neighbor/peers address
   - Note: success/failure will be reflected in qubit FSM. QFF does not care about what happens to local qubits.
 
 - 10b: New segment EPR
   - Description: Local qubit now entangled with a remote node. Results from receiving a SWAP_UPDATE.
-  - From: QSF
+  - From: ESF
   - To: QFF
   - Mode: notification
   - Content: Elementary EPR name, peer address
-  - Note: QSF receives swap signaling. Assuming that QSF has access to FIB, it can directly update qubits FSMs (i.e., no need to send notification via 10b to QFF)
+  - Note: ESF receives swap signaling. Assuming that ESF has access to FIB, it can directly update qubits FSMs (i.e., no need to send notification via 10b to QFF)
 
 - 11: find qubits
   - Description: Find qubit addresses based on selection criteria.
-  - From: EQF, QFF, QPF
+  - From: EGF, QFF, EPF
   - To: QMMF
   - Mode: request-response (like a database search query)
   - Request content: EPR name, neighbor id, path id, channel id, #rounds, request id.
@@ -313,12 +320,12 @@ Finally, the execution of many network functions depends on timing relationships
 
 - 12: send/receive classical message:
   - Description: Classical transport for heralding, purification, swap updates, routing
-  - Bidirectional: QEF/QPF/QSF/QCF/QICF - CCF
+  - Bidirectional: QEF/EPF/ESF/QCF/QICF - CComF
 
 - 13: qubit decohered/released
   - Description: qubit decohered (cut-off) or released (consumed).
   - From: QMMF
-  - To: EQF, QPF
+  - To: EGF, EPF
   - Mode: notification
   - Content: qubit address/ID.
 
@@ -340,7 +347,7 @@ Finally, the execution of many network functions depends on timing relationships
 
 - 16: send/receive quantum signal
   - Description: Quantum transport of photons for elementary entanglement generation
-  - Bidirectional: QEF - QComF
+  - Bidirectional: EGF - QComF
 
 - 17: Route advertisement (control plane distributed)
   - Description: link state or route advertisement
@@ -351,14 +358,14 @@ Finally, the execution of many network functions depends on timing relationships
 
 - 18: Update qubit operational state
   - Description: update qubit FSM state
-  - From: EQF, QFF, QPF, QSF
+  - From: EGF, QFF, EPF, ESF
   - To: QMMF
   - Mode: set
   - Content: qubit address, new state
 
 - 19: Read-write FIB
   - Description: Install/Uninstall/Read/Update FIB entry (or customized FIB lookup).
-  - From: QFF, QSF
+  - From: QFF, ESF
   - To: FIBF
   - Mode: set/get/delete/update
   - Content: FIB entry (pathId, source, destination, swap/purif instructions, QoS requirement, etc.), FIB entry Id, Lookup parameters, etc.

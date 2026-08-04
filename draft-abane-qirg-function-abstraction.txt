@@ -4,8 +4,8 @@
 
 Quantum Internet Research Group                                 A. Abane
 Internet-Draft            National Institute of Standards and Technology
-Intended status: Informational                               2 July 2026
-Expires: 3 January 2027
+Intended status: Informational                             4 August 2026
+Expires: 5 February 2027
 
 
   On Architecture Classification and Functional Abstraction in Quantum
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 January 2027.
+   This Internet-Draft will expire on 5 February 2027.
 
 Copyright Notice
 
@@ -81,7 +81,7 @@ Table of Contents
    7.  Network Functions and Interfaces
      7.1.  Motivation
      7.2.  Network Function Definitions
-     7.3.  Interfaces
+     7.3.  Functional Interfaces
    8.  Use Cases
    9.  Conventions and Definitions
    10. Security Considerations
@@ -121,11 +121,29 @@ Table of Contents
    processes responsible for executing quantum operations such as
    entanglement generation, entanglement swapping, purification, and
    state management.  However, unlike classical packet networks where
-   the data plane primarily performs forwarding, quantum-network data-
+   the data plane primarily performs _forwarding_, quantum-network data-
    plane processes may themselves involve complex coordination,
    scheduling, resource allocation, and local decision-making.
    Consequently, the boundary between control-plane and data-plane
    responsibilities remains an active area of research.
+
+   Remote entanglement generation is the fundamental service upon which
+   entanglement-based quantum networking protocols are built.  However,
+   exposing low-level entanglement generation primitives directly to
+   applications is insufficient for building interoperable networking
+   systems.  To be useful as a network service, entanglement generation
+   should provide three key properties [pompili-network-stack].  First,
+   it should be robust, abstracting retries and transient failures so
+   that applications request entanglement rather than individual
+   generation attempts.  Second, it should be quantum-platform-
+   independent, allowing applications to request entanglement without
+   depending on the underlying hardware implementation or physical
+   protocol.  Third, it should support on-demand operation, enabling
+   entanglement requests to be issued and consumed as part of larger
+   quantum networking protocols.  These requirements motivate not only
+   an Entanglement Generation Function (EGF), but more generally the
+   need for reusable network functions that expose well-defined service
+   interfaces while hiding implementation-specific details.
 
    This document argues that a network-function-oriented view provides a
    useful abstraction for reasoning about quantum networking
@@ -563,26 +581,59 @@ Table of Contents
    functions such as elementary entanglement generation, entanglement
    swapping, purification, memory management, state preparation, and
    measurement and herald handling.  These functions are generally not
-   instantaneous and require coordination, scheduling, and
+   instantaneous, not always deterministic, and may operate on different
+   timescales.  They therefore require coordination, scheduling, and
    synchronization across nodes and resources.  Consequently, a quantum
    network architecture should identify not only the functions
    themselves but also the interfaces through which they are invoked,
    coordinated, and monitored.
 
-   Programmable node architectures may also expose operational
-   capabilities such as calibration, diagnostics, performance
-   verification, quality estimation, and fidelity witnessing.  While
-   such functions are not directly involved in entanglement delivery and
-   are not further decomposed in the present model, they may become
-   important architectural elements as quantum networks mature and may
-   benefit from standardized interfaces in future work.
-
-   Finally, the execution of many network functions depends on timing
+   The execution of many network functions depends on timing
    relationships between lower-layer physical processes and higher-layer
    networking services [I-D.draft-hajdusek-qirg-timing-physics].  This
    suggests that timing and synchronization should be treated as
    supporting architectural capabilities that facilitate the
    orchestration of network functions across multiple timescales.
+
+   Programmable node architectures may also expose operational
+   capabilities such as calibration, diagnostics, performance
+   verification, quality estimation, and fidelity witnessing.  While
+   such functions are not directly involved in entanglement delivery and
+   are not further decomposed in the present model, they represent
+   important architectural elements and may benefit from standardized
+   interfaces in future work.
+
+   The realization of several network functions, particularly the
+   Entanglement Generation Function (EGF), Entanglement Swapping
+   Function (ESF), and Entanglement Purification Function (EPF), may
+   rely on a common hardware abstraction layer that exposes the
+   capabilities of the underlying quantum processor through
+   implementation-independent interfaces.  As illustrated by
+   programmable node architectures such as QNodeOS [delle-os-qn-nodes],
+   such an abstraction may provide access to physical operations
+   including qubit initialization and measurement, state movement,
+   quantum gates, and physical-layer entanglement-generation attempts,
+   while exposing hardware capabilities such as qubit topology,
+   supported operations, coherence properties, and expected operation
+   quality.  Although the realization of this abstraction is hardware
+   dependent and outside the scope of this document, it provides a
+   common execution substrate upon which multiple network functions may
+   be implemented.
+
+   The network functions defined in this document should be viewed as
+   architectural abstractions rather than individual software modules or
+   protocols.  One possible realization is through a network-oriented
+   execution environment, where network functions are implemented as
+   coordinated quantum and classical programs executing on a quantum
+   network processing unit (QNPU) [dahlberg-netqasm].  In such systems,
+   a program consists of quantum code blocks, containing quantum
+   operations interleaved with classical control, together with purely
+   classical code blocks responsible for coordination and communication.
+   The QNPU executes hardware-dependent quantum operations through
+   lower-layer execution interfaces.  This separation enables network
+   functions to remain portable across hardware platforms while allowing
+   hardware-specific optimizations within the underlying execution
+   environment.
 
 7.2.  Network Function Definitions
 
@@ -667,366 +718,422 @@ Table of Contents
       may be realized through centralized control (on-demand or
       schedule-based), or distributed signaling (on-demand).
 
-7.3.  Interfaces
+7.3.  Functional Interfaces
+
+   The following interfaces illustrate the interactions between the
+   network functions introduced in the previous section.  They describe
+   the information exchanged between functions rather than prescribing
+   protocol messages or APIs.  Different implementations may realize
+   these interactions through procedure calls, local software
+   interfaces, distributed protocols, or other mechanisms while
+   preserving the same architectural responsibilities.
 
    *  0: end-to-end entanglement request
-
-      -  Description: Request for entanglement between two distant end-
-         nodes
 
       -  From: QAF (initiator) or QCF (at intermediate node, in
          distributed)
 
       -  To: QCF
 
-      -  Mode: request-response (centralized), end-to-end two-pass
-         (distributed)
-
-      -  Request content: source node, destination node, number of EPRs,
-         min fidelity, rate, timeout
-
-      -  Response content: acknowledgment, other coordination
-         information (distributed/two-pass)
+   This interface initiates the provisioning of an end-to-end
+   entanglement service.  It conveys the communication requirements of
+   an application, such as the communicating end nodes, the requested
+   number of EPR pairs, fidelity and rate objectives, and other quality-
+   of-service constraints.  The Quantum Controller Function processes
+   the request according to the routing architecture and available
+   network resources.  In centralized architectures, this interaction
+   typically follows a request-response model, whereas in distributed
+   architectures it may participate in a multi-pass reservation or
+   coordination procedure before entanglement distribution begins.
 
    *  1: slot/phase signal
-
-      -  Description: Signal beginning of a phase within a slot
-         (synchronous)
 
       -  From: QTF
 
       -  To: EGF/ESF/EPF/QFF/QCF
 
-      -  Mode: signal/trigger
-
-      -  Content: phase code/duration
+   This interface provides logical timing information required by
+   synchronized network operations.  It informs participating network
+   functions of the beginning of a communication slot, protocol phase,
+   or synchronization interval, allowing them to coordinate operations
+   such as elementary entanglement generation, swapping, purification,
+   or forwarding.  The interface is primarily applicable to synchronous
+   architectures, while asynchronous systems may instead rely on event-
+   driven triggering mechanisms.
 
    *  2: routing instructions
-
-      -  Description: Install/uninstall a path.  Always leads to a FIB
-         update since routing is stateful and FIB entries are used to
-         guide swap heralding messages.  FIB entries persistence may
-         differ between connection-oriented, connectionless.
 
       -  From: QCF (local or central)
 
       -  To: QFF
 
-      -  Mode: request-response
-
-      -  Request content: pathId, instructions.  Some instructions such
-         as swapping order or purification scheme may not be possible in
-         connectionless-proactive or distributed reactive.
-
-      -  Response content: acknowledgment
+   This interface installs, updates, or removes the instructions
+   required to realize an end-to-end entanglement request.  The
+   information conveyed may include path (or request) identifiers
+   together with forwarding policies such as swapping order,
+   purification strategy, or other execution instructions.  Invoking
+   this interface results in an update of the Forwarding Information
+   Base (FIB), which maintains the forwarding state used during network
+   operation, including the information required to correctly process
+   entanglement forwarding and associated swap-heralding messages.  The
+   level of detail exchanged depends on the routing architecture.  For
+   example, connection-oriented approaches typically install complete
+   forwarding instructions before execution, whereas connectionless or
+   distributed reactive architectures determine part of the forwarding
+   behavior dynamically during operation.  Likewise, the persistence of
+   FIB entries is architecture dependent, with some approaches
+   maintaining forwarding state throughout the lifetime of a connection
+   while others install or update entries on a more transient basis.
 
    *  3: qubit-path multiplexing
-
-      -  Description: Get/Set multiplexing profile for a path.  Mux
-         calculates per-qubit assignment (e.g., from routing
-         instructions).
 
       -  From: QFF
 
       -  To: QMF
 
-      -  Mode: read-write
-
-      -  Request content: pathId, multiplexing instructions or policies
-
-      -  Response content: acknowledgment (write), qubit addresses
-         (read)
+   This interface associates logical paths or service requests with
+   available quantum resources.  It allows the Quantum Forwarding
+   Function to create, update, or retrieve multiplexing information
+   describing how requests are mapped onto physical qubits.  The Quantum
+   Multiplexing Function may compute these mappings according to routing
+   instructions, resource availability, or implementation-specific
+   allocation policies.
 
    *  4: Tag/untag qubits (soft)
-
-      -  Description: Query/reserve qubit assignment to path/request.
-         Clear qubit assignment.
 
       -  From: QMF
 
       -  To: QMMF
 
-      -  Mode: request-response (write)
-
-      -  Request content: qubit address, pathId
-
-      -  Response content: acknowledgment
-
-      -  Note: Soft means it does not allocate physical qubits yet.
+   This interface reserves or releases logical associations between
+   qubits and service requests without allocating the underlying
+   physical resources.  It allows the Quantum Multiplexing Function to
+   record ownership or intended usage of qubits while postponing
+   physical allocation until network operations are about to begin.
+   This distinction enables routing, multiplexing, and resource planning
+   to be performed independently from the execution of quantum
+   operations.
 
    *  5: activate/deactivate channel
-
-      -  Description: Initiate elementary EPR generation with a
-         neighbor.  Stop generating EPRs with a neighbor.
 
       -  From: QFF
 
       -  To: EGF
 
-      -  Mode: request-response
-
-      -  Request content: neighbor name/address or interface name.  Only
-         communication information is passed (no qubit address, etc.)
-
-      -  Response content: acknowledgment
+   This interface instructs the Entanglement Generation Function to
+   begin or stop generating elementary entanglement with a neighboring
+   node.  The request identifies the _communication endpoint_, such as a
+   neighboring node or communication interface, while the specific qubit
+   addresses or the realization of the corresponding physical operations
+   remain internal to the Entanglement Generation Function.  Depending
+   on the implementation, the interface may be invoked for a single
+   request, a communication session, or as part of a persistent
+   forwarding policy.
 
    *  6: send entanglement connectivity (link state)
-
-      -  Description: Send entanglement link state to controller (needed
-         in reactive).  Aggregated on synchronous, individual on
-         asynchronous.
 
       -  From: QFF (aggregated from 8 or 21)
 
       -  To: QCF
 
-      -  Mode: notification
-
-      -  Content: qubit addresses and neighbors
+   This notification interface reports newly established elementary
+   entanglement resources to the Quantum Controller Function.  The
+   information contributes to the controller's view of the logical
+   network topology and may be used by routing algorithms operating on
+   currently available entanglement resources.  In synchronous
+   architectures, multiple updates may be aggregated and reported
+   periodically, whereas asynchronous architectures typically report new
+   entanglement resources as they become available.
 
    *  7: allocate/deallocate qubits (hard)
-
-      -  Description: Physically acquire/release qubit(s) for
-         entanglement attempt, swapping, or purification.
 
       -  From: EGF, ESF, EPF
 
       -  To: QMMF
 
-      -  Mode: request-response
-
-      -  Request content: qubit address
-
-      -  Response content: ack/nack
+   This interface performs the physical allocation and release of
+   quantum memory resources required to execute network operations.
+   Unlike the logical reservation performed through Interface 4, this
+   interaction acquires or frees actual qubits that will participate in
+   entanglement generation, swapping, purification, or related
+   operations.  The Quantum Memory Management Function validates
+   resource availability, updates ownership information, and returns the
+   outcome of the allocation request.
 
    *  8: new elementary EPR
-
-      -  Description: Inform forwarder about newly generated EPR.
 
       -  From: EGF
 
       -  To: QFF
 
-      -  Mode: notification
-
-      -  Content: EPR name/Id, neighbor, qubit address
-
-      -  Note: can be removed and rely on 21
+   This notification interface informs the Quantum Forwarding Function
+   that a new elementary entangled pair has been successfully
+   established with a neighboring node.  The notification typically
+   identifies the newly created EPR resource together with the
+   associated neighbor and local qubit.  The forwarding function uses
+   this information to update the logical view of available entanglement
+   resources and determine whether subsequent operations, such as
+   purification or swapping, can proceed.  In implementations where the
+   Quantum Memory Management Function already reports qubit state
+   changes (Interface 21), this interface may be optional or merged with
+   those notifications.
 
    *  9: start purification - Initiator node
 
-      -  Description: Initiate purification with a remote node
-
-      -  From: EGF (if L2 only), QFF (if L3)
+      -  From: EGF (if L2 only), QFF (if L3 involved)
 
       -  To: EPF
 
-      -  Mode: trigger/signal
+   This interface initiates an entanglement purification procedure.
+   Depending on the architectural realization, purification may be
+   triggered immediately after elementary entanglement generation (by
+   EGF) or for any segment as part of an end-to-end forwarding process
+   (by QFF).  The request identifies the EPR to be purified together
+   with the corresponding neighbor.  The Entanglement Purification
+   Function is responsible for selecting the required entangled pairs
+   (via Interface 11), coordinating the purification protocol with the
+   remote node, and updating the operational state of the participating
+   qubits (via Interface 18).  Local implementation details, such as
+   qubit addresses, remain internal to each node and are resolved
+   through interactions with the Quantum Memory Management Function via
+   Interface 11.
 
-      -  Content: qubit address/ID, EPR ID, neighbor ID/address.
+      Why EPF updates qubit FSM instead of QFF: - Purification does not
+      change connectivity - EPF already interacts with qubit (knows
+      qubit FSM state) - Keeps initiator-agnostic implementation/API -
+      Keeps the QFF clean
 
-      -  Notes:
-
-         o  Local/private information is not included in external
-            messages (e.g., EPR ID or neighbor address instead of qubit
-            address/ID)
-
-         o  EPF at responder node resolves EPR name to qubit local
-            address via 11
-
-         o  At initiator: EPF gets the one EPR to purify (+ neighbors/
-            path info) and selects qubits/EPRs (via 11) according to
-            purification circuit/schedule.
-
-         o  At responder: EPF receives EPR IDs to purify/use and
-            resolves qubit addresses (via 11)
-
-         o  After/during operation: EPF updates qubit FSMs (via 18)
-
-         o  Why EPF updates qubit FSM instead of QFF:
-
-            +  Purification does not change connectivity
-
-            +  EPF already interacts with qubit (knows qubit FSM state)
-
-            +  Keeps initiator-agnostic implementation/API
-
-            +  Keeps the QFF clean
+   This interface initiates an entanglement purification procedure.
+   Depending on the architectural realization, purification may be
+   triggered immediately after elementary entanglement generation (by
+   the EGF) or for any entanglement segment as part of an end-to-end
+   forwarding process (by the QFF).  The request identifies the EPR to
+   be purified together with the corresponding neighboring node.  The
+   Entanglement Purification Function is responsible for selecting the
+   required entangled pairs (via Interface 11), coordinating the
+   purification protocol with the remote node, and updating the
+   operational state of the participating qubits (via Interface 18).
+   Local details, such as qubit addresses, remain internal to each node
+   and are resolved through interactions with the Quantum Memory
+   Management Function (via Interface 11).  Assigning qubit state
+   management to the EPF, rather than the QFF, reflects the separation
+   of responsibilities adopted in this model: purification modifies the
+   state and quality of quantum resources but does not alter the network
+   connectivity.  Since the EPF already manages the participating qubits
+   throughout the purification procedure, it is the natural function to
+   update their lifecycle state, keeping the QFF focused on connectivity
+   management and independent of purification-specific implementation
+   details.
 
    *  10a: Do swap
-
-      -  Description: Initiate swapping
 
       -  From: QFF
 
       -  To: ESF
 
-      -  Mode: trigger/signal
-
-      -  Content: 2 qubit addresses, 2 neighbor/peers address
-
-      -  Note: success/failure will be reflected in qubit FSM.  QFF does
-         not care about what happens to local qubits.
+   This interface triggers an entanglement swapping operation at an
+   intermediate node.  The request specifies the local qubits
+   participating in the Bell-state measurement together with the
+   corresponding neighboring entanglement segments.  The Entanglement
+   Swapping Function performs the required local operations and handles
+   the associated classical signaling with adjacent nodes.  The Quantum
+   Forwarding Function is responsible for deciding when swapping should
+   occur, while the detailed execution and management of the local
+   quantum operations remain internal to the Entanglement Swapping
+   Function.  The outcome of the operation, including success or
+   failure, is reflected through updates to the qubit operational state
+   (via Interface 18) rather than through this interface itself.  This
+   separation allows the forwarding function to remain concerned with
+   the evolution of network connectivity, while the lifecycle of the
+   local qubit is managed independently by the resource management
+   mechanisms.
 
    *  10b: New segment EPR
-
-      -  Description: Local qubit now entangled with a remote node.
-         Results from receiving a SWAP_UPDATE.
 
       -  From: ESF
 
       -  To: QFF
 
-      -  Mode: notification
-
-      -  Content: Elementary EPR name, peer address
-
-      -  Note: ESF receives swap signaling.  Assuming that ESF has
-         access to FIB, it can directly update qubits FSMs (i.e., no
-         need to send notification via 10b to QFF)
+   This notification interface reports the successful completion of an
+   entanglement swapping operation and the creation of a longer
+   entanglement segment.  The notification allows the Quantum Forwarding
+   Function to update its view of the logical connectivity and determine
+   whether additional swapping/purification operations are required.  If
+   the Entanglement Swapping Function has direct access to the FIB,
+   these updates may be performed internally, making this notification
+   optional.
 
    *  11: find qubits
-
-      -  Description: Find qubit addresses based on selection criteria.
 
       -  From: EGF, QFF, EPF
 
       -  To: QMMF
 
-      -  Mode: request-response (like a database search query)
-
-      -  Request content: EPR name, neighbor id, path id, channel id,
-         #rounds, request id.
-
-      -  Response content: qubit addresses
+   This interface provides lookup services for quantum resources
+   maintained by the Quantum Memory Management Function.  Rather than
+   referencing physical qubits directly, requesting functions may
+   specify higher-level selection criteria, such as EPR identifiers,
+   neighboring nodes, paths, communication channels, or request
+   identifiers.  The Quantum Memory Management Function resolves these
+   logical references into the corresponding physical qubit addresses
+   while hiding implementation-specific details of resource
+   organization.
 
    *  12: send/receive classical message:
 
-      -  Description: Classical transport for heralding, purification,
-         swap updates, routing
-
       -  Bidirectional: QEF/EPF/ESF/QCF/QICF - CComF
 
-   *  13: qubit decohered/released
+   This interface provides the transport of classical protocol messages
+   required to coordinate distributed quantum networking operations.  It
+   supports signaling associated with elementary entanglement
+   generation, heralding, entanglement swapping, purification, routing,
+   resource coordination, and other control procedures.  The Classical
+   Communication Function abstracts the underlying communication
+   infrastructure, allowing network functions to exchange protocol
+   information without depending on a particular classical networking
+   technology or transport protocol.
 
-      -  Description: qubit decohered (cut-off) or released (consumed).
+   *  13: qubit decohered/released
 
       -  From: QMMF
 
       -  To: EGF, EPF
 
-      -  Mode: notification
-
-      -  Content: qubit address/ID.
+   This notification interface informs that a quantum resource has
+   become unavailable, either because it has decohered beyond an
+   acceptable threshold or because it has been explicitly released
+   following consumption or protocol completion.  Such notifications
+   allow higher-level functions to terminate pending operations, release
+   associated resources, or initiate recovery procedures when required.
+   The criteria for generating these notifications depend on the
+   implementation-specific management of quantum memories and resource
+   lifetimes.
 
    *  14: QIC request (on-demand)
-
-      -  Description: Request dynamic quantum interconnect resources to
-         establish optical connectivity with a neighbor for elementary
-         entanglement generation.
 
       -  From: EGF
 
       -  To: QICF
 
-      -  Mode: request-response
-
-      -  Request content: Neighbor address/identifier, generation
-         session identifier, optional resource requirements (e.g., BSM
-         type, source type, wavelength, timeslot).
-
-      -  Response content: Connectivity ready, failed, released, and
-         optional connectivity information.
+   This interface requests the establishment of the optical connectivity
+   required to perform elementary entanglement generation with a
+   neighboring node.  Depending on the underlying interconnect
+   architecture, the Quantum Interconnect Function may configure optical
+   switches, reserve shared Bell-state measurement devices or photon
+   sources, allocate wavelength or time-bin resources, or perform other
+   implementation-specific actions required to establish connectivity.
+   The response indicates whether the requested connectivity has been
+   successfully established, failed, or has subsequently been released.
+   This interface is intended for _on-demand_ operation initiated
+   directly by the Entanglement Generation Function.
 
    *  15: QIC request (schedule-based)
-
-      -  Description: Reserve quantum interconnect resources and optical
-         connectivity according to a planned entanglement service or
-         schedule.
 
       -  From: QCF (or higher-level orchestrator)
 
       -  To: QICF
 
-      -  Mode: request-response
-
-      -  Request content: Schedule (time window, participating nodes,
-         resource requirements, reservation constraints).
-
-      -  Response content: Ack/Nack.
+   This interface reserves quantum interconnect resources according to a
+   planned communication schedule rather than an immediate entanglement
+   request.  It enables controllers or higher-level orchestration
+   functions to coordinate optical connectivity in advance.  The request
+   may specify reservation windows, participating nodes, resource
+   requirements, or scheduling constraints, while the Quantum
+   Interconnect Function is responsible for translating these requests
+   into the appropriate interconnect configuration and resource
+   reservations.
 
    *  16: send/receive quantum signal
 
-      -  Description: Quantum transport of photons for elementary
-         entanglement generation
-
       -  Bidirectional: EGF - QComF
 
-   *  17: Route advertisement (control plane distributed)
+   This interface provides access to the underlying quantum
+   communication hardware responsible for transmitting and receiving
+   quantum states.  It enables the Entanglement Generation Function to
+   initiate the physical exchange of photons required for elementary
+   entanglement generation while abstracting the details of the
+   communication technology.  The Quantum Communication Function
+   encapsulates hardware-specific operations, allowing higher-layer
+   network functions to remain independent of the physical transmission
+   medium or qubit platform.
 
-      -  Description: link state or route advertisement
+   *  17: Route advertisement (distributed control plane)
 
       -  From: QCF
 
       -  To: QCF
 
-      -  Mode: notification
-
-      -  Content: RIB entries, reachability advertisement (neighbor
-         address, metric, et.)
+   This interface exchanges routing or reachability information between
+   Quantum Controller Functions operating in distributed control
+   architectures.  It enables controllers to disseminate routing state,
+   topology information, or routing metrics required to compute or
+   update forwarding decisions.  The exact information exchanged depends
+   on the routing protocol and may include reachability advertisements,
+   link-state information, routing metrics, or other control-plane data.
+   This interface is not required in architectures relying on a
+   logically centralized controller.
 
    *  18: Update qubit operational state
-
-      -  Description: update qubit FSM state
 
       -  From: EGF, QFF, EPF, ESF
 
       -  To: QMMF
 
-      -  Mode: set
-
-      -  Content: qubit address, new state
+   This interface updates the operational state maintained for
+   individual qubits throughout their lifetime.  Network functions
+   invoke this interface whenever a protocol operation changes the
+   status of a qubit, such as after successful entanglement generation,
+   purification, swapping, measurement, or resource consumption.  The
+   Quantum Memory Management Function maintains a consistent view of the
+   qubit lifecycle, allowing resource management and other network
+   functions to operate using a common representation of resource state.
 
    *  19: Read-write FIB
-
-      -  Description: Install/Uninstall/Read/Update FIB entry (or
-         customized FIB lookup).
 
       -  From: QFF, ESF
 
       -  To: FIBF
 
-      -  Mode: set/get/delete/update
-
-      -  Content: FIB entry (pathId, source, destination, swap/purif
-         instructions, QoS requirement, etc.), FIB entry Id, Lookup
-         parameters, etc.
+   This interface provides access to the Forwarding Information Base
+   (FIB) maintained by the forwarder.  It supports the installation,
+   modification, removal, and retrieval of forwarding entries describing
+   active entanglement paths and their associated forwarding policies.
+   Depending on the routing architecture, these entries may include path
+   identifiers, forwarding instructions, swapping or purification
+   policies, quality-of-service requirements, or other execution
+   parameters required during network operation.  The interface
+   abstracts the forwarding instructions (and status) without
+   prescribing a particular forwarding-table implementation.
 
    *  20: Read-write RIB
-
-      -  Description: Install/Uninstall/Read/Update RIB entry (or
-         customized RIB lookup).
 
       -  From: QCF
 
       -  To: RIBF
 
-      -  Mode: set/get/delete/update
-
-      -  Content: RIB entry (routeId, source, destination, next hop,
-         cost, etc.), RIB entry Id, Lookup parameters, etc.
+   This interface provides access to the Routing Information Base (RIB)
+   used by the Quantum Controller Function.  It supports the creation,
+   modification, removal, and lookup of routing entries representing
+   network reachability and routing information.  The Routing
+   Information Base may contain routes learned through distributed
+   routing protocols, computed by a centralized controller, or derived
+   from other routing mechanisms.
 
    *  21: Qubit operational state updated
 
-      -  Description: qubit FSM state changed
-
       -  From: QMMF
 
-      -  To: QFF (optional: any other function)
+      -  To: QFF (or any other function)
 
-      -  Mode: notification
-
-      -  Content: qubit address, new state
+   This notification interface informs network functions that the
+   operational state of a qubit has changed.  Such changes may result
+   from successful entanglement generation, resource allocation or
+   release, decoherence, timeout, or other events affecting the qubit
+   lifecycle.  These notifications allow dependent network functions to
+   react asynchronously to resource state changes without continuously
+   querying the Quantum Memory Management Function.  Depending on the
+   implementation, additional network functions beyond the Quantum
+   Forwarding Function may subscribe to these notifications.
 
 8.  Use Cases
 
@@ -1080,6 +1187,15 @@ Table of Contents
               DOI 10.1109/tnse.2026.3679795, 2026,
               <https://doi.org/10.1109/tnse.2026.3679795>.
 
+   [dahlberg-netqasm]
+              Dahlberg, A., van der Vecht, B., Delle Donne, C.,
+              Skrzypczyk, M., te Raa, I., Kozlowski, W., and S. Wehner,
+              "NetQASM—a low-level instruction set architecture for
+              hybrid quantum–classical programs in a quantum internet",
+              IOP Publishing, Quantum Science and Technology vol. 7, no.
+              3, pp. 035023, DOI 10.1088/2058-9565/ac753f, June 2022,
+              <https://doi.org/10.1088/2058-9565/ac753f>.
+
    [delle-os-qn-nodes]
               Delle Donne, C., Iuliano, M., van der Vecht, B., Ferreira,
               G., Jirovská, H., van der Steenhoven, T., Dahlberg, A.,
@@ -1126,6 +1242,16 @@ Table of Contents
               Networking, and Computing (QCNC) pp. 1038-1044,
               DOI 10.1109/qcnc69040.2026.00176, April 2026,
               <https://doi.org/10.1109/qcnc69040.2026.00176>.
+
+   [pompili-network-stack]
+              Pompili, M., Delle Donne, C., te Raa, I., van der Vecht,
+              B., Skrzypczyk, M., Ferreira, G., de Kluijver, L., Stolk,
+              A., Hermans, S., Pawełczak, P., Kozlowski, W., Hanson, R.,
+              and S. Wehner, "Experimental demonstration of entanglement
+              delivery using a quantum network stack", Springer Science
+              and Business Media LLC, npj Quantum Information vol. 8,
+              no. 1, DOI 10.1038/s41534-022-00631-2, October 2022,
+              <https://doi.org/10.1038/s41534-022-00631-2>.
 
    [van-meter-qi-arch]
               Van Meter, R., Satoh, R., Benchasattabuse, N., Teramoto,

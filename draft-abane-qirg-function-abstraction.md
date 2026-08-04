@@ -123,9 +123,17 @@ To classify entanglement routing architectures, we consider several orthogonal d
 
 - *Routing timing* distinguishes between proactive and reactive routing. In proactive routing, routing information is produced before entanglement generation begins. Path computation may rely on physical topology information, expected or collected link characteristics, or other pre-existing knowledge. In reactive routing, routing decisions are made after entanglement generation, typically based on the currently available entanglement resources. This distinction therefore captures when routing information becomes available relative to entanglement generation.
 
-- *Path decision model* distinguishes between connection-oriented and connectionless routing. In a connection-oriented model, an end-to-end route (or route segment) is selected and coordinated before entanglement forwarding or swapping begins. Resource reservation and path installation may be present but are not required; the defining property is that the route is decided before the request progresses through the network. In a connectionless model, no fixed end-to-end path is established in advance (route can change between rounds/sessions), and forwarding decisions may be taken independently at intermediate nodes. Both proactive and reactive routing architectures may employ either connection-oriented or connectionless operation. Consequently, proactive and reactive routing should be viewed as more abstract concepts, while connection-oriented and connectionless routing describe how routing decisions are applied once routing information becomes available.
+- *Path decision model* distinguishes between connection-oriented and connectionless routing. In a connection-oriented model, an end-to-end route is selected and coordinated before entanglement forwarding or swapping begins. Resource reservation may be present but is not required; the defining property is that the route is decided before the request progresses through the network.
+
+In a connectionless model, no fixed end-to-end path is imposed before the request progresses through the network. Instead, intermediate nodes may select the next operation, next hop, or route segment using their current local state and any available control-plane information. Nodes maintain persistent or transient forwarding entries representing partial instructions rather than complete end-to-end routes.
+
+The scope and persistence of forwarding state are realization characteristics rather than defining properties of the path decision model: both connection-oriented and connectionless architectures may use persistent or transient forwarding information.
+
+Both proactive and reactive routing architectures may employ either connection-oriented or connectionless operation. Consequently, proactive and reactive routing should be viewed as more abstract concepts, while connection-oriented and connectionless routing describe how routing decisions are applied once routing information becomes available.
 
 - *Control placement* distinguishes between centralized and distributed control. This dimension characterizes where routing decisions are computed rather than how much network information is available. In distributed approaches, routing algorithms execute independently on each network node. Nodes may rely on partial network knowledge, as in BGP-like protocols, or complete network knowledge, as in OSPF-like link-state protocols. In centralized approaches, a logically centralized controller computes routes and coordinates network operations. While the quantum data plane remains inherently distributed, the control plane may follow either model.
+
+Note that connectionless operation does not preclude centralized control. A centralized controller may provide policies, constraints, preferred next hops, or other advisory *hints* without prescribing a complete path.
 
 - *Coordination model* distinguishes between synchronous and asynchronous operation. In synchronous architectures, network operations proceed in globally coordinated rounds or time slots shared among participating nodes. In asynchronous architectures, operations are triggered by events, such as successful entanglement generation, measurement outcomes, or control messages, without requiring globally synchronized execution. Both proactive and reactive routing architectures may operate in either synchronous or asynchronous environments.
 
@@ -194,13 +202,11 @@ The network functions defined in this document should be viewed as architectural
 
 ## Network Function Definitions
 - Quantum Application Function (QAF): Originates end-to-end entanglement requests and consumes the resulting quantum networking service. Could represent a higher-level orchestrator or independent end-user applications.
-- Quantum Controller Function (QCF): Responsible for path computation, policy enforcement, resource coordination, and installation of forwarding state. May be centralized or distributed.
-  - Quantum Routing Function (QRF): Maintains reachability information and routing state used to determine paths through the quantum network. This function may be implemented as part of the QCF.
-- Routing Information Base Function (RIBF): Stores network reachability and routing information learned from controllers or routing protocols. Provides routing information to the Quantum Routing Function and other control-plane functions.
-- Quantum Forwarding Function (QFF): Manages active entanglement paths and coordinates network operations such as entanglement generation, swapping, and purification according to installed forwarding state.
-- Forwarding Information Base Function (FIBF): Maintains forwarding state used to process entanglement resources and associated signaling. Provides path-specific instructions used by the Quantum Forwarding Function during network operation.
+- Quantum Controller Function (QCF): Responsible for path computation or routing guidance, policy enforcement, resource coordination, admission control, and, where applicable, installation of forwarding state. Depending on the routing architecture, the QCF may provide complete path instructions, partial route or action instructions, or advisory hints that guide node-local forwarding decisions. It may be centralized or distributed.
+- Quantum Forwarding Function (QFF): Coordinates the progression of entanglement requests and resources through the network. It invokes operations such as entanglement generation, swapping, and purification according to available forwarding state, local entanglement state, and applicable control-plane instructions or policies. Depending on the path decision model, it may follow an installed end-to-end path or make node-local decisions for the next hop, route segment, or quantum operation.
+- Forwarding Information Base (FIB): Maintains forwarding information used by the Quantum Forwarding Function during request and entanglement-resource processing. Entries may contain complete path instructions, partial route or next-hop instructions, operation dependencies, policies, or other forwarding context. Depending on the architecture, entries may be persistent, soft-state, request-scoped, or created transiently from local network state.
 - Quantum Multiplexing Function (QMF): Maps logical requests and paths onto available quantum resources and maintains the association between paths and qubits.
-- Quantum Memory Management Function (QMMF): Manages the lifecycle of quantum memories, including allocation, release, operational state tracking, ownership, and entanglement metadata.
+- Quantum Memory Management Function (QMMF): Manages the lifecycle of quantum memories, including allocation, release, ownership, operational state tracking, and entanglement metadata. The function may virtualize qubit addressing by mapping logical qubit identifiers to physical quantum memories, and may maintain implementation-specific information about available quantum resources, such as qubit capabilities, lifetime, or placement, to support resource allocation and scheduling.
   - Entanglement State Repository Function (ESRF): Maintains a consistent view of entanglement resources, including EPR identifiers, qubit mappings, connectivity information, fidelity metrics, and operational state. This function may be implemented as part of the QMMF.
   - Qubit Lifecycle Management Function (QLMF): Maintains a finite state machine (FSM) of each qubit from raw to released operation states. This function may be implemented as part of the QMMF.
 - Entanglement Generation Function (EGF): Establishes elementary entanglement with neighboring nodes and reports successful entanglement creation.
@@ -236,11 +242,14 @@ This interface notifies the application of the outcome of an end-to-end entangle
 
 This interface provides logical timing information required by synchronized network operations. It informs participating network functions of the beginning of a communication slot, protocol phase, or synchronization interval, allowing them to coordinate operations such as elementary entanglement generation, swapping, purification, or forwarding. The interface is primarily applicable to synchronous architectures, while asynchronous systems may instead rely on event-driven triggering mechanisms.
 
-- 2: routing instructions
+- 2: Routing or forwarding instructions
   - From: QCF (local or central)
   - To: QFF
 
-This interface installs, updates, or removes the instructions required to realize an end-to-end entanglement request. The information conveyed may include path (or request) identifiers together with forwarding policies such as swapping order, purification strategy, or other execution instructions. Invoking this interface results in an update of the Forwarding Information Base (FIB), which maintains the forwarding state used during network operation, including the information required to correctly process entanglement forwarding and associated swap-heralding messages. The level of detail exchanged depends on the routing architecture. For example, connection-oriented approaches typically install complete forwarding instructions before execution, whereas connectionless or distributed reactive architectures determine part of the forwarding behavior dynamically during operation. Likewise, the persistence of FIB entries is architecture dependent, with some approaches maintaining forwarding state throughout the lifetime of a connection while others install or update entries on a more transient basis.
+This interface provides information used by the QFF to progress an entanglement request. Depending on the routing architecture, it may install or remove a complete end-to-end path, provide instructions for a route segment or next-hop decision, or convey policies and advisory hints used during node-local forwarding.
+In connection-oriented approaches, it typically installs complete forwarding instructions, including path (or request) identifiers with forwarding policies such as swapping order, purification strategy, or other execution instructions.
+In connectionless architectures, the information need not determine a fixed path and may instead constrain or optimize decisions made from the current local entanglement and resource state.
+Invoking this interface typically results in an update of the Forwarding Information Base (FIB), which maintains the forwarding state used during network operation, including the information required to process purification and swap-heralding messages. The persistence of FIB entries is architecture dependent, with some approaches maintaining forwarding state throughout the lifetime of a connection while others install or update entries on a more transient basis.
 
 - 3: qubit-path multiplexing
   - From: QFF
@@ -258,7 +267,9 @@ This interface reserves or releases logical associations between qubits and serv
   - From: QFF
   - To: EGF
 
-This interface instructs the Entanglement Generation Function to begin or stop generating elementary entanglement with a neighboring node. The request identifies the *communication endpoint*, such as a neighboring node or communication interface, while the specific qubit addresses or the realization of the corresponding physical operations remain internal to the Entanglement Generation Function. Depending on the implementation, the interface may be invoked for a single request, a communication session, or as part of a persistent forwarding policy.
+This interface controls the elementary entanglement generation for a given neighbor, channel, or generation context. The request identifies the *communication endpoint*, such as a neighboring node or communication interface, while the specific qubit addresses or the realization of the corresponding physical operations remain internal to the Entanglement Generation Function. The interface may be invoked for a single request, a communication session, or as part of a persistent forwarding policy.
+
+In an event-driven realization, the QFF directly instructs the EGF to start or stop generation. Alternatively, the EGF may periodically poll the QFF for pending generation requests or updated activation state. In both cases, the QFF provides the generation intent and relevant communication context, while the EGF manages the execution of the elementary entanglement-generation process.
 
 - 6: send entanglement connectivity (link state)
   - From: QFF (aggregated from 8 or 21)
@@ -353,9 +364,9 @@ This interface updates the operational state maintained for individual qubits th
 
 - 19: Read-write FIB
   - From: QFF, ESF
-  - To: FIBF
+  - To: FIB
 
-This interface provides access to the Forwarding Information Base (FIB) maintained by the forwarder. It supports the installation, modification, removal, and retrieval of forwarding entries describing active entanglement paths and their associated forwarding policies. Depending on the routing architecture, these entries may include path identifiers, forwarding instructions, swapping or purification policies, quality-of-service requirements, or other execution parameters required during network operation. The interface abstracts the forwarding instructions (and status) without prescribing a particular forwarding-table implementation.
+This interface reads, installs, updates, or removes forwarding information. The stored information may represent a complete path, a route segment, a next-hop or operation instruction, or forwarding policies and constraints. Entries may be persistent, soft-state, request-scoped, or transient, depending on the routing and execution model. A connectionless realization may therefore use the FIB without requiring the storage of a fixed end-to-end path.
 
 - 20: Read-write RIB
   - From: QCF

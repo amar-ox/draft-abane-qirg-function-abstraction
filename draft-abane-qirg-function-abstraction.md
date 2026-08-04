@@ -216,11 +216,19 @@ The network functions defined in this document should be viewed as architectural
 The following interfaces illustrate the interactions between the network functions introduced in the previous section. They describe the information exchanged between functions rather than prescribing protocol messages or APIs. Different implementations may realize these interactions through procedure calls, local software interfaces, distributed protocols, or other mechanisms while preserving the same architectural responsibilities.
 
 
-- 0: end-to-end entanglement request
+- 0a: End-to-end entanglement request
   - From: QAF (initiator) or QCF (at intermediate node, in distributed)
   - To: QCF
 
 This interface initiates the provisioning of an end-to-end entanglement service. It conveys the communication requirements of an application, such as the communicating end nodes, the requested number of EPR pairs, fidelity and rate objectives, and other quality-of-service constraints. The Quantum Controller Function processes the request according to the routing architecture and available network resources. In centralized architectures, this interaction typically follows a request-response model, whereas in distributed architectures it may participate in a multi-pass reservation or coordination procedure before entanglement distribution begins.
+
+The interaction between QAF and QCF may use entanglement request (ER) sockets {{delle-os-qn-nodes}} {{dahlberg-netqasm}}, providing a persistent communication context over which multiple end-to-end entanglement requests may be issued. Such abstractions are compatible with, but not required by, the reference model defined in this document.
+
+- 0b: End-to-end entanglement ready
+  - From: QCF
+  - To: QAF
+
+This interface notifies the application of the outcome of an end-to-end entanglement request. The notification may indicate the completion of the entire request, with all requested end-to-end entangled pairs successfully established, or may report individual end-to-end entangled pairs as they become available. The response provides the information required by the application to access and consume the delivered entangled resources, or indicates that the request could not be fulfilled. After consuming an entangled qubit, the application is expected to release it, allowing the associated qubit to return to the available resource pool.
 
 - 1: slot/phase signal
   - From: QTF

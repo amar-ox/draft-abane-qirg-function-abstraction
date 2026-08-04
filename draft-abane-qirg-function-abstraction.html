@@ -1553,7 +1553,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
 <p id="section-7.3-1">The following interfaces illustrate the interactions between the network functions introduced in the previous section. They describe the information exchanged between functions rather than prescribing protocol messages or APIs. Different implementations may realize these interactions through procedure calls, local software interfaces, distributed protocols, or other mechanisms while preserving the same architectural responsibilities.<a href="#section-7.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.3-2.1">
-            <p id="section-7.3-2.1.1">0: end-to-end entanglement request<a href="#section-7.3-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-7.3-2.1.1">0a: End-to-end entanglement request<a href="#section-7.3-2.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-7.3-2.1.2.1">
                 <p id="section-7.3-2.1.2.1.1">From: QAF (initiator) or QCF (at intermediate node, in distributed)<a href="#section-7.3-2.1.2.1.1" class="pilcrow">¶</a></p>
@@ -1565,318 +1565,333 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
 </li>
         </ul>
 <p id="section-7.3-3">This interface initiates the provisioning of an end-to-end entanglement service. It conveys the communication requirements of an application, such as the communicating end nodes, the requested number of EPR pairs, fidelity and rate objectives, and other quality-of-service constraints. The Quantum Controller Function processes the request according to the routing architecture and available network resources. In centralized architectures, this interaction typically follows a request-response model, whereas in distributed architectures it may participate in a multi-pass reservation or coordination procedure before entanglement distribution begins.<a href="#section-7.3-3" class="pilcrow">¶</a></p>
+<p id="section-7.3-4">The interaction between QAF and QCF may use entanglement request (ER) sockets <span>[<a href="#delle-os-qn-nodes" class="cite xref">delle-os-qn-nodes</a>]</span> <span>[<a href="#dahlberg-netqasm" class="cite xref">dahlberg-netqasm</a>]</span>, providing a persistent communication context over which multiple end-to-end entanglement requests may be issued. Such abstractions are compatible with, but not required by, the reference model defined in this document.<a href="#section-7.3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-4.1">
-            <p id="section-7.3-4.1.1">1: slot/phase signal<a href="#section-7.3-4.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-5.1">
+            <p id="section-7.3-5.1.1">0b: End-to-end entanglement ready<a href="#section-7.3-5.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-4.1.2.1">
-                <p id="section-7.3-4.1.2.1.1">From: QTF<a href="#section-7.3-4.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-5.1.2.1">
+                <p id="section-7.3-5.1.2.1.1">From: QCF<a href="#section-7.3-5.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-4.1.2.2">
-                <p id="section-7.3-4.1.2.2.1">To: EGF/ESF/EPF/QFF/QCF<a href="#section-7.3-4.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-5.1.2.2">
+                <p id="section-7.3-5.1.2.2.1">To: QAF<a href="#section-7.3-5.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-5">This interface provides logical timing information required by synchronized network operations. It informs participating network functions of the beginning of a communication slot, protocol phase, or synchronization interval, allowing them to coordinate operations such as elementary entanglement generation, swapping, purification, or forwarding. The interface is primarily applicable to synchronous architectures, while asynchronous systems may instead rely on event-driven triggering mechanisms.<a href="#section-7.3-5" class="pilcrow">¶</a></p>
+<p id="section-7.3-6">This interface notifies the application of the outcome of an end-to-end entanglement request. The notification may indicate the completion of the entire request, with all requested end-to-end entangled pairs successfully established, or may report individual end-to-end entangled pairs as they become available. The response provides the information required by the application to access and consume the delivered entangled resources, or indicates that the request could not be fulfilled. After consuming an entangled qubit, the application is expected to release it, allowing the associated qubit to return to the available resource pool.<a href="#section-7.3-6" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-6.1">
-            <p id="section-7.3-6.1.1">2: routing instructions<a href="#section-7.3-6.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-7.1">
+            <p id="section-7.3-7.1.1">1: slot/phase signal<a href="#section-7.3-7.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-6.1.2.1">
-                <p id="section-7.3-6.1.2.1.1">From: QCF (local or central)<a href="#section-7.3-6.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-7.1.2.1">
+                <p id="section-7.3-7.1.2.1.1">From: QTF<a href="#section-7.3-7.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-6.1.2.2">
-                <p id="section-7.3-6.1.2.2.1">To: QFF<a href="#section-7.3-6.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-7.1.2.2">
+                <p id="section-7.3-7.1.2.2.1">To: EGF/ESF/EPF/QFF/QCF<a href="#section-7.3-7.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-7">This interface installs, updates, or removes the instructions required to realize an end-to-end entanglement request. The information conveyed may include path (or request) identifiers together with forwarding policies such as swapping order, purification strategy, or other execution instructions. Invoking this interface results in an update of the Forwarding Information Base (FIB), which maintains the forwarding state used during network operation, including the information required to correctly process entanglement forwarding and associated swap-heralding messages. The level of detail exchanged depends on the routing architecture. For example, connection-oriented approaches typically install complete forwarding instructions before execution, whereas connectionless or distributed reactive architectures determine part of the forwarding behavior dynamically during operation. Likewise, the persistence of FIB entries is architecture dependent, with some approaches maintaining forwarding state throughout the lifetime of a connection while others install or update entries on a more transient basis.<a href="#section-7.3-7" class="pilcrow">¶</a></p>
+<p id="section-7.3-8">This interface provides logical timing information required by synchronized network operations. It informs participating network functions of the beginning of a communication slot, protocol phase, or synchronization interval, allowing them to coordinate operations such as elementary entanglement generation, swapping, purification, or forwarding. The interface is primarily applicable to synchronous architectures, while asynchronous systems may instead rely on event-driven triggering mechanisms.<a href="#section-7.3-8" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-8.1">
-            <p id="section-7.3-8.1.1">3: qubit-path multiplexing<a href="#section-7.3-8.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-9.1">
+            <p id="section-7.3-9.1.1">2: routing instructions<a href="#section-7.3-9.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-8.1.2.1">
-                <p id="section-7.3-8.1.2.1.1">From: QFF<a href="#section-7.3-8.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-9.1.2.1">
+                <p id="section-7.3-9.1.2.1.1">From: QCF (local or central)<a href="#section-7.3-9.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-8.1.2.2">
-                <p id="section-7.3-8.1.2.2.1">To: QMF<a href="#section-7.3-8.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-9.1.2.2">
+                <p id="section-7.3-9.1.2.2.1">To: QFF<a href="#section-7.3-9.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-9">This interface associates logical paths or service requests with available quantum resources. It allows the Quantum Forwarding Function to create, update, or retrieve multiplexing information describing how requests are mapped onto physical qubits. The Quantum Multiplexing Function may compute these mappings according to routing instructions, resource availability, or implementation-specific allocation policies.<a href="#section-7.3-9" class="pilcrow">¶</a></p>
+<p id="section-7.3-10">This interface installs, updates, or removes the instructions required to realize an end-to-end entanglement request. The information conveyed may include path (or request) identifiers together with forwarding policies such as swapping order, purification strategy, or other execution instructions. Invoking this interface results in an update of the Forwarding Information Base (FIB), which maintains the forwarding state used during network operation, including the information required to correctly process entanglement forwarding and associated swap-heralding messages. The level of detail exchanged depends on the routing architecture. For example, connection-oriented approaches typically install complete forwarding instructions before execution, whereas connectionless or distributed reactive architectures determine part of the forwarding behavior dynamically during operation. Likewise, the persistence of FIB entries is architecture dependent, with some approaches maintaining forwarding state throughout the lifetime of a connection while others install or update entries on a more transient basis.<a href="#section-7.3-10" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-10.1">
-            <p id="section-7.3-10.1.1">4: Tag/untag qubits (soft)<a href="#section-7.3-10.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-11.1">
+            <p id="section-7.3-11.1.1">3: qubit-path multiplexing<a href="#section-7.3-11.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-10.1.2.1">
-                <p id="section-7.3-10.1.2.1.1">From: QMF<a href="#section-7.3-10.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-11.1.2.1">
+                <p id="section-7.3-11.1.2.1.1">From: QFF<a href="#section-7.3-11.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-10.1.2.2">
-                <p id="section-7.3-10.1.2.2.1">To: QMMF<a href="#section-7.3-10.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-11.1.2.2">
+                <p id="section-7.3-11.1.2.2.1">To: QMF<a href="#section-7.3-11.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-11">This interface reserves or releases logical associations between qubits and service requests without allocating the underlying physical resources. It allows the Quantum Multiplexing Function to record ownership or intended usage of qubits while postponing physical allocation until network operations are about to begin. This distinction enables routing, multiplexing, and resource planning to be performed independently from the execution of quantum operations.<a href="#section-7.3-11" class="pilcrow">¶</a></p>
+<p id="section-7.3-12">This interface associates logical paths or service requests with available quantum resources. It allows the Quantum Forwarding Function to create, update, or retrieve multiplexing information describing how requests are mapped onto physical qubits. The Quantum Multiplexing Function may compute these mappings according to routing instructions, resource availability, or implementation-specific allocation policies.<a href="#section-7.3-12" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-12.1">
-            <p id="section-7.3-12.1.1">5: activate/deactivate channel<a href="#section-7.3-12.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-13.1">
+            <p id="section-7.3-13.1.1">4: Tag/untag qubits (soft)<a href="#section-7.3-13.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-12.1.2.1">
-                <p id="section-7.3-12.1.2.1.1">From: QFF<a href="#section-7.3-12.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-13.1.2.1">
+                <p id="section-7.3-13.1.2.1.1">From: QMF<a href="#section-7.3-13.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-12.1.2.2">
-                <p id="section-7.3-12.1.2.2.1">To: EGF<a href="#section-7.3-12.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-13.1.2.2">
+                <p id="section-7.3-13.1.2.2.1">To: QMMF<a href="#section-7.3-13.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-13">This interface instructs the Entanglement Generation Function to begin or stop generating elementary entanglement with a neighboring node. The request identifies the <em>communication endpoint</em>, such as a neighboring node or communication interface, while the specific qubit addresses or the realization of the corresponding physical operations remain internal to the Entanglement Generation Function. Depending on the implementation, the interface may be invoked for a single request, a communication session, or as part of a persistent forwarding policy.<a href="#section-7.3-13" class="pilcrow">¶</a></p>
+<p id="section-7.3-14">This interface reserves or releases logical associations between qubits and service requests without allocating the underlying physical resources. It allows the Quantum Multiplexing Function to record ownership or intended usage of qubits while postponing physical allocation until network operations are about to begin. This distinction enables routing, multiplexing, and resource planning to be performed independently from the execution of quantum operations.<a href="#section-7.3-14" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-14.1">
-            <p id="section-7.3-14.1.1">6: send entanglement connectivity (link state)<a href="#section-7.3-14.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-15.1">
+            <p id="section-7.3-15.1.1">5: activate/deactivate channel<a href="#section-7.3-15.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-14.1.2.1">
-                <p id="section-7.3-14.1.2.1.1">From: QFF (aggregated from 8 or 21)<a href="#section-7.3-14.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-15.1.2.1">
+                <p id="section-7.3-15.1.2.1.1">From: QFF<a href="#section-7.3-15.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-14.1.2.2">
-                <p id="section-7.3-14.1.2.2.1">To: QCF<a href="#section-7.3-14.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-15.1.2.2">
+                <p id="section-7.3-15.1.2.2.1">To: EGF<a href="#section-7.3-15.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-15">This notification interface reports newly established elementary entanglement resources to the Quantum Controller Function. The information contributes to the controller's view of the logical network topology and may be used by routing algorithms operating on currently available entanglement resources. In synchronous architectures, multiple updates may be aggregated and reported periodically, whereas asynchronous architectures typically report new entanglement resources as they become available.<a href="#section-7.3-15" class="pilcrow">¶</a></p>
+<p id="section-7.3-16">This interface instructs the Entanglement Generation Function to begin or stop generating elementary entanglement with a neighboring node. The request identifies the <em>communication endpoint</em>, such as a neighboring node or communication interface, while the specific qubit addresses or the realization of the corresponding physical operations remain internal to the Entanglement Generation Function. Depending on the implementation, the interface may be invoked for a single request, a communication session, or as part of a persistent forwarding policy.<a href="#section-7.3-16" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-16.1">
-            <p id="section-7.3-16.1.1">7: allocate/deallocate qubits (hard)<a href="#section-7.3-16.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-17.1">
+            <p id="section-7.3-17.1.1">6: send entanglement connectivity (link state)<a href="#section-7.3-17.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-16.1.2.1">
-                <p id="section-7.3-16.1.2.1.1">From: EGF, ESF, EPF<a href="#section-7.3-16.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-17.1.2.1">
+                <p id="section-7.3-17.1.2.1.1">From: QFF (aggregated from 8 or 21)<a href="#section-7.3-17.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-16.1.2.2">
-                <p id="section-7.3-16.1.2.2.1">To: QMMF<a href="#section-7.3-16.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-17.1.2.2">
+                <p id="section-7.3-17.1.2.2.1">To: QCF<a href="#section-7.3-17.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-17">This interface performs the physical allocation and release of quantum memory resources required to execute network operations. Unlike the logical reservation performed through Interface 4, this interaction acquires or frees actual qubits that will participate in entanglement generation, swapping, purification, or related operations. The Quantum Memory Management Function validates resource availability, updates ownership information, and returns the outcome of the allocation request.<a href="#section-7.3-17" class="pilcrow">¶</a></p>
+<p id="section-7.3-18">This notification interface reports newly established elementary entanglement resources to the Quantum Controller Function. The information contributes to the controller's view of the logical network topology and may be used by routing algorithms operating on currently available entanglement resources. In synchronous architectures, multiple updates may be aggregated and reported periodically, whereas asynchronous architectures typically report new entanglement resources as they become available.<a href="#section-7.3-18" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-18.1">
-            <p id="section-7.3-18.1.1">8: new elementary EPR<a href="#section-7.3-18.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-19.1">
+            <p id="section-7.3-19.1.1">7: allocate/deallocate qubits (hard)<a href="#section-7.3-19.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-18.1.2.1">
-                <p id="section-7.3-18.1.2.1.1">From: EGF<a href="#section-7.3-18.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-19.1.2.1">
+                <p id="section-7.3-19.1.2.1.1">From: EGF, ESF, EPF<a href="#section-7.3-19.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-18.1.2.2">
-                <p id="section-7.3-18.1.2.2.1">To: QFF<a href="#section-7.3-18.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-19.1.2.2">
+                <p id="section-7.3-19.1.2.2.1">To: QMMF<a href="#section-7.3-19.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-19">This notification interface informs the Quantum Forwarding Function that a new elementary entangled pair has been successfully established with a neighboring node. The notification typically identifies the newly created EPR resource together with the associated neighbor and local qubit. The forwarding function uses this information to update the logical view of available entanglement resources and determine whether subsequent operations, such as purification or swapping, can proceed. In implementations where the Quantum Memory Management Function already reports qubit state changes (Interface 21), this interface may be optional or merged with those notifications.<a href="#section-7.3-19" class="pilcrow">¶</a></p>
+<p id="section-7.3-20">This interface performs the physical allocation and release of quantum memory resources required to execute network operations. Unlike the logical reservation performed through Interface 4, this interaction acquires or frees actual qubits that will participate in entanglement generation, swapping, purification, or related operations. The Quantum Memory Management Function validates resource availability, updates ownership information, and returns the outcome of the allocation request.<a href="#section-7.3-20" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-20.1">
-            <p id="section-7.3-20.1.1">9: start purification - Initiator node<a href="#section-7.3-20.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-21.1">
+            <p id="section-7.3-21.1.1">8: new elementary EPR<a href="#section-7.3-21.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-20.1.2.1">
-                <p id="section-7.3-20.1.2.1.1">From: EGF (if L2 only), QFF (if L3 involved)<a href="#section-7.3-20.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-21.1.2.1">
+                <p id="section-7.3-21.1.2.1.1">From: EGF<a href="#section-7.3-21.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-20.1.2.2">
-                <p id="section-7.3-20.1.2.2.1">To: EPF<a href="#section-7.3-20.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-21.1.2.2">
+                <p id="section-7.3-21.1.2.2.1">To: QFF<a href="#section-7.3-21.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-21">This interface initiates an entanglement purification procedure. Depending on the architectural realization, purification may be triggered immediately after elementary entanglement generation (by EGF) or for any segment as part of an end-to-end forwarding process (by QFF). The request identifies the EPR to be purified together with the corresponding neighbor. The Entanglement Purification Function is responsible for selecting the required entangled pairs (via Interface 11), coordinating the purification protocol with the remote node, and updating the operational state of the participating qubits (via Interface 18). Local implementation details, such as qubit addresses, remain internal to each node and are resolved through interactions with the Quantum Memory Management Function via Interface 11.<a href="#section-7.3-21" class="pilcrow">¶</a></p>
+<p id="section-7.3-22">This notification interface informs the Quantum Forwarding Function that a new elementary entangled pair has been successfully established with a neighboring node. The notification typically identifies the newly created EPR resource together with the associated neighbor and local qubit. The forwarding function uses this information to update the logical view of available entanglement resources and determine whether subsequent operations, such as purification or swapping, can proceed. In implementations where the Quantum Memory Management Function already reports qubit state changes (Interface 21), this interface may be optional or merged with those notifications.<a href="#section-7.3-22" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-23.1">
+            <p id="section-7.3-23.1.1">9: start purification - Initiator node<a href="#section-7.3-23.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-7.3-23.1.2.1">
+                <p id="section-7.3-23.1.2.1.1">From: EGF (if L2 only), QFF (if L3 involved)<a href="#section-7.3-23.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+              <li class="normal" id="section-7.3-23.1.2.2">
+                <p id="section-7.3-23.1.2.2.1">To: EPF<a href="#section-7.3-23.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+            </ul>
+</li>
+        </ul>
+<p id="section-7.3-24">This interface initiates an entanglement purification procedure. Depending on the architectural realization, purification may be triggered immediately after elementary entanglement generation (by EGF) or for any segment as part of an end-to-end forwarding process (by QFF). The request identifies the EPR to be purified together with the corresponding neighbor. The Entanglement Purification Function is responsible for selecting the required entangled pairs (via Interface 11), coordinating the purification protocol with the remote node, and updating the operational state of the participating qubits (via Interface 18). Local implementation details, such as qubit addresses, remain internal to each node and are resolved through interactions with the Quantum Memory Management Function via Interface 11.<a href="#section-7.3-24" class="pilcrow">¶</a></p>
 <ul class="normal ulEmpty">
-<li class="normal ulEmpty" id="section-7.3-22.1">
-            <p id="section-7.3-22.1.1">Why EPF updates qubit FSM instead of QFF:
+<li class="normal ulEmpty" id="section-7.3-25.1">
+            <p id="section-7.3-25.1.1">Why EPF updates qubit FSM instead of QFF:
   - Purification does not change connectivity
   - EPF already interacts with qubit (knows qubit FSM state)
   - Keeps initiator-agnostic implementation/API
-  - Keeps the QFF clean<a href="#section-7.3-22.1.1" class="pilcrow">¶</a></p>
+  - Keeps the QFF clean<a href="#section-7.3-25.1.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-7.3-23">This interface initiates an entanglement purification procedure. Depending on the architectural realization, purification may be triggered immediately after elementary entanglement generation (by the EGF) or for any entanglement segment as part of an end-to-end forwarding process (by the QFF). The request identifies the EPR to be purified together with the corresponding neighboring node. The Entanglement Purification Function is responsible for selecting the required entangled pairs (via Interface 11), coordinating the purification protocol with the remote node, and updating the operational state of the participating qubits (via Interface 18). Local details, such as qubit addresses, remain internal to each node and are resolved through interactions with the Quantum Memory Management Function (via Interface 11). Assigning qubit state management to the EPF, rather than the QFF, reflects the separation of responsibilities adopted in this model: purification modifies the state and quality of quantum resources but does not alter the network connectivity. Since the EPF already manages the participating qubits throughout the purification procedure, it is the natural function to update their lifecycle state, keeping the QFF focused on connectivity management and independent of purification-specific implementation details.<a href="#section-7.3-23" class="pilcrow">¶</a></p>
+<p id="section-7.3-26">This interface initiates an entanglement purification procedure. Depending on the architectural realization, purification may be triggered immediately after elementary entanglement generation (by the EGF) or for any entanglement segment as part of an end-to-end forwarding process (by the QFF). The request identifies the EPR to be purified together with the corresponding neighboring node. The Entanglement Purification Function is responsible for selecting the required entangled pairs (via Interface 11), coordinating the purification protocol with the remote node, and updating the operational state of the participating qubits (via Interface 18). Local details, such as qubit addresses, remain internal to each node and are resolved through interactions with the Quantum Memory Management Function (via Interface 11). Assigning qubit state management to the EPF, rather than the QFF, reflects the separation of responsibilities adopted in this model: purification modifies the state and quality of quantum resources but does not alter the network connectivity. Since the EPF already manages the participating qubits throughout the purification procedure, it is the natural function to update their lifecycle state, keeping the QFF focused on connectivity management and independent of purification-specific implementation details.<a href="#section-7.3-26" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-24.1">
-            <p id="section-7.3-24.1.1">10a: Do swap<a href="#section-7.3-24.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-27.1">
+            <p id="section-7.3-27.1.1">10a: Do swap<a href="#section-7.3-27.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-24.1.2.1">
-                <p id="section-7.3-24.1.2.1.1">From: QFF<a href="#section-7.3-24.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-27.1.2.1">
+                <p id="section-7.3-27.1.2.1.1">From: QFF<a href="#section-7.3-27.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-24.1.2.2">
-                <p id="section-7.3-24.1.2.2.1">To: ESF<a href="#section-7.3-24.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-27.1.2.2">
+                <p id="section-7.3-27.1.2.2.1">To: ESF<a href="#section-7.3-27.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-25">This interface triggers an entanglement swapping operation at an intermediate node. The request specifies the local qubits participating in the Bell-state measurement together with the corresponding neighboring entanglement segments. The Entanglement Swapping Function performs the required local operations and handles the associated classical signaling with adjacent nodes. The Quantum Forwarding Function is responsible for deciding when swapping should occur, while the detailed execution and management of the local quantum operations remain internal to the Entanglement Swapping Function. The outcome of the operation, including success or failure, is reflected through updates to the qubit operational state (via Interface 18) rather than through this interface itself. This separation allows the forwarding function to remain concerned with the evolution of network connectivity, while the lifecycle of the local qubit is managed independently by the resource management mechanisms.<a href="#section-7.3-25" class="pilcrow">¶</a></p>
+<p id="section-7.3-28">This interface triggers an entanglement swapping operation at an intermediate node. The request specifies the local qubits participating in the Bell-state measurement together with the corresponding neighboring entanglement segments. The Entanglement Swapping Function performs the required local operations and handles the associated classical signaling with adjacent nodes. The Quantum Forwarding Function is responsible for deciding when swapping should occur, while the detailed execution and management of the local quantum operations remain internal to the Entanglement Swapping Function. The outcome of the operation, including success or failure, is reflected through updates to the qubit operational state (via Interface 18) rather than through this interface itself. This separation allows the forwarding function to remain concerned with the evolution of network connectivity, while the lifecycle of the local qubit is managed independently by the resource management mechanisms.<a href="#section-7.3-28" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-26.1">
-            <p id="section-7.3-26.1.1">10b: New segment EPR<a href="#section-7.3-26.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-29.1">
+            <p id="section-7.3-29.1.1">10b: New segment EPR<a href="#section-7.3-29.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-26.1.2.1">
-                <p id="section-7.3-26.1.2.1.1">From: ESF<a href="#section-7.3-26.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-29.1.2.1">
+                <p id="section-7.3-29.1.2.1.1">From: ESF<a href="#section-7.3-29.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-26.1.2.2">
-                <p id="section-7.3-26.1.2.2.1">To: QFF<a href="#section-7.3-26.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-29.1.2.2">
+                <p id="section-7.3-29.1.2.2.1">To: QFF<a href="#section-7.3-29.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-27">This notification interface reports the successful completion of an entanglement swapping operation and the creation of a longer entanglement segment. The notification allows the Quantum Forwarding Function to update its view of the logical connectivity and determine whether additional swapping/purification operations are required. If the Entanglement Swapping Function has direct access to the FIB, these updates may be performed internally, making this notification optional.<a href="#section-7.3-27" class="pilcrow">¶</a></p>
+<p id="section-7.3-30">This notification interface reports the successful completion of an entanglement swapping operation and the creation of a longer entanglement segment. The notification allows the Quantum Forwarding Function to update its view of the logical connectivity and determine whether additional swapping/purification operations are required. If the Entanglement Swapping Function has direct access to the FIB, these updates may be performed internally, making this notification optional.<a href="#section-7.3-30" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-28.1">
-            <p id="section-7.3-28.1.1">11: find qubits<a href="#section-7.3-28.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-31.1">
+            <p id="section-7.3-31.1.1">11: find qubits<a href="#section-7.3-31.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-28.1.2.1">
-                <p id="section-7.3-28.1.2.1.1">From: EGF, QFF, EPF<a href="#section-7.3-28.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-31.1.2.1">
+                <p id="section-7.3-31.1.2.1.1">From: EGF, QFF, EPF<a href="#section-7.3-31.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-28.1.2.2">
-                <p id="section-7.3-28.1.2.2.1">To: QMMF<a href="#section-7.3-28.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-31.1.2.2">
+                <p id="section-7.3-31.1.2.2.1">To: QMMF<a href="#section-7.3-31.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-29">This interface provides lookup services for quantum resources maintained by the Quantum Memory Management Function. Rather than referencing physical qubits directly, requesting functions may specify higher-level selection criteria, such as EPR identifiers, neighboring nodes, paths, communication channels, or request identifiers. The Quantum Memory Management Function resolves these logical references into the corresponding physical qubit addresses while hiding implementation-specific details of resource organization.<a href="#section-7.3-29" class="pilcrow">¶</a></p>
+<p id="section-7.3-32">This interface provides lookup services for quantum resources maintained by the Quantum Memory Management Function. Rather than referencing physical qubits directly, requesting functions may specify higher-level selection criteria, such as EPR identifiers, neighboring nodes, paths, communication channels, or request identifiers. The Quantum Memory Management Function resolves these logical references into the corresponding physical qubit addresses while hiding implementation-specific details of resource organization.<a href="#section-7.3-32" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-30.1">
-            <p id="section-7.3-30.1.1">12: send/receive classical message:<a href="#section-7.3-30.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-33.1">
+            <p id="section-7.3-33.1.1">12: send/receive classical message:<a href="#section-7.3-33.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-30.1.2.1">
-                <p id="section-7.3-30.1.2.1.1">Bidirectional: QEF/EPF/ESF/QCF/QICF - CComF<a href="#section-7.3-30.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-33.1.2.1">
+                <p id="section-7.3-33.1.2.1.1">Bidirectional: QEF/EPF/ESF/QCF/QICF - CComF<a href="#section-7.3-33.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-31">This interface provides the transport of classical protocol messages required to coordinate distributed quantum networking operations. It supports signaling associated with elementary entanglement generation, heralding, entanglement swapping, purification, routing, resource coordination, and other control procedures. The Classical Communication Function abstracts the underlying communication infrastructure, allowing network functions to exchange protocol information without depending on a particular classical networking technology or transport protocol.<a href="#section-7.3-31" class="pilcrow">¶</a></p>
+<p id="section-7.3-34">This interface provides the transport of classical protocol messages required to coordinate distributed quantum networking operations. It supports signaling associated with elementary entanglement generation, heralding, entanglement swapping, purification, routing, resource coordination, and other control procedures. The Classical Communication Function abstracts the underlying communication infrastructure, allowing network functions to exchange protocol information without depending on a particular classical networking technology or transport protocol.<a href="#section-7.3-34" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-32.1">
-            <p id="section-7.3-32.1.1">13: qubit decohered/released<a href="#section-7.3-32.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-35.1">
+            <p id="section-7.3-35.1.1">13: qubit decohered/released<a href="#section-7.3-35.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-32.1.2.1">
-                <p id="section-7.3-32.1.2.1.1">From: QMMF<a href="#section-7.3-32.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-35.1.2.1">
+                <p id="section-7.3-35.1.2.1.1">From: QMMF<a href="#section-7.3-35.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-32.1.2.2">
-                <p id="section-7.3-32.1.2.2.1">To: EGF, EPF<a href="#section-7.3-32.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-35.1.2.2">
+                <p id="section-7.3-35.1.2.2.1">To: EGF, EPF<a href="#section-7.3-35.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-33">This notification interface informs that a quantum resource has become unavailable, either because it has decohered beyond an acceptable threshold or because it has been explicitly released following consumption or protocol completion. Such notifications allow higher-level functions to terminate pending operations, release associated resources, or initiate recovery procedures when required. The criteria for generating these notifications depend on the implementation-specific management of quantum memories and resource lifetimes.<a href="#section-7.3-33" class="pilcrow">¶</a></p>
+<p id="section-7.3-36">This notification interface informs that a quantum resource has become unavailable, either because it has decohered beyond an acceptable threshold or because it has been explicitly released following consumption or protocol completion. Such notifications allow higher-level functions to terminate pending operations, release associated resources, or initiate recovery procedures when required. The criteria for generating these notifications depend on the implementation-specific management of quantum memories and resource lifetimes.<a href="#section-7.3-36" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-34.1">
-            <p id="section-7.3-34.1.1">14: QIC request (on-demand)<a href="#section-7.3-34.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-37.1">
+            <p id="section-7.3-37.1.1">14: QIC request (on-demand)<a href="#section-7.3-37.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-34.1.2.1">
-                <p id="section-7.3-34.1.2.1.1">From: EGF<a href="#section-7.3-34.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-37.1.2.1">
+                <p id="section-7.3-37.1.2.1.1">From: EGF<a href="#section-7.3-37.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-34.1.2.2">
-                <p id="section-7.3-34.1.2.2.1">To: QICF<a href="#section-7.3-34.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-37.1.2.2">
+                <p id="section-7.3-37.1.2.2.1">To: QICF<a href="#section-7.3-37.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-35">This interface requests the establishment of the optical connectivity required to perform elementary entanglement generation with a neighboring node. Depending on the underlying interconnect architecture, the Quantum Interconnect Function may configure optical switches, reserve shared Bell-state measurement devices or photon sources, allocate wavelength or time-bin resources, or perform other implementation-specific actions required to establish connectivity. The response indicates whether the requested connectivity has been successfully established, failed, or has subsequently been released. This interface is intended for <em>on-demand</em> operation initiated directly by the Entanglement Generation Function.<a href="#section-7.3-35" class="pilcrow">¶</a></p>
+<p id="section-7.3-38">This interface requests the establishment of the optical connectivity required to perform elementary entanglement generation with a neighboring node. Depending on the underlying interconnect architecture, the Quantum Interconnect Function may configure optical switches, reserve shared Bell-state measurement devices or photon sources, allocate wavelength or time-bin resources, or perform other implementation-specific actions required to establish connectivity. The response indicates whether the requested connectivity has been successfully established, failed, or has subsequently been released. This interface is intended for <em>on-demand</em> operation initiated directly by the Entanglement Generation Function.<a href="#section-7.3-38" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-36.1">
-            <p id="section-7.3-36.1.1">15: QIC request (schedule-based)<a href="#section-7.3-36.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-39.1">
+            <p id="section-7.3-39.1.1">15: QIC request (schedule-based)<a href="#section-7.3-39.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-36.1.2.1">
-                <p id="section-7.3-36.1.2.1.1">From: QCF (or higher-level orchestrator)<a href="#section-7.3-36.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-39.1.2.1">
+                <p id="section-7.3-39.1.2.1.1">From: QCF (or higher-level orchestrator)<a href="#section-7.3-39.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-36.1.2.2">
-                <p id="section-7.3-36.1.2.2.1">To: QICF<a href="#section-7.3-36.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-39.1.2.2">
+                <p id="section-7.3-39.1.2.2.1">To: QICF<a href="#section-7.3-39.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-37">This interface reserves quantum interconnect resources according to a planned communication schedule rather than an immediate entanglement request. It enables controllers or higher-level orchestration functions to coordinate optical connectivity in advance. The request may specify reservation windows, participating nodes, resource requirements, or scheduling constraints, while the Quantum Interconnect Function is responsible for translating these requests into the appropriate interconnect configuration and resource reservations.<a href="#section-7.3-37" class="pilcrow">¶</a></p>
+<p id="section-7.3-40">This interface reserves quantum interconnect resources according to a planned communication schedule rather than an immediate entanglement request. It enables controllers or higher-level orchestration functions to coordinate optical connectivity in advance. The request may specify reservation windows, participating nodes, resource requirements, or scheduling constraints, while the Quantum Interconnect Function is responsible for translating these requests into the appropriate interconnect configuration and resource reservations.<a href="#section-7.3-40" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-38.1">
-            <p id="section-7.3-38.1.1">16: send/receive quantum signal<a href="#section-7.3-38.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-41.1">
+            <p id="section-7.3-41.1.1">16: send/receive quantum signal<a href="#section-7.3-41.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-38.1.2.1">
-                <p id="section-7.3-38.1.2.1.1">Bidirectional: EGF - QComF<a href="#section-7.3-38.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-41.1.2.1">
+                <p id="section-7.3-41.1.2.1.1">Bidirectional: EGF - QComF<a href="#section-7.3-41.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-39">This interface provides access to the underlying quantum communication hardware responsible for transmitting and receiving quantum states. It enables the Entanglement Generation Function to initiate the physical exchange of photons required for elementary entanglement generation while abstracting the details of the communication technology. The Quantum Communication Function encapsulates hardware-specific operations, allowing higher-layer network functions to remain independent of the physical transmission medium or qubit platform.<a href="#section-7.3-39" class="pilcrow">¶</a></p>
+<p id="section-7.3-42">This interface provides access to the underlying quantum communication hardware responsible for transmitting and receiving quantum states. It enables the Entanglement Generation Function to initiate the physical exchange of photons required for elementary entanglement generation while abstracting the details of the communication technology. The Quantum Communication Function encapsulates hardware-specific operations, allowing higher-layer network functions to remain independent of the physical transmission medium or qubit platform.<a href="#section-7.3-42" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-40.1">
-            <p id="section-7.3-40.1.1">17: Route advertisement (distributed control plane)<a href="#section-7.3-40.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-43.1">
+            <p id="section-7.3-43.1.1">17: Route advertisement (distributed control plane)<a href="#section-7.3-43.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-40.1.2.1">
-                <p id="section-7.3-40.1.2.1.1">From: QCF<a href="#section-7.3-40.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-43.1.2.1">
+                <p id="section-7.3-43.1.2.1.1">From: QCF<a href="#section-7.3-43.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-40.1.2.2">
-                <p id="section-7.3-40.1.2.2.1">To: QCF<a href="#section-7.3-40.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-43.1.2.2">
+                <p id="section-7.3-43.1.2.2.1">To: QCF<a href="#section-7.3-43.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-41">This interface exchanges routing or reachability information between Quantum Controller Functions operating in distributed control architectures. It enables controllers to disseminate routing state, topology information, or routing metrics required to compute or update forwarding decisions. The exact information exchanged depends on the routing protocol and may include reachability advertisements, link-state information, routing metrics, or other control-plane data. This interface is not required in architectures relying on a logically centralized controller.<a href="#section-7.3-41" class="pilcrow">¶</a></p>
+<p id="section-7.3-44">This interface exchanges routing or reachability information between Quantum Controller Functions operating in distributed control architectures. It enables controllers to disseminate routing state, topology information, or routing metrics required to compute or update forwarding decisions. The exact information exchanged depends on the routing protocol and may include reachability advertisements, link-state information, routing metrics, or other control-plane data. This interface is not required in architectures relying on a logically centralized controller.<a href="#section-7.3-44" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-42.1">
-            <p id="section-7.3-42.1.1">18: Update qubit operational state<a href="#section-7.3-42.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-45.1">
+            <p id="section-7.3-45.1.1">18: Update qubit operational state<a href="#section-7.3-45.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-42.1.2.1">
-                <p id="section-7.3-42.1.2.1.1">From: EGF, QFF, EPF, ESF<a href="#section-7.3-42.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-45.1.2.1">
+                <p id="section-7.3-45.1.2.1.1">From: EGF, QFF, EPF, ESF<a href="#section-7.3-45.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-42.1.2.2">
-                <p id="section-7.3-42.1.2.2.1">To: QMMF<a href="#section-7.3-42.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-45.1.2.2">
+                <p id="section-7.3-45.1.2.2.1">To: QMMF<a href="#section-7.3-45.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-43">This interface updates the operational state maintained for individual qubits throughout their lifetime. Network functions invoke this interface whenever a protocol operation changes the status of a qubit, such as after successful entanglement generation, purification, swapping, measurement, or resource consumption. The Quantum Memory Management Function maintains a consistent view of the qubit lifecycle, allowing resource management and other network functions to operate using a common representation of resource state.<a href="#section-7.3-43" class="pilcrow">¶</a></p>
+<p id="section-7.3-46">This interface updates the operational state maintained for individual qubits throughout their lifetime. Network functions invoke this interface whenever a protocol operation changes the status of a qubit, such as after successful entanglement generation, purification, swapping, measurement, or resource consumption. The Quantum Memory Management Function maintains a consistent view of the qubit lifecycle, allowing resource management and other network functions to operate using a common representation of resource state.<a href="#section-7.3-46" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-44.1">
-            <p id="section-7.3-44.1.1">19: Read-write FIB<a href="#section-7.3-44.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-47.1">
+            <p id="section-7.3-47.1.1">19: Read-write FIB<a href="#section-7.3-47.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-44.1.2.1">
-                <p id="section-7.3-44.1.2.1.1">From: QFF, ESF<a href="#section-7.3-44.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-47.1.2.1">
+                <p id="section-7.3-47.1.2.1.1">From: QFF, ESF<a href="#section-7.3-47.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-44.1.2.2">
-                <p id="section-7.3-44.1.2.2.1">To: FIBF<a href="#section-7.3-44.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-47.1.2.2">
+                <p id="section-7.3-47.1.2.2.1">To: FIBF<a href="#section-7.3-47.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-45">This interface provides access to the Forwarding Information Base (FIB) maintained by the forwarder. It supports the installation, modification, removal, and retrieval of forwarding entries describing active entanglement paths and their associated forwarding policies. Depending on the routing architecture, these entries may include path identifiers, forwarding instructions, swapping or purification policies, quality-of-service requirements, or other execution parameters required during network operation. The interface abstracts the forwarding instructions (and status) without prescribing a particular forwarding-table implementation.<a href="#section-7.3-45" class="pilcrow">¶</a></p>
+<p id="section-7.3-48">This interface provides access to the Forwarding Information Base (FIB) maintained by the forwarder. It supports the installation, modification, removal, and retrieval of forwarding entries describing active entanglement paths and their associated forwarding policies. Depending on the routing architecture, these entries may include path identifiers, forwarding instructions, swapping or purification policies, quality-of-service requirements, or other execution parameters required during network operation. The interface abstracts the forwarding instructions (and status) without prescribing a particular forwarding-table implementation.<a href="#section-7.3-48" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-46.1">
-            <p id="section-7.3-46.1.1">20: Read-write RIB<a href="#section-7.3-46.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-49.1">
+            <p id="section-7.3-49.1.1">20: Read-write RIB<a href="#section-7.3-49.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-46.1.2.1">
-                <p id="section-7.3-46.1.2.1.1">From: QCF<a href="#section-7.3-46.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-49.1.2.1">
+                <p id="section-7.3-49.1.2.1.1">From: QCF<a href="#section-7.3-49.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-46.1.2.2">
-                <p id="section-7.3-46.1.2.2.1">To: RIBF<a href="#section-7.3-46.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-49.1.2.2">
+                <p id="section-7.3-49.1.2.2.1">To: RIBF<a href="#section-7.3-49.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-47">This interface provides access to the Routing Information Base (RIB) used by the Quantum Controller Function. It supports the creation, modification, removal, and lookup of routing entries representing network reachability and routing information. The Routing Information Base may contain routes learned through distributed routing protocols, computed by a centralized controller, or derived from other routing mechanisms.<a href="#section-7.3-47" class="pilcrow">¶</a></p>
+<p id="section-7.3-50">This interface provides access to the Routing Information Base (RIB) used by the Quantum Controller Function. It supports the creation, modification, removal, and lookup of routing entries representing network reachability and routing information. The Routing Information Base may contain routes learned through distributed routing protocols, computed by a centralized controller, or derived from other routing mechanisms.<a href="#section-7.3-50" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-48.1">
-            <p id="section-7.3-48.1.1">21: Qubit operational state updated<a href="#section-7.3-48.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-51.1">
+            <p id="section-7.3-51.1.1">21: Qubit operational state updated<a href="#section-7.3-51.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-7.3-48.1.2.1">
-                <p id="section-7.3-48.1.2.1.1">From: QMMF<a href="#section-7.3-48.1.2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-7.3-51.1.2.1">
+                <p id="section-7.3-51.1.2.1.1">From: QMMF<a href="#section-7.3-51.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-              <li class="normal" id="section-7.3-48.1.2.2">
-                <p id="section-7.3-48.1.2.2.1">To: QFF (or any other function)<a href="#section-7.3-48.1.2.2.1" class="pilcrow">¶</a></p>
+              <li class="normal" id="section-7.3-51.1.2.2">
+                <p id="section-7.3-51.1.2.2.1">To: QFF (or any other function)<a href="#section-7.3-51.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
         </ul>
-<p id="section-7.3-49">This notification interface informs network functions that the operational state of a qubit has changed. Such changes may result from successful entanglement generation, resource allocation or release, decoherence, timeout, or other events affecting the qubit lifecycle. These notifications allow dependent network functions to react asynchronously to resource state changes without continuously querying the Quantum Memory Management Function. Depending on the implementation, additional network functions beyond the Quantum Forwarding Function may subscribe to these notifications.<a href="#section-7.3-49" class="pilcrow">¶</a></p>
+<p id="section-7.3-52">This notification interface informs network functions that the operational state of a qubit has changed. Such changes may result from successful entanglement generation, resource allocation or release, decoherence, timeout, or other events affecting the qubit lifecycle. These notifications allow dependent network functions to react asynchronously to resource state changes without continuously querying the Quantum Memory Management Function. Depending on the implementation, additional network functions beyond the Quantum Forwarding Function may subscribe to these notifications.<a href="#section-7.3-52" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

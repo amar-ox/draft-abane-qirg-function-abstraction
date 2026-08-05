@@ -361,7 +361,7 @@ This interface reads, installs, updates, or removes forwarding information. The 
 
 - 20: Read-write RIB
   - From: QCF
-  - To: RIBF
+  - To: RIB
 
 This interface provides access to the Routing Information Base (RIB) used by the Quantum Controller Function. It supports the creation, modification, removal, and lookup of routing entries representing network reachability and routing information. The Routing Information Base may contain routes learned through distributed routing protocols, computed by a centralized controller, or derived from other routing mechanisms.
 

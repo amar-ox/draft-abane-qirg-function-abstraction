@@ -293,15 +293,6 @@ This notification interface informs the Quantum Forwarding Function that a new e
   - From: EGF (if L2 only), QFF (if L3 involved)
   - To: EPF
 
-This interface initiates an entanglement purification procedure. Depending on the architectural realization, purification may be triggered immediately after elementary entanglement generation (by EGF) or for any segment as part of an end-to-end forwarding process (by QFF). The request identifies the EPR to be purified together with the corresponding neighbor. The Entanglement Purification Function is responsible for selecting the required entangled pairs (via Interface 11), coordinating the purification protocol with the remote node, and updating the operational state of the participating qubits (via Interface 18). Local implementation details, such as qubit addresses, remain internal to each node and are resolved through interactions with the Quantum Memory Management Function via Interface 11.
-
-> Why EPF updates qubit FSM instead of QFF:
-  - Purification does not change connectivity
-  - EPF already interacts with qubit (knows qubit FSM state)
-  - Keeps initiator-agnostic implementation/API
-  - Keeps the QFF clean
-
-
 This interface initiates an entanglement purification procedure. Depending on the architectural realization, purification may be triggered immediately after elementary entanglement generation (by the EGF) or for any entanglement segment as part of an end-to-end forwarding process (by the QFF). The request identifies the EPR to be purified together with the corresponding neighboring node. The Entanglement Purification Function is responsible for selecting the required entangled pairs (via Interface 11), coordinating the purification protocol with the remote node, and updating the operational state of the participating qubits (via Interface 18). Local details, such as qubit addresses, remain internal to each node and are resolved through interactions with the Quantum Memory Management Function (via Interface 11). Assigning qubit state management to the EPF, rather than the QFF, reflects the separation of responsibilities adopted in this model: purification modifies the state and quality of quantum resources but does not alter the network connectivity. Since the EPF already manages the participating qubits throughout the purification procedure, it is the natural function to update their lifecycle state, keeping the QFF focused on connectivity management and independent of purification-specific implementation details.
 
 - 10a: Do swap

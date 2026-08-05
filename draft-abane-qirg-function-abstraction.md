@@ -208,7 +208,7 @@ The network functions defined in this document should be viewed as architectural
 - Quantum Multiplexing Function (QMF): Maps logical requests and paths onto available quantum resources and maintains the association between paths and qubits.
 - Quantum Memory Management Function (QMMF): Manages the lifecycle of quantum memories, including allocation, release, ownership, operational state tracking, and entanglement metadata. The function may virtualize qubit addressing by mapping logical qubit identifiers to physical quantum memories, and may maintain implementation-specific information about available quantum resources, such as qubit capabilities, lifetime, or placement, to support resource allocation and scheduling.
   - Entanglement State Repository Function (ESRF): Maintains a consistent view of entanglement resources, including EPR identifiers, qubit mappings, connectivity information, fidelity metrics, and operational state. This function may be implemented as part of the QMMF.
-  - Qubit Lifecycle Management Function (QLMF): Maintains a finite state machine (FSM) of each qubit from raw to released operation states. This function may be implemented as part of the QMMF.
+  - Qubit Lifecycle Management Function (QLMF): Maintains a finite state machine (FSM) of each qubit. This function may be implemented as part of the QMMF.
 - Entanglement Generation Function (EGF): Establishes elementary entanglement with neighboring nodes and reports successful entanglement creation.
 - Entanglement Swapping Function (ESF): Performs entanglement swapping operations and, sends and receives swapping signalings, and (may directly) update connectivity information resulting from successful swaps.
 - Entanglement Purification Function (EPF): Executes purification protocols and maintains the associated operation state.
@@ -371,6 +371,128 @@ This interface provides access to the Routing Information Base (RIB) used by the
 
 This notification interface informs network functions that the operational state of a qubit has changed. Such changes may result from successful entanglement generation, resource allocation or release, decoherence, timeout, or other events affecting the qubit lifecycle. These notifications allow dependent network functions to react asynchronously to resource state changes without continuously querying the Quantum Memory Management Function. Depending on the implementation, additional network functions beyond the Quantum Forwarding Function may subscribe to these notifications.
 
+
+~~~ ascii-art
+
+ +------+       0a        +------+                +----------+
+ | QAF  |---------------> | QCF  |<------17------>| Peer QCF |
+ |      |<--------------- |      |<------0a------>|          |
+ +------+       0b        +--+---+                +----------+
+                              |
+                +-------------+-------------+
+                |             |             |
+              2 |           15|           20|
+                v             v             v
+             +------+      +------+      +------+
+             | QFF  |      | QICF |      | RIB  |
+             +--+---+      +--+---+      +------+
+                |            ^
+       +--------+--------+   |
+       |        |        |   | 14
+     3 |     10a|      5 |   |
+       v        v        v   |
+    +-----+   +-----+  +-----+
+    | QMF |   | ESF |  | EGF |
+    +--+--+   +--+--+  +--+--+
+       |         |        |
+     4 |      10b|      8 |
+       v         v        v
+    +------+    QFF      QFF
+    | QMMF |
+    +--+---+
+       |
+     21|
+       v
+      QFF
+
+
+ Additional interfaces:
+
+   6    QFF --------------------------> QCF
+        Send entanglement-connectivity information
+
+   7    EGF, ESF, EPF ---------------> QMMF
+        Allocate or deallocate qubits
+
+   9    EGF, QFF ---------------------> EPF
+        Start purification at the initiator node
+
+  11    EGF, QFF, EPF ---------------> QMMF
+        Find qubits
+
+  13    QMMF -------------------------> EGF, EPF
+        Report that a qubit decohered or was released
+
+  18    EGF, QFF, EPF, ESF ----------> QMMF
+        Update qubit operational state
+
+  19    QFF, ESF <-------------------> FIB
+        Read or write forwarding state
+
+  20    QCF <------------------------> RIB
+        Read or write routing state
+~~~
+
+Figure 1: Network functions and their logical interfaces.
+Interfaces involving several source or destination functions are listed
+below the main diagram to preserve readability.
+
+
+
+~~~ ascii-art
+                         +---------+
+                         | RELEASE |
+                         +----+----+
+                              |
+                              v
+                         +---------+
+                  +----->|   RAW   |<-----+
+                  |      +----+----+      |
+                  |           |           |
+                  v           v           |
+              +--------+   +----------+   |
+              | ACTIVE |-->| RESERVED |---+
+              +---+----+   +----+-----+
+                                |
+                                |
+                                v
+                          +-----------+
+                          | ENTANGLED |
+                          +-----+-----+
+                                |
+                                v
+                           +---------+
+                      +--->|  PURIF  |
+                      |    +----+----+
+                      |         |
+                      v         v
+                 +---------+ +----------+
+                 | PENDING | | ELIGIBLE |
+                 +---------+ +----+-----+
+                                   |
+                            +------+------+
+                            |             |
+                            v             v
+                       +---------+   +----------+
+                       | CONSUME |   | SWAPPING |
+                       +---------+   +----------+
+
+   Transitions to RELEASE:
+
+      ENTANGLED, PURIF, PENDING, ELIGIBLE,
+      CONSUME, SWAPPING -> RELEASE
+
+
+Qubit Ownership:
+    QMMF:       RAW, RELEASE
+    EGF:        ACTIVE, RESERVED
+    QFF:        ENTANGLED,  ELIGIBLE
+    QPF:        PURIF, PENDING
+    QSF:        SWAPPING
+    QAF:        CONSUME
+~~~
+
+Figure 2: Possible Qubit State Machine used by the Qubit Lifecycle Management Function (QLMF).
 
 # Use Cases
 TBD

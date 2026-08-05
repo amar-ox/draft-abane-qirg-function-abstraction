@@ -495,7 +495,16 @@ Qubit Ownership:
 Figure 2: Possible Qubit State Machine used by the Qubit Lifecycle Management Function (QLMF).
 
 # Use Cases
-TBD
+The functions defined in this document may be composed differently depending on network scale, topology, and operational requirements. The following illustrative use cases demonstrate how the reference model can accommodate different architectural settings.
+
+- Quantum multicomputer or small quantum data center: Communication is limited to direct entanglement between nodes connected through the optical interconnect. The QICF may be centralized and schedule access to switches, sources, Bell-state measurement devices, or other shared resources. Since entanglement routing through swapping is not used, QCF and QFF functions are not required.
+
+- Large quantum data center or small QLAN: The architecture may support multi-hop entanglement distribution on top of direct optical connectivity. The QICF may be centralized and provide both scheduled and on-demand connectivity. A centralized QCF computes and coordinates entanglement routes, while the QFF on each node executes forwarding operations.
+
+- Large QLAN or QWAN: Multi-hop entanglement routing is coordinated by a logically centralized QCF and executed by QFF instances at network nodes. The QICF may instead be distributed, with nodes and interconnect devices coordinating on demand to establish the optical connectivity required for elementary entanglement generation.
+
+- Quantum Internet: Entanglement routing and forwarding may be distributed across nodes or administrative domains through distributed QCF and QFF instances. The QICF may not appear as an explicit network-level function because interconnect control is absent, local to individual links, or hidden behind the elementary entanglement-generation service.
+
 
 # Conventions and Definitions
 

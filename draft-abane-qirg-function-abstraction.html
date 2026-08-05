@@ -2014,7 +2014,21 @@ Qubit Ownership:
       <h2 id="name-use-cases">
 <a href="#section-8" class="section-number selfRef">8. </a><a href="#name-use-cases" class="section-name selfRef">Use Cases</a>
       </h2>
-<p id="section-8-1">TBD<a href="#section-8-1" class="pilcrow">¶</a></p>
+<p id="section-8-1">The functions defined in this document may be composed differently depending on network scale, topology, and operational requirements. The following illustrative use cases demonstrate how the reference model can accommodate different architectural settings.<a href="#section-8-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-8-2.1">
+          <p id="section-8-2.1.1">Quantum multicomputer or small quantum data center: Communication is limited to direct entanglement between nodes connected through the optical interconnect. The QICF may be centralized and schedule access to switches, sources, Bell-state measurement devices, or other shared resources. Since entanglement routing through swapping is not used, QCF and QFF functions are not required.<a href="#section-8-2.1.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-8-2.2">
+          <p id="section-8-2.2.1">Large quantum data center or small QLAN: The architecture may support multi-hop entanglement distribution on top of direct optical connectivity. The QICF may be centralized and provide both scheduled and on-demand connectivity. A centralized QCF computes and coordinates entanglement routes, while the QFF on each node executes forwarding operations.<a href="#section-8-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-8-2.3">
+          <p id="section-8-2.3.1">Large QLAN or QWAN: Multi-hop entanglement routing is coordinated by a logically centralized QCF and executed by QFF instances at network nodes. The QICF may instead be distributed, with nodes and interconnect devices coordinating on demand to establish the optical connectivity required for elementary entanglement generation.<a href="#section-8-2.3.1" class="pilcrow">¶</a></p>
+</li>
+        <li class="normal" id="section-8-2.4">
+          <p id="section-8-2.4.1">Quantum Internet: Entanglement routing and forwarding may be distributed across nodes or administrative domains through distributed QCF and QFF instances. The QICF may not appear as an explicit network-level function because interconnect control is absent, local to individual links, or hidden behind the elementary entanglement-generation service.<a href="#section-8-2.4.1" class="pilcrow">¶</a></p>
+</li>
+      </ul>
 </section>
 </div>
 <div id="conventions-and-definitions">

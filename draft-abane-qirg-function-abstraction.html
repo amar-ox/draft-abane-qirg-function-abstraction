@@ -1517,7 +1517,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
                 <p id="section-7.2-1.6.2.1.1">Entanglement State Repository Function (ESRF): Maintains a consistent view of entanglement resources, including EPR identifiers, qubit mappings, connectivity information, fidelity metrics, and operational state. This function may be implemented as part of the QMMF.<a href="#section-7.2-1.6.2.1.1" class="pilcrow">¶</a></p>
 </li>
               <li class="normal" id="section-7.2-1.6.2.2">
-                <p id="section-7.2-1.6.2.2.1">Qubit Lifecycle Management Function (QLMF): Maintains a finite state machine (FSM) of each qubit from raw to released operation states. This function may be implemented as part of the QMMF.<a href="#section-7.2-1.6.2.2.1" class="pilcrow">¶</a></p>
+                <p id="section-7.2-1.6.2.2.1">Qubit Lifecycle Management Function (QLMF): Maintains a finite state machine (FSM) of each qubit. This function may be implemented as part of the QMMF.<a href="#section-7.2-1.6.2.2.1" class="pilcrow">¶</a></p>
 </li>
             </ul>
 </li>
@@ -1886,6 +1886,125 @@ Invoking this interface typically results in an update of the Forwarding Informa
 </li>
         </ul>
 <p id="section-7.3-51">This notification interface informs network functions that the operational state of a qubit has changed. Such changes may result from successful entanglement generation, resource allocation or release, decoherence, timeout, or other events affecting the qubit lifecycle. These notifications allow dependent network functions to react asynchronously to resource state changes without continuously querying the Quantum Memory Management Function. Depending on the implementation, additional network functions beyond the Quantum Forwarding Function may subscribe to these notifications.<a href="#section-7.3-51" class="pilcrow">¶</a></p>
+<div class="alignLeft art-ascii-art art-text artwork" id="section-7.3-52">
+<pre>
+ +------+       0a        +------+                +----------+
+ | QAF  |---------------&gt; | QCF  |&lt;------17------&gt;| Peer QCF |
+ |      |&lt;--------------- |      |&lt;------0a------&gt;|          |
+ +------+       0b        +--+---+                +----------+
+                              |
+                +-------------+-------------+
+                |             |             |
+              2 |           15|           20|
+                v             v             v
+             +------+      +------+      +------+
+             | QFF  |      | QICF |      | RIB  |
+             +--+---+      +--+---+      +------+
+                |            ^
+       +--------+--------+   |
+       |        |        |   | 14
+     3 |     10a|      5 |   |
+       v        v        v   |
+    +-----+   +-----+  +-----+
+    | QMF |   | ESF |  | EGF |
+    +--+--+   +--+--+  +--+--+
+       |         |        |
+     4 |      10b|      8 |
+       v         v        v
+    +------+    QFF      QFF
+    | QMMF |
+    +--+---+
+       |
+     21|
+       v
+      QFF
+
+
+ Additional interfaces:
+
+   6    QFF --------------------------&gt; QCF
+        Send entanglement-connectivity information
+
+   7    EGF, ESF, EPF ---------------&gt; QMMF
+        Allocate or deallocate qubits
+
+   9    EGF, QFF ---------------------&gt; EPF
+        Start purification at the initiator node
+
+  11    EGF, QFF, EPF ---------------&gt; QMMF
+        Find qubits
+
+  13    QMMF -------------------------&gt; EGF, EPF
+        Report that a qubit decohered or was released
+
+  18    EGF, QFF, EPF, ESF ----------&gt; QMMF
+        Update qubit operational state
+
+  19    QFF, ESF &lt;-------------------&gt; FIB
+        Read or write forwarding state
+
+  20    QCF &lt;------------------------&gt; RIB
+        Read or write routing state
+</pre><a href="#section-7.3-52" class="pilcrow">¶</a>
+</div>
+<p id="section-7.3-53">Figure 1: Network functions and their logical interfaces.
+Interfaces involving several source or destination functions are listed
+below the main diagram to preserve readability.<a href="#section-7.3-53" class="pilcrow">¶</a></p>
+<div class="alignLeft art-ascii-art art-text artwork" id="section-7.3-54">
+<pre>
+                         +---------+
+                         | RELEASE |
+                         +----+----+
+                              |
+                              v
+                         +---------+
+                  +-----&gt;|   RAW   |&lt;-----+
+                  |      +----+----+      |
+                  |           |           |
+                  v           v           |
+              +--------+   +----------+   |
+              | ACTIVE |--&gt;| RESERVED |---+
+              +---+----+   +----+-----+
+                                |
+                                |
+                                v
+                          +-----------+
+                          | ENTANGLED |
+                          +-----+-----+
+                                |
+                                v
+                           +---------+
+                      +---&gt;|  PURIF  |
+                      |    +----+----+
+                      |         |
+                      v         v
+                 +---------+ +----------+
+                 | PENDING | | ELIGIBLE |
+                 +---------+ +----+-----+
+                                   |
+                            +------+------+
+                            |             |
+                            v             v
+                       +---------+   +----------+
+                       | CONSUME |   | SWAPPING |
+                       +---------+   +----------+
+
+   Transitions to RELEASE:
+
+      ENTANGLED, PURIF, PENDING, ELIGIBLE,
+      CONSUME, SWAPPING -&gt; RELEASE
+
+
+Qubit Ownership:
+    QMMF:       RAW, RELEASE
+    EGF:        ACTIVE, RESERVED
+    QFF:        ENTANGLED,  ELIGIBLE
+    QPF:        PURIF, PENDING
+    QSF:        SWAPPING
+    QAF:        CONSUME
+</pre><a href="#section-7.3-54" class="pilcrow">¶</a>
+</div>
+<p id="section-7.3-55">Figure 2: Possible Qubit State Machine used by the Qubit Lifecycle Management Function (QLMF).<a href="#section-7.3-55" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>

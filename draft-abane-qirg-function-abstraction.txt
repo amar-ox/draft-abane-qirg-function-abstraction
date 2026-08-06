@@ -4,8 +4,8 @@
 
 Quantum Internet Research Group                                 A. Abane
 Internet-Draft            National Institute of Standards and Technology
-Intended status: Informational                             5 August 2026
-Expires: 6 February 2027
+Intended status: Informational                             6 August 2026
+Expires: 7 February 2027
 
 
   On Architecture Classification and Functional Abstraction in Quantum
@@ -49,7 +49,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 February 2027.
+   This Internet-Draft will expire on 7 February 2027.
 
 Copyright Notice
 
@@ -128,22 +128,23 @@ Table of Contents
    responsibilities remains an active area of research.
 
    Remote entanglement generation is the fundamental service upon which
-   entanglement-based quantum networking protocols are built.  However,
-   exposing low-level entanglement generation primitives directly to
-   applications is insufficient for building interoperable networking
-   systems.  To be useful as a network service, entanglement generation
-   should provide three key properties [pompili-network-stack].  First,
-   it should be robust, abstracting retries and transient failures so
-   that applications request entanglement rather than individual
-   generation attempts.  Second, it should be quantum-platform-
-   independent, allowing applications to request entanglement without
-   depending on the underlying hardware implementation or physical
-   protocol.  Third, it should support on-demand operation, enabling
-   entanglement requests to be issued and consumed as part of larger
-   quantum networking protocols.  These requirements motivate not only
-   an Entanglement Generation Function (EGF), but more generally the
-   need for reusable network functions that expose well-defined service
-   interfaces while hiding implementation-specific details.
+   entanglement-based quantum networking protocols are built [RFC9340].
+   However, exposing low-level entanglement generation primitives
+   directly to applications is insufficient for building interoperable
+   networking systems.  To be useful as a network service, entanglement
+   generation should provide three key properties
+   [pompili-network-stack].  First, it should be robust, abstracting
+   retries and transient failures so that applications request
+   entanglement rather than individual generation attempts.  Second, it
+   should be quantum-platform-independent, allowing applications to
+   request entanglement without depending on the underlying hardware
+   implementation or physical protocol.  Third, it should support on-
+   demand operation, enabling entanglement requests to be issued and
+   consumed as part of larger quantum networking protocols.  These
+   requirements motivate not only an Entanglement Generation Function
+   (EGF), but more generally the need for reusable network functions
+   that expose well-defined service interfaces while hiding
+   implementation-specific details.
 
    This document argues that a network-function-oriented view provides a
    useful abstraction for reasoning about quantum networking
@@ -320,9 +321,9 @@ Table of Contents
       architecture using virtual or continuously maintained entanglement
       resources, emphasizing long-lived network states rather than
       purely on-demand operations.  Building on this direction, the
-      Beyond Layering architecture [cacciapuoti-beyond-layering]
-      advocates moving beyond strict layered networking models in favor
-      of architectures centered on quantum-specific abstractions and
+      Beyond Layering architecture [cacciapuoti-byd-lay] advocates
+      moving beyond strict layered networking models in favor of
+      architectures centered on quantum-specific abstractions and
       programmable coordination mechanisms.  Rather than prescribing
       rigid protocol layers, it introduces meta-protocols responsible
       for orchestrating lower-level quantum operations across the
@@ -360,30 +361,32 @@ Table of Contents
    implementation model.
 
    *  _Routing timing_ distinguishes between proactive and reactive
-      routing.  In proactive routing, routing information is produced
-      before entanglement generation begins.  Path computation may rely
-      on physical topology information, expected or collected link
+      routing [abane-survey].  In proactive routing, routing information
+      is produced before entanglement generation begins
+      [shi-etg-routing] [li-drm-etp].  Path computation may rely on
+      physical topology information, expected or collected link
       characteristics, or other pre-existing knowledge.  In reactive
       routing, routing decisions are made after entanglement generation,
-      typically based on the currently available entanglement resources.
-      This distinction therefore captures when routing information
-      becomes available relative to entanglement generation.
+      typically based on the currently available entanglement resources
+      [cicconetti-req-sched] [yang-async-etg-rtg].  This distinction
+      therefore captures when routing information becomes available
+      relative to entanglement generation.
 
    *  _Path decision model_ distinguishes between connection-oriented
       and connectionless routing.  In a connection-oriented model, an
       end-to-end route is selected and coordinated before entanglement
-      forwarding or swapping begins.  Resource reservation may be
-      present but is not required; the defining property is that the
-      route is decided before the request progresses through the
-      network.
+      forwarding or swapping begins [van-meter-qi-arch].  Resource
+      reservation may be present but is not required; the defining
+      property is that the route is decided before the request
+      progresses through the network.
 
    In a connectionless model, no fixed end-to-end path is imposed before
-   the request progresses through the network.  Instead, intermediate
-   nodes may select the next operation, next hop, or route segment using
-   their current local state and any available control-plane
-   information.  Nodes maintain persistent or transient forwarding
-   entries representing partial instructions rather than complete end-
-   to-end routes.
+   the request progresses through the network [xiao-conn-less].
+   Instead, intermediate nodes may select the next operation, next hop,
+   or route segment using their current local state and any available
+   control-plane information [lui-qbgp].  Nodes maintain persistent or
+   transient forwarding entries representing partial instructions rather
+   than complete end-to-end routes.
 
    The scope and persistence of forwarding state are realization
    characteristics rather than defining properties of the path decision
@@ -402,27 +405,29 @@ Table of Contents
       decisions are computed rather than how much network information is
       available.  In distributed approaches, routing algorithms execute
       independently on each network node.  Nodes may rely on partial
-      network knowledge, as in BGP-like protocols, or complete network
-      knowledge, as in OSPF-like link-state protocols.  In centralized
-      approaches, a logically centralized controller computes routes and
-      coordinates network operations.  While the quantum data plane
-      remains inherently distributed, the control plane may follow
-      either model.
+      network knowledge, as in BGP-like protocols [lui-qbgp], or
+      complete network knowledge, as in OSPF-like link-state protocols
+      [I-D.draft-kaws-qirg-advent-02].  In centralized approaches, a
+      logically centralized controller computes routes and coordinates
+      network operations.  While the quantum data plane remains
+      inherently distributed, the control plane may follow either model.
 
    Note that connectionless operation does not preclude centralized
    control.  A centralized controller may provide policies, constraints,
    preferred next hops, or other advisory _hints_ without prescribing a
-   complete path.
+   complete path [cacciapuoti-byd-lay].
 
    *  _Coordination model_ distinguishes between synchronous and
       asynchronous operation.  In synchronous architectures, network
       operations proceed in globally coordinated rounds or time slots
-      shared among participating nodes.  In asynchronous architectures,
-      operations are triggered by events, such as successful
-      entanglement generation, measurement outcomes, or control
-      messages, without requiring globally synchronized execution.  Both
-      proactive and reactive routing architectures may operate in either
-      synchronous or asynchronous environments.
+      shared among participating nodes [shi-etg-routing]
+      [cicconetti-req-sched].  In asynchronous architectures, operations
+      are triggered by events, such as successful entanglement
+      generation, measurement outcomes, or control messages, without
+      requiring globally synchronized execution [li-drm-etp]
+      [yang-async-etg-rtg].  Both proactive and reactive routing
+      architectures may operate in either synchronous or asynchronous
+      environments.
 
    The relationship among these dimensions can be viewed hierarchically.
    Routing timing determines whether routing information is obtained
@@ -1350,6 +1355,14 @@ Table of Contents
 
 12.2.  Informative References
 
+   [abane-survey]
+              Abane, A., Cubeddu, M., Mai, V., and A. Battou,
+              "Entanglement Routing in Quantum Networks: A Comprehensive
+              Survey", Institute of Electrical and Electronics Engineers
+              (IEEE), IEEE Transactions on Quantum Engineering vol. 6,
+              pp. 1-39, DOI 10.1109/tqe.2025.3541123, 2025,
+              <https://doi.org/10.1109/tqe.2025.3541123>.
+
    [bacciottini-redip]
               Bacciottini, L., Lenzini, L., Mingozzi, E., and G.
               Anastasi, "REDiP: Ranked Entanglement Distribution
@@ -1359,13 +1372,21 @@ Table of Contents
               DOI 10.1109/ojcoms.2023.3345166, 2024,
               <https://doi.org/10.1109/ojcoms.2023.3345166>.
 
-   [cacciapuoti-beyond-layering]
+   [cacciapuoti-byd-lay]
               Cacciapuoti, A. and M. Caleffi, "A Quantum Internet
               Protocol Suite Beyond Layering", Institute of Electrical
               and Electronics Engineers (IEEE), IEEE Transactions on
               Network Science and Engineering vol. 13, pp. 9170-9187,
               DOI 10.1109/tnse.2026.3679795, 2026,
               <https://doi.org/10.1109/tnse.2026.3679795>.
+
+   [cicconetti-req-sched]
+              Cicconetti, C., Conti, M., and A. Passarella, "Request
+              Scheduling in Quantum Networks", Institute of Electrical
+              and Electronics Engineers (IEEE), IEEE Transactions on
+              Quantum Engineering vol. 2, pp. 2-17,
+              DOI 10.1109/tqe.2021.3090532, 2021,
+              <https://doi.org/10.1109/tqe.2021.3090532>.
 
    [dahlberg-netqasm]
               Dahlberg, A., van der Vecht, B., Delle Donne, C.,
@@ -1406,6 +1427,14 @@ Table of Contents
               <https://datatracker.ietf.org/doc/html/draft-hajdusek-
               qirg-timing-physics-01>.
 
+   [I-D.draft-kaws-qirg-advent-02]
+              Kompella, K., Aelmans, M., Wehner, S., and C. Sirbu,
+              "Advertising Entanglement Capabilities in Quantum
+              Networks", Work in Progress, Internet-Draft, draft-kaws-
+              qirg-advent-02, 26 March 2019,
+              <https://datatracker.ietf.org/doc/html/draft-kaws-qirg-
+              advent-02>.
+
    [kozlowski-qn-prot]
               Kozlowski, W., Dahlberg, A., and S. Wehner, "Designing a
               quantum network protocol", ACM, Proceedings of the 16th
@@ -1423,6 +1452,22 @@ Table of Contents
               DOI 10.1109/qcnc69040.2026.00176, April 2026,
               <https://doi.org/10.1109/qcnc69040.2026.00176>.
 
+   [li-drm-etp]
+              Li, J., Wang, Z., Xue, K., Li, Z., Li, R., Yu, N., Sun,
+              Q., and J. Lu, "DRM-ETP: A Dynamic Rate Matching-Based
+              Entanglement Transport Protocol in Quantum Networks",
+              Institute of Electrical and Electronics Engineers (IEEE),
+              IEEE Transactions on Networking vol. 33, no. 2, pp.
+              835-848, DOI 10.1109/tnet.2024.3507785, April 2025,
+              <https://doi.org/10.1109/tnet.2024.3507785>.
+
+   [lui-qbgp] Liu, M., Li, Z., Cai, K., Allcock, J., Zhang, S., and J.
+              Lui, "Quantum BGP with Online Path Selection via Network
+              Benchmarking", IEEE, IEEE INFOCOM 2024 - IEEE Conference
+              on Computer Communications pp. 1401-1410,
+              DOI 10.1109/infocom52122.2024.10621359, May 2024,
+              <https://doi.org/10.1109/infocom52122.2024.10621359>.
+
    [pompili-network-stack]
               Pompili, M., Delle Donne, C., te Raa, I., van der Vecht,
               B., Skrzypczyk, M., Ferreira, G., de Kluijver, L., Stolk,
@@ -1433,6 +1478,20 @@ Table of Contents
               no. 1, DOI 10.1038/s41534-022-00631-2, October 2022,
               <https://doi.org/10.1038/s41534-022-00631-2>.
 
+   [RFC9340]  Kozlowski, W., Wehner, S., Van Meter, R., Rijsman, B.,
+              Cacciapuoti, A. S., Caleffi, M., and S. Nagayama,
+              "Architectural Principles for a Quantum Internet",
+              RFC 9340, DOI 10.17487/RFC9340, March 2023,
+              <https://www.rfc-editor.org/rfc/rfc9340>.
+
+   [shi-etg-routing]
+              Shi, S., Zhang, X., and C. Qian, "Concurrent Entanglement
+              Routing for Quantum Networks: Model and Designs",
+              Institute of Electrical and Electronics Engineers (IEEE),
+              IEEE/ACM Transactions on Networking vol. 32, no. 3, pp.
+              2205-2220, DOI 10.1109/tnet.2023.3343748, June 2024,
+              <https://doi.org/10.1109/tnet.2023.3343748>.
+
    [van-meter-qi-arch]
               Van Meter, R., Satoh, R., Benchasattabuse, N., Teramoto,
               K., Matsuo, T., Hajdusek, M., Satoh, T., Nagayama, S., and
@@ -1441,6 +1500,21 @@ Table of Contents
               Engineering (QCE) pp. 341-352,
               DOI 10.1109/qce53715.2022.00055, September 2022,
               <https://doi.org/10.1109/qce53715.2022.00055>.
+
+   [xiao-conn-less]
+              Xiao, Z., Li, J., Xue, K., Li, Z., Yu, N., Sun, Q., and J.
+              Lu, "A Connectionless Entanglement Distribution Protocol
+              Design in Quantum Networks", Institute of Electrical and
+              Electronics Engineers (IEEE), IEEE Network vol. 38, no. 1,
+              pp. 131-139, DOI 10.1109/mnet.2023.3321044, January 2024,
+              <https://doi.org/10.1109/mnet.2023.3321044>.
+
+   [yang-async-etg-rtg]
+              Yang, Z., Ghubaish, A., Jain, R., Shapourian, H., and A.
+              Shabani, "Asynchronous entanglement routing for the
+              quantum internet", American Vacuum Society, AVS Quantum
+              Science vol. 6, no. 1, DOI 10.1116/5.0172819, January
+              2024, <https://doi.org/10.1116/5.0172819>.
 
 Acknowledgments
 

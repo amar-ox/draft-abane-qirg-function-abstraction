@@ -6,6 +6,7 @@
 <meta content="initial-scale=1.0" name="viewport">
 <title>On Architecture Classification and Functional Abstraction in Quantum Networks</title>
 <meta content="Amar Abane" name="author">
+<meta content="Abdella Battou" name="author">
 <meta content="
        RFC 9340   establishes the architectural principles of the Quantum Internet and identifies the fundamental responsibilities required to support entanglement-based networking. This document builds upon those principles by introducing a systematic classification of routing architectures and deriving a technology-independent reference model composed of reusable network functions and interfaces. Rather than proposing new architectural principles, it operationalizes those introduced in RFC 9340 into a functional abstraction suitable for comparing, describing, and implementing diverse quantum-network architectures. 
     " name="description">
@@ -1045,8 +1046,8 @@ svg {
 <td class="right">August 2026</td>
 </tr></thead>
 <tfoot><tr>
-<td class="left">Abane</td>
-<td class="center">Expires 7 February 2027</td>
+<td class="left">Abane &amp; Battou</td>
+<td class="center">Expires 9 February 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1059,16 +1060,20 @@ svg {
 <dd class="internet-draft">draft-abane-qirg-function-abstraction-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-08-06" class="published">6 August 2026</time>
+<time datetime="2026-08-08" class="published">8 August 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-02-07">7 February 2027</time></dd>
-<dt class="label-authors">Author:</dt>
+<dd class="expires"><time datetime="2027-02-09">9 February 2027</time></dd>
+<dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
       <div class="author-name">A. Abane</div>
+<div class="org">National Institute of Standards and Technology</div>
+</div>
+<div class="author">
+      <div class="author-name">A. Battou</div>
 <div class="org">National Institute of Standards and Technology</div>
 </div>
 </dd>
@@ -1114,7 +1119,7 @@ svg {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 February 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 9 February 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1223,7 +1228,7 @@ svg {
             <p id="section-toc.1-1.13.1"><a href="#appendix-A" class="auto internal xref"></a><a href="#name-acknowledgments" class="internal xref">Acknowledgments</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.14">
-            <p id="section-toc.1-1.14.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-address" class="internal xref">Author's Address</a></p>
+            <p id="section-toc.1-1.14.1"><a href="#appendix-B" class="auto internal xref"></a><a href="#name-authors-addresses" class="internal xref">Authors' Addresses</a></p>
 </li>
         </ul>
 </nav>
@@ -1310,7 +1315,7 @@ appear in all capitals, as shown here.<a href="#section-2-1" class="pilcrow">¶<
 <p id="section-4.1-1">Several standardization bodies and industry organizations have initiated efforts to define architectures, abstractions, and interfaces for quantum networks. These efforts provide important foundations for the field, but have largely focused on quantum key distribution (QKD) networks or early-stage quantum networking deployments.<a href="#section-4.1-1" class="pilcrow">¶</a></p>
 <p id="section-4.1-2">Within the IETF, the Quantum Internet Research Group (QIRG) has developed architectural principles for entanglement-based networks and introduced concepts such as control-plane and data-plane separation, timing regimes, and quantum-native networking. These efforts provide an important conceptual foundation, although routing architectures and control abstractions remain active research topics.<a href="#section-4.1-2" class="pilcrow">¶</a></p>
 <p id="section-4.1-3">In contrast, ETSI and ITU efforts have primarily focused on QKD networks, defining functional architectures, interfaces, orchestration mechanisms, and management frameworks for key generation and distribution. Similarly, IEEE initiatives such as IEEE P1913 focus on device management and control abstractions, extending established networking paradigms such as YANG and NETCONF to quantum communication systems. Industry initiatives, including GSMA, have proposed component-based and service-oriented frameworks for integrating quantum technologies into existing telecommunications infrastructures.<a href="#section-4.1-3" class="pilcrow">¶</a></p>
-<p id="section-4.1-4">These efforts demonstrate growing convergence around concepts such as software-defined control, orchestration, and service abstractions. However, a common, technology-agnostic framework for classifying routing architectures and identifying reusable routing, control, and data-plane functions in entanglement-based quantum networks remains largely absent. This document builds upon these foundations by proposing elements of a general classification and functional abstraction framework for entanglement-based quantum networking.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.1-4">These efforts demonstrate growing convergence around concepts such as software-defined control, orchestration, and service abstractions. However, a common, technology-agnostic framework for classifying routing architectures and identifying reusable routing, control, and data-plane functions in entanglement-based quantum networks remains absent. In a similar spirit, this document proposes elements of a general classification and functional abstraction framework for entanglement-based quantum networking.<a href="#section-4.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="architectural-proposals-for-entanglement-based-quantum-networks">
@@ -1358,24 +1363,24 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
             <p id="section-5.1-3.1.1"><em>Routing timing</em> distinguishes between proactive and reactive routing <span>[<a href="#abane-survey" class="cite xref">abane-survey</a>]</span>. In proactive routing, routing information is produced before entanglement generation begins <span>[<a href="#shi-etg-routing" class="cite xref">shi-etg-routing</a>]</span> <span>[<a href="#li-drm-etp" class="cite xref">li-drm-etp</a>]</span>. Path computation may rely on physical topology information, expected or collected link characteristics, or other pre-existing knowledge. In reactive routing, routing decisions are made after entanglement generation, typically based on the currently available entanglement resources <span>[<a href="#cicconetti-req-sched" class="cite xref">cicconetti-req-sched</a>]</span> <span>[<a href="#yang-async-etg-rtg" class="cite xref">yang-async-etg-rtg</a>]</span>. This distinction therefore captures when routing information becomes available relative to entanglement generation.<a href="#section-5.1-3.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.1-3.2">
-            <p id="section-5.1-3.2.1"><em>Path decision model</em> distinguishes between connection-oriented and connectionless routing. In a connection-oriented model, an end-to-end route is selected and coordinated before entanglement forwarding or swapping begins <span>[<a href="#van-meter-qi-arch" class="cite xref">van-meter-qi-arch</a>]</span>. Resource reservation may be present but is not required; the defining property is that the route is decided before the request progresses through the network.<a href="#section-5.1-3.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.1-3.2.1"><em>Path decision model</em> distinguishes between connection-oriented and connectionless routing. In a connection-oriented model, an end-to-end route is selected and coordinated before entanglement forwarding or swapping begins <span>[<a href="#kozlowski-qn-prot" class="cite xref">kozlowski-qn-prot</a>]</span>. Resource reservation may be present but is not required; the defining property is that the route is decided before the request progresses through the network.<a href="#section-5.1-3.2.1" class="pilcrow">¶</a></p>
+<p id="section-5.1-3.2.2">
+In a connectionless model, no fixed end-to-end path is imposed before the request progresses through the network <span>[<a href="#xiao-conn-less" class="cite xref">xiao-conn-less</a>]</span>. Instead, intermediate nodes may select the next operation, next hop, or route segment using their current local state and any available control-plane information <span>[<a href="#lui-qbgp" class="cite xref">lui-qbgp</a>]</span>. Nodes maintain persistent or transient forwarding entries representing partial instructions rather than complete end-to-end routes.<a href="#section-5.1-3.2.2" class="pilcrow">¶</a></p>
+<p id="section-5.1-3.2.3">
+The scope and persistence of forwarding state are realization characteristics rather than defining properties of the path decision model: both connection-oriented and connectionless architectures may use persistent or transient forwarding information.<a href="#section-5.1-3.2.3" class="pilcrow">¶</a></p>
+<p id="section-5.1-3.2.4">
+Both proactive and reactive routing architectures may employ either connection-oriented or connectionless operation. Consequently, proactive and reactive routing should be viewed as more abstract concepts, while connection-oriented and connectionless routing describe how routing decisions are applied once routing information becomes available.<a href="#section-5.1-3.2.4" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-3.3">
+            <p id="section-5.1-3.3.1"><em>Control placement</em> distinguishes between centralized and distributed control. This dimension characterizes where routing decisions are computed rather than how much network information is available. In distributed approaches, routing algorithms execute independently on each network node. Nodes may rely on partial network knowledge, as in BGP-like protocols <span>[<a href="#lui-qbgp" class="cite xref">lui-qbgp</a>]</span>, or complete network knowledge, as in OSPF-like link-state protocols <span>[<a href="#I-D.draft-kaws-qirg-advent-02" class="cite xref">I-D.draft-kaws-qirg-advent-02</a>]</span>. In centralized approaches, a logically centralized controller computes routes and coordinates network operations. While the quantum data plane remains inherently distributed, the control plane may follow either model.<a href="#section-5.1-3.3.1" class="pilcrow">¶</a></p>
+<p id="section-5.1-3.3.2">
+Note that connectionless operation does not preclude centralized control. A centralized controller may provide policies, constraints, preferred next hops, or other advisory <em>hints</em> without prescribing a complete path <span>[<a href="#cacciapuoti-byd-lay" class="cite xref">cacciapuoti-byd-lay</a>]</span>.<a href="#section-5.1-3.3.2" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-5.1-3.4">
+            <p id="section-5.1-3.4.1"><em>Coordination model</em> distinguishes between synchronous and asynchronous operation. In synchronous architectures, network operations proceed in globally coordinated rounds or time slots shared among participating nodes <span>[<a href="#shi-etg-routing" class="cite xref">shi-etg-routing</a>]</span> <span>[<a href="#cicconetti-req-sched" class="cite xref">cicconetti-req-sched</a>]</span>. In asynchronous architectures, operations are triggered by events, such as successful entanglement generation, measurement outcomes, or control messages, without requiring globally synchronized execution <span>[<a href="#li-drm-etp" class="cite xref">li-drm-etp</a>]</span> <span>[<a href="#yang-async-etg-rtg" class="cite xref">yang-async-etg-rtg</a>]</span>. Both proactive and reactive routing architectures may operate in either synchronous or asynchronous environments.<a href="#section-5.1-3.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.1-4">In a connectionless model, no fixed end-to-end path is imposed before the request progresses through the network <span>[<a href="#xiao-conn-less" class="cite xref">xiao-conn-less</a>]</span>. Instead, intermediate nodes may select the next operation, next hop, or route segment using their current local state and any available control-plane information <span>[<a href="#lui-qbgp" class="cite xref">lui-qbgp</a>]</span>. Nodes maintain persistent or transient forwarding entries representing partial instructions rather than complete end-to-end routes.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
-<p id="section-5.1-5">The scope and persistence of forwarding state are realization characteristics rather than defining properties of the path decision model: both connection-oriented and connectionless architectures may use persistent or transient forwarding information.<a href="#section-5.1-5" class="pilcrow">¶</a></p>
-<p id="section-5.1-6">Both proactive and reactive routing architectures may employ either connection-oriented or connectionless operation. Consequently, proactive and reactive routing should be viewed as more abstract concepts, while connection-oriented and connectionless routing describe how routing decisions are applied once routing information becomes available.<a href="#section-5.1-6" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.1-7.1">
-            <p id="section-5.1-7.1.1"><em>Control placement</em> distinguishes between centralized and distributed control. This dimension characterizes where routing decisions are computed rather than how much network information is available. In distributed approaches, routing algorithms execute independently on each network node. Nodes may rely on partial network knowledge, as in BGP-like protocols <span>[<a href="#lui-qbgp" class="cite xref">lui-qbgp</a>]</span>, or complete network knowledge, as in OSPF-like link-state protocols <span>[<a href="#I-D.draft-kaws-qirg-advent-02" class="cite xref">I-D.draft-kaws-qirg-advent-02</a>]</span>. In centralized approaches, a logically centralized controller computes routes and coordinates network operations. While the quantum data plane remains inherently distributed, the control plane may follow either model.<a href="#section-5.1-7.1.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<p id="section-5.1-8">Note that connectionless operation does not preclude centralized control. A centralized controller may provide policies, constraints, preferred next hops, or other advisory <em>hints</em> without prescribing a complete path <span>[<a href="#cacciapuoti-byd-lay" class="cite xref">cacciapuoti-byd-lay</a>]</span>.<a href="#section-5.1-8" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.1-9.1">
-            <p id="section-5.1-9.1.1"><em>Coordination model</em> distinguishes between synchronous and asynchronous operation. In synchronous architectures, network operations proceed in globally coordinated rounds or time slots shared among participating nodes <span>[<a href="#shi-etg-routing" class="cite xref">shi-etg-routing</a>]</span> <span>[<a href="#cicconetti-req-sched" class="cite xref">cicconetti-req-sched</a>]</span>. In asynchronous architectures, operations are triggered by events, such as successful entanglement generation, measurement outcomes, or control messages, without requiring globally synchronized execution <span>[<a href="#li-drm-etp" class="cite xref">li-drm-etp</a>]</span> <span>[<a href="#yang-async-etg-rtg" class="cite xref">yang-async-etg-rtg</a>]</span>. Both proactive and reactive routing architectures may operate in either synchronous or asynchronous environments.<a href="#section-5.1-9.1.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<p id="section-5.1-10">The relationship among these dimensions can be viewed hierarchically. Routing timing determines whether routing information is obtained proactively or reactively. Once routing information is available, the architecture may apply it through either a connection-oriented or connectionless path decision model. Control placement and coordination models then describe where routing logic executes and how network operations are coordinated in time.<a href="#section-5.1-10" class="pilcrow">¶</a></p>
+<p id="section-5.1-4">The relationship among these dimensions can be viewed hierarchically. Routing timing determines whether routing information is obtained proactively or reactively. Once routing information is available, the architecture may apply it through either a connection-oriented or connectionless path decision model. Control placement and coordination models then describe where routing logic executes and how network operations are coordinated in time.<a href="#section-5.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="complementary-characteristics">
@@ -1460,7 +1465,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
       <h2 id="name-derivation-of-network-funct">
 <a href="#section-6" class="section-number selfRef">6. </a><a href="#name-derivation-of-network-funct" class="section-name selfRef">Derivation of Network Functions from Architectural Responsibilities</a>
       </h2>
-<p id="section-6-1">Although the architectural proposals discussed in above differ in their protocol structures, control mechanisms, and operational assumptions, they exhibit a common set of responsibilities required to support end-to-end entanglement distribution. These responsibilities appear regardless of whether an architecture is centralized or distributed, proactive or reactive, connection-oriented or connectionless.<a href="#section-6-1" class="pilcrow">¶</a></p>
+<p id="section-6-1">Although the architectural proposals discussed above differ in their protocol structures, control mechanisms, and operational assumptions, they exhibit a common set of responsibilities required to support end-to-end entanglement distribution. These responsibilities appear regardless of whether an architecture is centralized or distributed, proactive or reactive, connection-oriented or connectionless.<a href="#section-6-1" class="pilcrow">¶</a></p>
 <p id="section-6-2">At a high level, an entanglement-routing system must first acquire and maintain information about the network. This includes both knowledge of the physical topology and knowledge of the logical topology. These responsibilities correspond to routing-state management and topology-information functions.<a href="#section-6-2" class="pilcrow">¶</a></p>
 <p id="section-6-3">The system must then determine how end-to-end requests should be realized using available resources. Depending on the architectural model, this may involve path computation, resource selection, policy enforcement, admission control, or route installation. While different proposals distribute these tasks differently between centralized controllers and network nodes, they collectively represent a routing and control responsibility.<a href="#section-6-3" class="pilcrow">¶</a></p>
 <p id="section-6-4">Once a routing decision has been made, the network must execute the corresponding quantum operations. This requires creating elementary entanglement, extending entanglement through swapping, improving resource quality through purification or error-management procedures, and coordinating the associated signaling. These responsibilities form the operational core of the quantum data plane.<a href="#section-6-4" class="pilcrow">¶</a></p>
@@ -1479,12 +1484,11 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
         <h3 id="name-motivation">
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-motivation" class="section-name selfRef">Motivation</a>
         </h3>
-<p id="section-7.1-1">Recent work on programmable quantum repeater nodes and quantum network operating systems suggests that quantum networks should be described in terms of reusable functions and the interfaces used to invoke and coordinate them, rather than as monolithic protocols or hardware-specific operations. Kumar et al. <span>[<a href="#kumar-instr-set" class="cite xref">kumar-instr-set</a>]</span> propose a programmable execution model for repeater nodes, where higher-layer protocols invoke node capabilities through well-defined execution interfaces. Similarly, Delle Donne et al. <span>[<a href="#delle-os-qn-nodes" class="cite xref">delle-os-qn-nodes</a>]</span> demonstrate the importance of separating application logic, network services, and node-local execution mechanisms, enabling applications to remain independent of underlying hardware implementations.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
-<p id="section-7.1-2">This perspective motivates the identification of reusable network functions such as elementary entanglement generation, entanglement swapping, purification, memory management, state preparation, and measurement and herald handling. These functions are generally not instantaneous, not always deterministic, and may operate on different timescales. They therefore require coordination, scheduling, and synchronization across nodes and resources. Consequently, a quantum network architecture should identify not only the functions themselves but also the interfaces through which they are invoked, coordinated, and monitored.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
-<p id="section-7.1-3">The execution of many network functions depends on timing relationships between lower-layer physical processes and higher-layer networking services <span>[<a href="#I-D.draft-hajdusek-qirg-timing-physics" class="cite xref">I-D.draft-hajdusek-qirg-timing-physics</a>]</span>. This suggests that timing and synchronization should be treated as supporting architectural capabilities that facilitate the orchestration of network functions across multiple timescales.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
-<p id="section-7.1-4">Programmable node architectures may also expose operational capabilities such as calibration, diagnostics, performance verification, quality estimation, and fidelity witnessing. While such functions are not directly involved in entanglement delivery and are not further decomposed in the present model, they represent important architectural elements and may benefit from standardized interfaces in future work.<a href="#section-7.1-4" class="pilcrow">¶</a></p>
-<p id="section-7.1-5">The realization of several network functions, particularly the Entanglement Generation Function (EGF), Entanglement Swapping Function (ESF), and Entanglement Purification Function (EPF), may rely on a common hardware abstraction layer that exposes the capabilities of the underlying quantum processor through implementation-independent interfaces. As illustrated by programmable node architectures such as QNodeOS <span>[<a href="#delle-os-qn-nodes" class="cite xref">delle-os-qn-nodes</a>]</span>, such an abstraction may provide access to physical operations including qubit initialization and measurement, state movement, quantum gates, and physical-layer entanglement-generation attempts, while exposing hardware capabilities such as qubit topology, supported operations, coherence properties, and expected operation quality. Although the realization of this abstraction is hardware dependent and outside the scope of this document, it provides a common execution substrate upon which multiple network functions may be implemented.<a href="#section-7.1-5" class="pilcrow">¶</a></p>
-<p id="section-7.1-6">The network functions defined in this document should be viewed as architectural abstractions rather than individual software modules or protocols. One possible realization is through a network-oriented execution environment, where network functions are implemented as coordinated quantum and classical programs executing on a quantum network processing unit (QNPU) <span>[<a href="#dahlberg-netqasm" class="cite xref">dahlberg-netqasm</a>]</span>. In such systems, a program consists of quantum code blocks, containing quantum operations interleaved with classical control, together with purely classical code blocks responsible for coordination and communication. The QNPU executes hardware-dependent quantum operations through lower-layer execution interfaces. This separation enables network functions to remain portable across hardware platforms while allowing hardware-specific optimizations within the underlying execution environment.<a href="#section-7.1-6" class="pilcrow">¶</a></p>
+<p id="section-7.1-1">Recent work on programmable quantum repeater nodes <span>[<a href="#dahlberg-netqasm" class="cite xref">dahlberg-netqasm</a>]</span> and quantum network operating systems <span>[<a href="#delle-os-qn-nodes" class="cite xref">delle-os-qn-nodes</a>]</span> suggests that quantum networks should be described in terms of reusable functions and the interfaces used to invoke and coordinate them, rather than as monolithic protocols or hardware-specific operations. This perspective motivates the identification of network functions such as elementary entanglement generation, entanglement swapping, purification, memory management, state preparation, and measurement and herald handling. These functions are generally not instantaneous, not always deterministic, and may operate on different timescales. They therefore require coordination, scheduling, and synchronization across nodes and resources. Consequently, a quantum network architecture should identify not only the functions themselves but also the interfaces through which they are invoked, coordinated, and monitored.<a href="#section-7.1-1" class="pilcrow">¶</a></p>
+<p id="section-7.1-2">The execution of many network functions depends on timing relationships between lower-layer physical processes and higher-layer networking services <span>[<a href="#I-D.draft-hajdusek-qirg-timing-physics" class="cite xref">I-D.draft-hajdusek-qirg-timing-physics</a>]</span>. This suggests that timing and synchronization should be treated as supporting architectural capabilities that facilitate the orchestration of network functions across multiple timescales.<a href="#section-7.1-2" class="pilcrow">¶</a></p>
+<p id="section-7.1-3">Programmable node architectures may also expose operational capabilities such as calibration, diagnostics, performance verification, quality estimation, and fidelity witnessing. While such functions are not directly involved in entanglement delivery and are not further decomposed in the present model, they represent important architectural elements and may benefit from standardized interfaces as well.<a href="#section-7.1-3" class="pilcrow">¶</a></p>
+<p id="section-7.1-4">The realization of certain network functions, particularly those involved in entanglement generation, swapping, and purification, may rely on a common hardware abstraction layer that exposes the capabilities of the underlying quantum processor through implementation-independent interfaces. As illustrated by programmable node architectures such as QNodeOS <span>[<a href="#delle-os-qn-nodes" class="cite xref">delle-os-qn-nodes</a>]</span>, such an abstraction may provide access to physical operations including qubit initialization and measurement, state movement, quantum gates, and physical-layer entanglement-generation attempts, while exposing hardware capabilities such as qubit topology, supported operations, coherence properties, and expected operation quality. Although the realization of this abstraction is hardware dependent and outside the scope of this document, it provides a common execution substrate upon which multiple network functions may be implemented.<a href="#section-7.1-4" class="pilcrow">¶</a></p>
+<p id="section-7.1-5">The network functions defined in this document should be viewed as architectural abstractions rather than individual software modules or protocols. One possible realization is through a network-oriented execution environment, where network functions are implemented as coordinated quantum and classical programs executing on a quantum network processing unit (QNPU) <span>[<a href="#dahlberg-netqasm" class="cite xref">dahlberg-netqasm</a>]</span>. In such systems, a program consists of quantum code blocks, containing quantum operations interleaved with classical control, together with purely classical code blocks responsible for coordination and communication. The QNPU executes hardware-dependent quantum operations through lower-layer execution interfaces. This separation enables network functions to remain portable across hardware platforms while allowing hardware-specific optimizations within the underlying execution environment.<a href="#section-7.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="network-function-definitions">
@@ -1494,7 +1498,7 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
         </h3>
 <ul class="normal">
 <li class="normal" id="section-7.2-1.1">
-            <p id="section-7.2-1.1.1">Quantum Application Function (QAF): Originates end-to-end entanglement requests and consumes the resulting quantum networking service. Could represent a higher-level orchestrator or independent end-user applications.<a href="#section-7.2-1.1.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.1.1">Quantum Application Function (QAF): Originates end-to-end entanglement requests and consumes (directly or indirectly) the resulting quantum networking service. It could represent a higher-level orchestrator or independent end-user applications.<a href="#section-7.2-1.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-1.2">
             <p id="section-7.2-1.2.1">Quantum Controller Function (QCF): Responsible for path computation or routing guidance, policy enforcement, resource coordination, admission control, and, where applicable, installation of forwarding state. Depending on the routing architecture, the QCF may provide complete path instructions, partial route or action instructions, or advisory hints that guide node-local forwarding decisions. It may be centralized or distributed.<a href="#section-7.2-1.2.1" class="pilcrow">¶</a></p>
@@ -1535,10 +1539,10 @@ Building on this direction, the Beyond Layering architecture <span>[<a href="#ca
             <p id="section-7.2-1.11.1">Quantum Communication Function (QComF): Interfaces with quantum channels and physical hardware to transmit and receive quantum states.<a href="#section-7.2-1.11.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-1.12">
-            <p id="section-7.2-1.12.1">Quantum Timing Function (QTF): Provides logical synchronization services required by time-slotted or phase-based protocols.<a href="#section-7.2-1.12.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.12.1">Quantum Timing Function (QTF): Provides logical synchronization services required by synchronous architectures.<a href="#section-7.2-1.12.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-7.2-1.13">
-            <p id="section-7.2-1.13.1">Quantum Interconnect Function (QICF): Provides dynamic optical connectivity between quantum-neighbor nodes and shared quantum resources, such as sources, Bell-state measurement devices, switches, or wavelength/time-bin resources. It enables elementary entanglement generation by establishing, reserving, or scheduling the physical quantum connectivity required by the EGF. The QICF may be realized through centralized control (on-demand or schedule-based), or distributed signaling (on-demand).<a href="#section-7.2-1.13.1" class="pilcrow">¶</a></p>
+            <p id="section-7.2-1.13.1">Quantum Interconnect Function (QICF): Provides dynamic optical connectivity between quantum-neighbor nodes and shared quantum resources, such as entangled photons sources, Bell-state measurement devices, and optical switches. It enables elementary entanglement generation by establishing, reserving, or scheduling the physical quantum connectivity required by the EGF. The QICF may be realized through centralized control (on-demand or schedule-based), or distributed signaling (on-demand).<a href="#section-7.2-1.13.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 </section>
@@ -2175,8 +2179,8 @@ appear in all capitals, as shown here.<a href="#section-9-1" class="pilcrow">¶<
 </div>
 <div id="authors-addresses">
 <section id="appendix-B">
-      <h2 id="name-authors-address">
-<a href="#name-authors-address" class="section-name selfRef">Author's Address</a>
+      <h2 id="name-authors-addresses">
+<a href="#name-authors-addresses" class="section-name selfRef">Authors' Addresses</a>
       </h2>
 <address class="vcard">
         <div dir="auto" class="left"><span class="fn nameRole">Amar Abane</span></div>
@@ -2184,6 +2188,14 @@ appear in all capitals, as shown here.<a href="#section-9-1" class="pilcrow">¶<
 <div class="email">
 <span>Email:</span>
 <a href="mailto:amar.abane@nist.gov" class="email">amar.abane@nist.gov</a>
+</div>
+</address>
+<address class="vcard">
+        <div dir="auto" class="left"><span class="fn nameRole">Abdella Battou</span></div>
+<div dir="auto" class="left"><span class="org">National Institute of Standards and Technology</span></div>
+<div class="email">
+<span>Email:</span>
+<a href="mailto:abdella.battou@nist.gov" class="email">abdella.battou@nist.gov</a>
 </div>
 </address>
 </section>
